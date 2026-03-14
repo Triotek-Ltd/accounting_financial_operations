@@ -1,0 +1,13 @@
+{
+  "id": "allocation_control",
+  "entity": "submodule",
+  "children": {
+    "docs_registry": "docs.json"
+  },
+  "supports": [
+    "doc",
+    "workflow",
+    "report",
+    "print"
+  ]
+}

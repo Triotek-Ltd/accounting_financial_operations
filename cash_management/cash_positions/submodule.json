@@ -1,0 +1,8 @@
+{
+  "id": "cash_positions",
+  "title": "Cash Positions",
+  "app_id": "accounting_financial_operations",
+  "module_id": "cash_management",
+  "type": "submodule",
+  "status": "draft"
+}

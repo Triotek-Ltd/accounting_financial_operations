@@ -1,0 +1,27 @@
+{
+  "doc_key": "closing_batch",
+  "doc_title": "Closing Batch",
+  "doc_kind": "workflow_case",
+  "status": "draft",
+  "module_id": "bookkeeping",
+  "submodule_id": "period_closing",
+  "app_id": "accounting_financial_operations",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "workflow_case",
+  "classification": {
+    "archetype": "workflow_case",
+    "bundle": "operations"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "operations",
+    "app": "accounting_financial_operations",
+    "module": "bookkeeping",
+    "submodule": "period_closing",
+    "reference_doc_id": "closing_batch",
+    "evidence_gaps": [
+      "close-checklist structure",
+      "reopen authorization rules"
+    ]
+  }
+}

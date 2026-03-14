@@ -1,0 +1,144 @@
+{
+  "display": {
+    "title_template": "{title}",
+    "subtitle_template": "{reference_no}",
+    "list_columns": [
+      "title",
+      "reference_no",
+      "transaction_date",
+      "party",
+      "total_amount",
+      "workflow_state"
+    ],
+    "default_filters": [],
+    "quick_entry": false
+  },
+  "related_docs": [
+    {
+      "doc_id": "supplier_profile",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "payment_request",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "supplier_payment",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "journal_entry",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "purchase_order",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "goods_receipt",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    }
+  ],
+  "lookup_rules": [
+    {
+      "field_id": "supplier",
+      "doc_id": "supplier_profile",
+      "lookup_mode": "single",
+      "purpose": "party_reference"
+    }
+  ],
+  "fetch_rules": [
+    {
+      "field_id": "supplier",
+      "source_doc_id": "supplier_profile",
+      "fetch_profile": "supplier_profile",
+      "fetch_fields": [
+        "title",
+        "reference_no",
+        "supplier_code",
+        "email",
+        "phone",
+        "contact_email",
+        "contact_phone"
+      ],
+      "purpose": "party_reference"
+    }
+  ],
+  "reference_map": {
+    "primary_reference_field": "reference_no",
+    "reference_labels": []
+  },
+  "relation_rules": {
+    "parent_doc": null,
+    "child_docs": [],
+    "show_related_panel": true
+  },
+  "borrowed_fields": [
+    {
+      "description": "supplier identity"
+    },
+    {
+      "description": "payment terms from supplier_profile"
+    },
+    {
+      "description": "receipt"
+    },
+    {
+      "description": "order context from procurement docs"
+    }
+  ],
+  "ui_panels": {
+    "show_activity_log": true,
+    "show_comments": true,
+    "show_assignments": true,
+    "show_related_docs": true
+  },
+  "integration": {
+    "external_refs": [],
+    "sync_rules": []
+  },
+  "runtime_hints": {
+    "doc_key": "supplier_invoice",
+    "supports_related_lookup": true,
+    "supports_fetch_rules": true,
+    "workflow_hints": {
+      "business_objective": "receive supplier invoices, verify them against procurement evidence, approve them, pay them, and keep the payable ledger current",
+      "actors": [
+        "AP clerk",
+        "reviewer",
+        "approver",
+        "treasury or finance officer"
+      ],
+      "start_condition": "a supplier invoice is received",
+      "ordered_steps": [
+        "Capture the supplier invoice and basic terms.",
+        "Match invoice against purchase and receipt records.",
+        "Reconcile payment against invoice balances.",
+        "Archive invoice and payment evidence."
+      ],
+      "primary_actions": [
+        "create",
+        "update",
+        "review",
+        "approve",
+        "reconcile",
+        "mark_payable",
+        "archive"
+      ],
+      "primary_transitions": [
+        "supplier_invoice: draft",
+        "supplier_invoice: draft -> approved -> payable",
+        "supplier_invoice: payable -> partially_paid or paid"
+      ],
+      "downstream_effects": [
+        "updates AP aging, cash management, bookkeeping, and supplier history"
+      ]
+    }
+  }
+}

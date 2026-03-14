@@ -1,0 +1,156 @@
+{
+  "doc_id": "supplier_payment",
+  "doc_title": "Supplier Payment",
+  "archetype": "transaction",
+  "doc_kind": "transaction",
+  "actions": [
+    "create",
+    "review",
+    "approve",
+    "post",
+    "reconcile",
+    "reverse",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "approved",
+      "posted",
+      "reconciled",
+      "reversed",
+      "archived"
+    ],
+    "terminal_states": [
+      "reversed",
+      "archived"
+    ]
+  },
+  "related_doc_count": 4,
+  "fetch_rule_count": 1,
+  "action_handler_count": 7,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "transaction_flow",
+      "supports_submission": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "draft",
+      "approved",
+      "posted",
+      "reconciled",
+      "reversed",
+      "archived"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "transaction_date": "transaction_date",
+      "party": "primary_party",
+      "currency": "currency_code",
+      "total_amount": "total_amount",
+      "supplier": "party_reference",
+      "payment_date": "schedule_marker",
+      "settled_invoices": "relation_collection"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "payment_number",
+      "supplier",
+      "payment_date"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "transaction_date",
+      "party",
+      "total_amount",
+      "workflow_state"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "approved",
+      "posted",
+      "reconciled",
+      "reversed",
+      "archived"
+    ],
+    "terminal_states": [
+      "reversed",
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "review": null,
+      "approve": "approved",
+      "post": null,
+      "reconcile": null,
+      "reverse": "reversed",
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "receive supplier invoices, verify them against procurement evidence, approve them, pay them, and keep the payable ledger current",
+    "actors": [
+      "AP clerk",
+      "reviewer",
+      "approver",
+      "treasury or finance officer"
+    ],
+    "start_condition": "a supplier invoice is received",
+    "ordered_steps": [
+      "Execute supplier payment.",
+      "Reconcile payment against invoice balances.",
+      "Archive invoice and payment evidence."
+    ],
+    "primary_actions": [
+      "create",
+      "review",
+      "approve",
+      "post",
+      "reconcile",
+      "mark_payable",
+      "archive"
+    ],
+    "primary_transitions": [
+      "supplier_payment: draft -> approved -> posted",
+      "supplier_payment: posted -> reconciled"
+    ],
+    "downstream_effects": [
+      "updates AP aging, cash management, bookkeeping, and supplier history"
+    ]
+  },
+  "related_docs": [
+    "supplier_invoice",
+    "payment_request",
+    "cash_account",
+    "journal_entry"
+  ],
+  "borrowed_fields": [
+    "supplier",
+    "outstanding amount from supplier_invoice",
+    "execution intent from payment_request"
+  ]
+}

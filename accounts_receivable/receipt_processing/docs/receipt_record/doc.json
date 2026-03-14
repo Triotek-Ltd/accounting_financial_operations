@@ -1,0 +1,28 @@
+{
+  "doc_key": "receipt_record",
+  "doc_title": "Receipt Record",
+  "doc_kind": "transaction",
+  "status": "draft",
+  "module_id": "accounts_receivable",
+  "submodule_id": "receipt_processing",
+  "app_id": "accounting_financial_operations",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "transaction",
+  "classification": {
+    "archetype": "transaction",
+    "bundle": "operations"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "operations",
+    "app": "accounting_financial_operations",
+    "module": "accounts_receivable",
+    "submodule": "receipt_processing",
+    "reference_doc_id": "receipt_record",
+    "evidence_gaps": [
+      "allocation logic",
+      "unapplied-cash handling",
+      "bank-reference capture"
+    ]
+  }
+}

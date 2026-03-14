@@ -1,0 +1,82 @@
+{
+  "display": {
+    "title_template": "{title}",
+    "subtitle_template": "{reference_no}",
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "default_filters": [],
+    "quick_entry": false
+  },
+  "related_docs": [
+    {
+      "doc_id": "journal_entry",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "ledger_posting",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "cost_center",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    }
+  ],
+  "lookup_rules": [],
+  "fetch_rules": [],
+  "reference_map": {
+    "primary_reference_field": "reference_no",
+    "reference_labels": []
+  },
+  "relation_rules": {
+    "parent_doc": null,
+    "child_docs": [],
+    "show_related_panel": true
+  },
+  "borrowed_fields": [],
+  "ui_panels": {
+    "show_activity_log": true,
+    "show_comments": true,
+    "show_assignments": true,
+    "show_related_docs": true
+  },
+  "integration": {
+    "external_refs": [],
+    "sync_rules": []
+  },
+  "runtime_hints": {
+    "doc_key": "general_ledger_account",
+    "supports_related_lookup": true,
+    "supports_fetch_rules": true,
+    "workflow_hints": {
+      "business_objective": "validate financial transaction evidence, capture journals, post ledger entries, and retain auditable accounting records",
+      "actors": [
+        "accounting officer",
+        "reviewer",
+        "approver",
+        "finance controller"
+      ],
+      "start_condition": "a financial transaction or adjustment requires accounting recognition",
+      "ordered_steps": [
+        "Receive transaction evidence and classify the transaction.",
+        "Validate supporting documentation and account mapping."
+      ],
+      "primary_actions": [
+        "create",
+        "update",
+        "review",
+        "approve"
+      ],
+      "primary_transitions": [],
+      "downstream_effects": [
+        "postings feed reporting, reconciliation, receivables, payables, and closing workflows"
+      ]
+    }
+  }
+}

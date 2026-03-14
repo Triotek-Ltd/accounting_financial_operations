@@ -1,0 +1,28 @@
+{
+  "doc_key": "journal_entry",
+  "doc_title": "Journal Entry",
+  "doc_kind": "transaction",
+  "status": "draft",
+  "module_id": "bookkeeping",
+  "submodule_id": "journal_capture",
+  "app_id": "accounting_financial_operations",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "transaction",
+  "classification": {
+    "archetype": "transaction",
+    "bundle": "operations"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "operations",
+    "app": "accounting_financial_operations",
+    "module": "bookkeeping",
+    "submodule": "journal_capture",
+    "reference_doc_id": "journal_entry",
+    "evidence_gaps": [
+      "exact line schema",
+      "multi-currency handling",
+      "reversal rules"
+    ]
+  }
+}

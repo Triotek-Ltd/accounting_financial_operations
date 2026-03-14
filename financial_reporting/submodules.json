@@ -1,0 +1,6 @@
+{
+  "submodules": [
+    "reporting_periods",
+    "statement_generation"
+  ]
+}

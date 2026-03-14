@@ -1,0 +1,27 @@
+{
+  "doc_key": "cost_center",
+  "doc_title": "Cost Center",
+  "doc_kind": "master",
+  "status": "draft",
+  "module_id": "cost_accounting",
+  "submodule_id": "allocation_control",
+  "app_id": "accounting_financial_operations",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "master",
+  "classification": {
+    "archetype": "master",
+    "bundle": "operations"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "operations",
+    "app": "accounting_financial_operations",
+    "module": "cost_accounting",
+    "submodule": "allocation_control",
+    "reference_doc_id": "cost_center",
+    "evidence_gaps": [
+      "hierarchy",
+      "ownership rules"
+    ]
+  }
+}

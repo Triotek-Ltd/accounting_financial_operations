@@ -1,0 +1,27 @@
+{
+  "doc_key": "general_ledger_account",
+  "doc_title": "General Ledger Account",
+  "doc_kind": "master",
+  "status": "draft",
+  "module_id": "bookkeeping",
+  "submodule_id": "journal_capture",
+  "app_id": "accounting_financial_operations",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "master",
+  "classification": {
+    "archetype": "master",
+    "bundle": "operations"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "operations",
+    "app": "accounting_financial_operations",
+    "module": "bookkeeping",
+    "submodule": "journal_capture",
+    "reference_doc_id": "general_ledger_account",
+    "evidence_gaps": [
+      "account hierarchy depth",
+      "control-account rules"
+    ]
+  }
+}

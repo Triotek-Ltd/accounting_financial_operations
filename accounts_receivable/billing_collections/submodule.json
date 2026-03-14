@@ -1,0 +1,8 @@
+{
+  "id": "billing_collections",
+  "title": "Billing Collections",
+  "app_id": "accounting_financial_operations",
+  "module_id": "accounts_receivable",
+  "type": "submodule",
+  "status": "draft"
+}

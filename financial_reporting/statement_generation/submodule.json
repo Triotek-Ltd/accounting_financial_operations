@@ -1,0 +1,8 @@
+{
+  "id": "statement_generation",
+  "title": "Statement Generation",
+  "app_id": "accounting_financial_operations",
+  "module_id": "financial_reporting",
+  "type": "submodule",
+  "status": "draft"
+}

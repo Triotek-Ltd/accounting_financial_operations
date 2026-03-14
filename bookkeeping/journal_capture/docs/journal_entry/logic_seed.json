@@ -1,0 +1,150 @@
+{
+  "doc_id": "journal_entry",
+  "doc_title": "Journal Entry",
+  "archetype": "transaction",
+  "doc_kind": "transaction",
+  "actions": [
+    "create",
+    "update",
+    "review",
+    "approve",
+    "post",
+    "reverse",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "reviewed",
+      "approved",
+      "posted",
+      "reversed",
+      "archived"
+    ],
+    "terminal_states": [
+      "reversed",
+      "archived"
+    ]
+  },
+  "related_doc_count": 6,
+  "fetch_rule_count": 0,
+  "action_handler_count": 7,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "transaction_flow",
+      "supports_submission": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "draft",
+      "reviewed",
+      "approved",
+      "posted",
+      "reversed",
+      "archived"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "transaction_date": "transaction_date",
+      "party": "primary_party",
+      "currency": "currency_code",
+      "total_amount": "total_amount",
+      "posting_date": "posting_date",
+      "approval_status": "status_flag",
+      "posting_status": "status_flag"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "journal_number",
+      "posting_date",
+      "company_or_business_unit"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "transaction_date",
+      "party",
+      "total_amount",
+      "workflow_state"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "reviewed",
+      "approved",
+      "posted",
+      "reversed",
+      "archived"
+    ],
+    "terminal_states": [
+      "reversed",
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "update": null,
+      "review": "reviewed",
+      "approve": "approved",
+      "post": null,
+      "reverse": "reversed",
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "collect accounting records for a reporting period, generate financial statements, review them, and publish management-ready financial outputs",
+    "actors": [
+      "finance controller",
+      "reporting accountant",
+      "approver",
+      "management audience"
+    ],
+    "start_condition": "a reporting period is ready for statement preparation",
+    "ordered_steps": [
+      "Collect postings and prepare required adjustments."
+    ],
+    "primary_actions": [
+      "review",
+      "create",
+      "approve",
+      "post"
+    ],
+    "primary_transitions": [],
+    "downstream_effects": [
+      "feeds management reporting, audit, compliance, and executive decision-making"
+    ]
+  },
+  "related_docs": [
+    "general_ledger_account",
+    "ledger_posting",
+    "supplier_invoice",
+    "customer_invoice",
+    "supplier_payment",
+    "receipt_record"
+  ],
+  "borrowed_fields": [
+    "account names",
+    "types from general_ledger_account",
+    "source references from upstream payable or receivable docs"
+  ]
+}

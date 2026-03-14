@@ -1,0 +1,27 @@
+{
+  "doc_key": "ledger_posting",
+  "doc_title": "Ledger Posting",
+  "doc_kind": "ledger",
+  "status": "draft",
+  "module_id": "bookkeeping",
+  "submodule_id": "journal_capture",
+  "app_id": "accounting_financial_operations",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "ledger",
+  "classification": {
+    "archetype": "ledger",
+    "bundle": "operations"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "operations",
+    "app": "accounting_financial_operations",
+    "module": "bookkeeping",
+    "submodule": "journal_capture",
+    "reference_doc_id": "ledger_posting",
+    "evidence_gaps": [
+      "balancing validation",
+      "line-linking to subledgers"
+    ]
+  }
+}

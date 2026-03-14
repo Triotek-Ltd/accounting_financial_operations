@@ -1,0 +1,86 @@
+{
+  "display": {
+    "title_template": "{title}",
+    "subtitle_template": "{reference_no}",
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "default_filters": [],
+    "quick_entry": false
+  },
+  "related_docs": [
+    {
+      "doc_id": "reporting_period",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "adjustment_entry",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "financial_statement_run",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    }
+  ],
+  "lookup_rules": [],
+  "fetch_rules": [],
+  "reference_map": {
+    "primary_reference_field": "reference_no",
+    "reference_labels": []
+  },
+  "relation_rules": {
+    "parent_doc": null,
+    "child_docs": [],
+    "show_related_panel": true
+  },
+  "borrowed_fields": [
+    {
+      "description": "reporting-period dates from reporting_period"
+    }
+  ],
+  "ui_panels": {
+    "show_activity_log": true,
+    "show_comments": true,
+    "show_assignments": true,
+    "show_related_docs": true
+  },
+  "integration": {
+    "external_refs": [],
+    "sync_rules": []
+  },
+  "runtime_hints": {
+    "doc_key": "closing_batch",
+    "supports_related_lookup": true,
+    "supports_fetch_rules": true,
+    "workflow_hints": {
+      "business_objective": "collect accounting records for a reporting period, generate financial statements, review them, and publish management-ready financial outputs",
+      "actors": [
+        "finance controller",
+        "reporting accountant",
+        "approver",
+        "management audience"
+      ],
+      "start_condition": "a reporting period is ready for statement preparation",
+      "ordered_steps": [
+        "Confirm the reporting period and close readiness."
+      ],
+      "primary_actions": [
+        "review",
+        "approve",
+        "close"
+      ],
+      "primary_transitions": [
+        "closing_batch: opened -> in_review -> approved -> closed"
+      ],
+      "downstream_effects": [
+        "feeds management reporting, audit, compliance, and executive decision-making"
+      ]
+    }
+  }
+}

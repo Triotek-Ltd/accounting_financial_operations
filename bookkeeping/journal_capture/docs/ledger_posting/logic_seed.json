@@ -1,0 +1,135 @@
+{
+  "doc_id": "ledger_posting",
+  "doc_title": "Ledger Posting",
+  "archetype": "ledger",
+  "doc_kind": "ledger",
+  "actions": [
+    "record",
+    "review",
+    "reverse",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "active",
+    "states": [
+      "active",
+      "reversed",
+      "archived"
+    ],
+    "terminal_states": [
+      "reversed",
+      "archived"
+    ]
+  },
+  "related_doc_count": 3,
+  "fetch_rule_count": 3,
+  "action_handler_count": 4,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "posting_flow",
+      "supports_reconciliation": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "active",
+      "reversed",
+      "archived"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "posting_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "posting_date": "posting_date",
+      "journal_entry": "source_reference",
+      "account": "account_reference",
+      "debit_amount": "monetary_value",
+      "credit_amount": "monetary_value",
+      "cost_center": "cost_center_reference"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "posting_code",
+      "journal_entry",
+      "account"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "posting_date",
+      "workflow_state"
+    ],
+    "initial_state": "active",
+    "lifecycle_states": [
+      "active",
+      "reversed",
+      "archived"
+    ],
+    "terminal_states": [
+      "reversed",
+      "archived"
+    ],
+    "action_targets": {
+      "record": null,
+      "review": null,
+      "reverse": "reversed",
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "validate financial transaction evidence, capture journals, post ledger entries, and retain auditable accounting records",
+    "actors": [
+      "accounting officer",
+      "reviewer",
+      "approver",
+      "finance controller"
+    ],
+    "start_condition": "a financial transaction or adjustment requires accounting recognition",
+    "ordered_steps": [
+      "Record debit and credit ledger postings.",
+      "Post the journal to the ledger.",
+      "Reconcile or reverse if errors are found.",
+      "Retain the accounting record set for audit and reporting."
+    ],
+    "primary_actions": [
+      "record",
+      "review",
+      "post",
+      "reverse",
+      "archive"
+    ],
+    "primary_transitions": [
+      "ledger_posting: active",
+      "ledger_posting: active -> reversed"
+    ],
+    "downstream_effects": [
+      "postings feed reporting, reconciliation, receivables, payables, and closing workflows"
+    ]
+  },
+  "related_docs": [
+    "journal_entry",
+    "general_ledger_account",
+    "cost_center"
+  ],
+  "borrowed_fields": [
+    "account identity from general_ledger_account",
+    "journal header details from journal_entry"
+  ]
+}

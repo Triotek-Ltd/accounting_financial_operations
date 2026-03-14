@@ -1,0 +1,10 @@
+{
+  "modules": [
+    "accounts_receivable",
+    "financial_reporting",
+    "bookkeeping",
+    "accounts_payable",
+    "cost_accounting",
+    "cash_management"
+  ]
+}

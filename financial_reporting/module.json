@@ -1,0 +1,8 @@
+{
+  "id": "financial_reporting",
+  "title": "Financial Reporting",
+  "app_id": "accounting_financial_operations",
+  "type": "module",
+  "status": "draft",
+  "supports_submodules": true
+}

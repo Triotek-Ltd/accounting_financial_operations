@@ -1,0 +1,27 @@
+{
+  "doc_key": "bank_reconciliation",
+  "doc_title": "Bank Reconciliation",
+  "doc_kind": "workflow_case",
+  "status": "draft",
+  "module_id": "cash_management",
+  "submodule_id": "bank_control",
+  "app_id": "accounting_financial_operations",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "workflow_case",
+  "classification": {
+    "archetype": "workflow_case",
+    "bundle": "operations"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "operations",
+    "app": "accounting_financial_operations",
+    "module": "cash_management",
+    "submodule": "bank_control",
+    "reference_doc_id": "bank_reconciliation",
+    "evidence_gaps": [
+      "matching-rule model",
+      "tolerance handling"
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "doc_key": "cost_record",
+  "doc_title": "Cost Record",
+  "doc_kind": "transaction",
+  "status": "draft",
+  "module_id": "cost_accounting",
+  "submodule_id": "cost_collection",
+  "app_id": "accounting_financial_operations",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "transaction",
+  "classification": {
+    "archetype": "transaction",
+    "bundle": "operations"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "operations",
+    "app": "accounting_financial_operations",
+    "module": "cost_accounting",
+    "submodule": "cost_collection",
+    "reference_doc_id": "cost_record",
+    "evidence_gaps": [
+      "source-event mapping",
+      "standard-cost vs actual-cost handling"
+    ]
+  }
+}

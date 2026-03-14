@@ -1,0 +1,149 @@
+{
+  "display": {
+    "title_template": "{title}",
+    "subtitle_template": "{reference_no}",
+    "list_columns": [
+      "title",
+      "reference_no",
+      "posting_date",
+      "workflow_state"
+    ],
+    "default_filters": [],
+    "quick_entry": false
+  },
+  "related_docs": [
+    {
+      "doc_id": "journal_entry",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "general_ledger_account",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    },
+    {
+      "doc_id": "cost_center",
+      "relation_type": "related",
+      "show_in_related_panel": true
+    }
+  ],
+  "lookup_rules": [
+    {
+      "field_id": "journal_entry",
+      "doc_id": "journal_entry",
+      "lookup_mode": "single",
+      "purpose": "source_reference"
+    },
+    {
+      "field_id": "account",
+      "doc_id": "general_ledger_account",
+      "lookup_mode": "single",
+      "purpose": "account_reference"
+    },
+    {
+      "field_id": "cost_center",
+      "doc_id": "cost_center",
+      "lookup_mode": "single",
+      "purpose": "cost_center_reference"
+    }
+  ],
+  "fetch_rules": [
+    {
+      "field_id": "journal_entry",
+      "source_doc_id": "journal_entry",
+      "fetch_profile": "display_identity",
+      "fetch_fields": [
+        "title",
+        "reference_no"
+      ],
+      "purpose": "source_reference"
+    },
+    {
+      "field_id": "account",
+      "source_doc_id": "general_ledger_account",
+      "fetch_profile": "account_identity",
+      "fetch_fields": [
+        "title",
+        "reference_no",
+        "account_code",
+        "account_name",
+        "account_type",
+        "currency"
+      ],
+      "purpose": "account_reference"
+    },
+    {
+      "field_id": "cost_center",
+      "source_doc_id": "cost_center",
+      "fetch_profile": "display_identity",
+      "fetch_fields": [
+        "title",
+        "reference_no"
+      ],
+      "purpose": "cost_center_reference"
+    }
+  ],
+  "reference_map": {
+    "primary_reference_field": "reference_no",
+    "reference_labels": []
+  },
+  "relation_rules": {
+    "parent_doc": null,
+    "child_docs": [],
+    "show_related_panel": true
+  },
+  "borrowed_fields": [
+    {
+      "description": "account identity from general_ledger_account"
+    },
+    {
+      "description": "journal header details from journal_entry"
+    }
+  ],
+  "ui_panels": {
+    "show_activity_log": true,
+    "show_comments": true,
+    "show_assignments": true,
+    "show_related_docs": true
+  },
+  "integration": {
+    "external_refs": [],
+    "sync_rules": []
+  },
+  "runtime_hints": {
+    "doc_key": "ledger_posting",
+    "supports_related_lookup": true,
+    "supports_fetch_rules": true,
+    "workflow_hints": {
+      "business_objective": "validate financial transaction evidence, capture journals, post ledger entries, and retain auditable accounting records",
+      "actors": [
+        "accounting officer",
+        "reviewer",
+        "approver",
+        "finance controller"
+      ],
+      "start_condition": "a financial transaction or adjustment requires accounting recognition",
+      "ordered_steps": [
+        "Record debit and credit ledger postings.",
+        "Post the journal to the ledger.",
+        "Reconcile or reverse if errors are found.",
+        "Retain the accounting record set for audit and reporting."
+      ],
+      "primary_actions": [
+        "record",
+        "review",
+        "post",
+        "reverse",
+        "archive"
+      ],
+      "primary_transitions": [
+        "ledger_posting: active",
+        "ledger_posting: active -> reversed"
+      ],
+      "downstream_effects": [
+        "postings feed reporting, reconciliation, receivables, payables, and closing workflows"
+      ]
+    }
+  }
+}

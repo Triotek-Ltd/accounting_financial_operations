@@ -1,0 +1,162 @@
+{
+  "doc_id": "customer_invoice",
+  "doc_title": "Customer Invoice",
+  "archetype": "transaction",
+  "doc_kind": "transaction",
+  "actions": [
+    "create",
+    "update",
+    "review",
+    "approve",
+    "post",
+    "issue",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "approved",
+      "unpaid",
+      "partially_paid",
+      "paid",
+      "archived"
+    ],
+    "terminal_states": [
+      "paid",
+      "archived"
+    ]
+  },
+  "related_doc_count": 6,
+  "fetch_rule_count": 1,
+  "action_handler_count": 7,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "transaction_flow",
+      "supports_submission": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "draft",
+      "approved",
+      "unpaid",
+      "partially_paid",
+      "paid",
+      "archived"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "transaction_date": "transaction_date",
+      "party": "primary_party",
+      "currency": "currency_code",
+      "total_amount": "total_amount",
+      "invoice_number": "reference",
+      "customer": "party_reference",
+      "invoice_date": "schedule_marker",
+      "due_date": "schedule_marker",
+      "taxes": "structured_payload",
+      "totals": "structured_payload",
+      "collection_status": "status_flag",
+      "posting_status": "status_flag"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "invoice_number",
+      "customer",
+      "invoice_date"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "transaction_date",
+      "party",
+      "total_amount",
+      "workflow_state"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "approved",
+      "unpaid",
+      "partially_paid",
+      "paid",
+      "archived"
+    ],
+    "terminal_states": [
+      "paid",
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "update": null,
+      "review": null,
+      "approve": "approved",
+      "post": null,
+      "issue": "unpaid",
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "bill customers, track outstanding balances, collect payment, and maintain accurate receivable balances",
+    "actors": [
+      "billing officer",
+      "collections officer",
+      "customer-facing finance team"
+    ],
+    "start_condition": "a sales transaction is ready for billing",
+    "ordered_steps": [
+      "Create and approve the customer invoice.",
+      "Record receivable and send invoice to the customer.",
+      "Reconcile receipts to invoices and customer balances."
+    ],
+    "primary_actions": [
+      "create",
+      "update",
+      "review",
+      "approve",
+      "issue",
+      "post",
+      "reconcile"
+    ],
+    "primary_transitions": [
+      "customer_invoice: draft -> approved -> unpaid",
+      "customer_invoice: unpaid -> partially_paid or paid"
+    ],
+    "downstream_effects": [
+      "updates AR aging, customer history, cash management, and bookkeeping"
+    ]
+  },
+  "related_docs": [
+    "customer_account",
+    "receipt_record",
+    "collection_case",
+    "journal_entry",
+    "sales_order",
+    "delivery_note"
+  ],
+  "borrowed_fields": [
+    "customer details from customer_account",
+    "order",
+    "fulfillment context from sales docs"
+  ]
+}

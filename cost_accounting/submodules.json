@@ -1,0 +1,6 @@
+{
+  "submodules": [
+    "cost_collection",
+    "allocation_control"
+  ]
+}

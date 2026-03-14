@@ -1,0 +1,6 @@
+{
+  "submodules": [
+    "billing_collections",
+    "receipt_processing"
+  ]
+}

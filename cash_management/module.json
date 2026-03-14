@@ -1,0 +1,8 @@
+{
+  "id": "cash_management",
+  "title": "Cash Management",
+  "app_id": "accounting_financial_operations",
+  "type": "module",
+  "status": "draft",
+  "supports_submodules": true
+}

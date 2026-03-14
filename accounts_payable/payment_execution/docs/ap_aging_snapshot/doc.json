@@ -1,0 +1,27 @@
+{
+  "doc_key": "ap_aging_snapshot",
+  "doc_title": "Ap Aging Snapshot",
+  "doc_kind": "ledger",
+  "status": "draft",
+  "module_id": "accounts_payable",
+  "submodule_id": "payment_execution",
+  "app_id": "accounting_financial_operations",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "ledger",
+  "classification": {
+    "archetype": "ledger",
+    "bundle": "operations"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "operations",
+    "app": "accounting_financial_operations",
+    "module": "accounts_payable",
+    "submodule": "payment_execution",
+    "reference_doc_id": "ap_aging_snapshot",
+    "evidence_gaps": [
+      "bucket definitions",
+      "regeneration vs persistence policy"
+    ]
+  }
+}

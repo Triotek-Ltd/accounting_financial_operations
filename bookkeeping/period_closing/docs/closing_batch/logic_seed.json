@@ -1,0 +1,137 @@
+{
+  "doc_id": "closing_batch",
+  "doc_title": "Closing Batch",
+  "archetype": "workflow_case",
+  "doc_kind": "workflow_case",
+  "actions": [
+    "create",
+    "assign",
+    "review",
+    "approve",
+    "close",
+    "reopen",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "open",
+    "states": [
+      "open",
+      "in_review",
+      "approved",
+      "closed",
+      "reopened",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ]
+  },
+  "related_doc_count": 3,
+  "fetch_rule_count": 0,
+  "action_handler_count": 7,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "case_flow",
+      "supports_assignment": true,
+      "supports_escalation": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": false
+    },
+    "integration_profile": {
+      "external_sync_enabled": false
+    },
+    "lifecycle_states": [
+      "open",
+      "in_review",
+      "approved",
+      "closed",
+      "reopened",
+      "archived"
+    ],
+    "is_transactional": false
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "approver": "actor_reference"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "batch_code",
+      "reporting_period",
+      "checklist_state"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "initial_state": "open",
+    "lifecycle_states": [
+      "open",
+      "in_review",
+      "approved",
+      "closed",
+      "reopened",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "assign": "in_review",
+      "review": "in_review",
+      "approve": "approved",
+      "close": "closed",
+      "reopen": null,
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "collect accounting records for a reporting period, generate financial statements, review them, and publish management-ready financial outputs",
+    "actors": [
+      "finance controller",
+      "reporting accountant",
+      "approver",
+      "management audience"
+    ],
+    "start_condition": "a reporting period is ready for statement preparation",
+    "ordered_steps": [
+      "Confirm the reporting period and close readiness."
+    ],
+    "primary_actions": [
+      "review",
+      "approve",
+      "close"
+    ],
+    "primary_transitions": [
+      "closing_batch: opened -> in_review -> approved -> closed"
+    ],
+    "downstream_effects": [
+      "feeds management reporting, audit, compliance, and executive decision-making"
+    ]
+  },
+  "related_docs": [
+    "reporting_period",
+    "adjustment_entry",
+    "financial_statement_run"
+  ],
+  "borrowed_fields": [
+    "reporting-period dates from reporting_period"
+  ]
+}

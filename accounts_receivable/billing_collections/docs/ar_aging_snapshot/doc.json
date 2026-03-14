@@ -1,0 +1,27 @@
+{
+  "doc_key": "ar_aging_snapshot",
+  "doc_title": "Ar Aging Snapshot",
+  "doc_kind": "ledger",
+  "status": "draft",
+  "module_id": "accounts_receivable",
+  "submodule_id": "billing_collections",
+  "app_id": "accounting_financial_operations",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "ledger",
+  "classification": {
+    "archetype": "ledger",
+    "bundle": "operations"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "operations",
+    "app": "accounting_financial_operations",
+    "module": "accounts_receivable",
+    "submodule": "billing_collections",
+    "reference_doc_id": "ar_aging_snapshot",
+    "evidence_gaps": [
+      "bucket definitions",
+      "historical retention policy"
+    ]
+  }
+}

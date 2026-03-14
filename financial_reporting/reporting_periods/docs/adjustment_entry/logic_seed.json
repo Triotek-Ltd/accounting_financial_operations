@@ -1,0 +1,140 @@
+{
+  "doc_id": "adjustment_entry",
+  "doc_title": "Adjustment Entry",
+  "archetype": "transaction",
+  "doc_kind": "transaction",
+  "actions": [
+    "create",
+    "review",
+    "approve",
+    "post",
+    "reverse",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "approved",
+      "posted",
+      "reversed",
+      "archived"
+    ],
+    "terminal_states": [
+      "reversed",
+      "archived"
+    ]
+  },
+  "related_doc_count": 3,
+  "fetch_rule_count": 0,
+  "action_handler_count": 6,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "transaction_flow",
+      "supports_submission": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "draft",
+      "approved",
+      "posted",
+      "reversed",
+      "archived"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "transaction_date": "transaction_date",
+      "party": "primary_party",
+      "currency": "currency_code",
+      "total_amount": "total_amount",
+      "adjustment_date": "schedule_marker"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "adjustment_code",
+      "source_period",
+      "adjustment_date"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "transaction_date",
+      "party",
+      "total_amount",
+      "workflow_state"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "approved",
+      "posted",
+      "reversed",
+      "archived"
+    ],
+    "terminal_states": [
+      "reversed",
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "review": null,
+      "approve": "approved",
+      "post": null,
+      "reverse": "reversed",
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "collect accounting records for a reporting period, generate financial statements, review them, and publish management-ready financial outputs",
+    "actors": [
+      "finance controller",
+      "reporting accountant",
+      "approver",
+      "management audience"
+    ],
+    "start_condition": "a reporting period is ready for statement preparation",
+    "ordered_steps": [
+      "Collect postings and prepare required adjustments."
+    ],
+    "primary_actions": [
+      "review",
+      "create",
+      "approve",
+      "post"
+    ],
+    "primary_transitions": [
+      "adjustment_entry: draft -> approved -> posted"
+    ],
+    "downstream_effects": [
+      "feeds management reporting, audit, compliance, and executive decision-making"
+    ]
+  },
+  "related_docs": [
+    "reporting_period",
+    "journal_entry",
+    "closing_batch"
+  ],
+  "borrowed_fields": [
+    "period boundaries from reporting_period"
+  ]
+}

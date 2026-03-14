@@ -1,0 +1,148 @@
+{
+  "doc_id": "collection_case",
+  "doc_title": "Collection Case",
+  "archetype": "workflow_case",
+  "doc_kind": "workflow_case",
+  "actions": [
+    "create",
+    "assign",
+    "contact",
+    "escalate",
+    "resolve",
+    "close",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "open",
+    "states": [
+      "open",
+      "contacted",
+      "promised",
+      "escalated",
+      "resolved",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ]
+  },
+  "related_doc_count": 3,
+  "fetch_rule_count": 1,
+  "action_handler_count": 7,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "case_flow",
+      "supports_assignment": true,
+      "supports_escalation": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": false
+    },
+    "integration_profile": {
+      "external_sync_enabled": false
+    },
+    "lifecycle_states": [
+      "open",
+      "contacted",
+      "promised",
+      "escalated",
+      "resolved",
+      "closed",
+      "archived"
+    ],
+    "is_transactional": false
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "customer": "party_reference",
+      "invoice_set": "relation_collection",
+      "aging_status": "status_flag"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "case_number",
+      "customer",
+      "invoice_set"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "initial_state": "open",
+    "lifecycle_states": [
+      "open",
+      "contacted",
+      "promised",
+      "escalated",
+      "resolved",
+      "closed",
+      "archived"
+    ],
+    "terminal_states": [
+      "closed",
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "assign": null,
+      "contact": null,
+      "escalate": "escalated",
+      "resolve": "resolved",
+      "close": "closed",
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "bill customers, track outstanding balances, collect payment, and maintain accurate receivable balances",
+    "actors": [
+      "billing officer",
+      "collections officer",
+      "customer-facing finance team"
+    ],
+    "start_condition": "a sales transaction is ready for billing",
+    "ordered_steps": [
+      "Monitor outstanding balances and chase overdue items.",
+      "Close collection activity when settled."
+    ],
+    "primary_actions": [
+      "create",
+      "assign",
+      "contact",
+      "escalate",
+      "resolve",
+      "close",
+      "archive"
+    ],
+    "primary_transitions": [
+      "collection_case: opened -> contacted -> promised or escalated -> resolved -> closed"
+    ],
+    "downstream_effects": [
+      "updates AR aging, customer history, cash management, and bookkeeping"
+    ]
+  },
+  "related_docs": [
+    "customer_invoice",
+    "customer_account",
+    "receipt_record"
+  ],
+  "borrowed_fields": [
+    "outstanding balance",
+    "aging from customer_invoice",
+    "customer profile from customer_account"
+  ]
+}

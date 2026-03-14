@@ -1,0 +1,27 @@
+{
+  "doc_key": "cash_account",
+  "doc_title": "Cash Account",
+  "doc_kind": "master",
+  "status": "draft",
+  "module_id": "cash_management",
+  "submodule_id": "cash_positions",
+  "app_id": "accounting_financial_operations",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "master",
+  "classification": {
+    "archetype": "master",
+    "bundle": "operations"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "operations",
+    "app": "accounting_financial_operations",
+    "module": "cash_management",
+    "submodule": "cash_positions",
+    "reference_doc_id": "cash_account",
+    "evidence_gaps": [
+      "signatory rules",
+      "cash-vs-bank classification"
+    ]
+  }
+}

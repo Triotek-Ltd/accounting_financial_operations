@@ -1,0 +1,143 @@
+{
+  "doc_id": "payment_request",
+  "doc_title": "Payment Request",
+  "archetype": "workflow_case",
+  "doc_kind": "workflow_case",
+  "actions": [
+    "create",
+    "submit",
+    "review",
+    "approve",
+    "reject",
+    "execute",
+    "cancel",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "submitted",
+      "approved",
+      "executed",
+      "cancelled",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ]
+  },
+  "related_doc_count": 3,
+  "fetch_rule_count": 0,
+  "action_handler_count": 8,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "case_flow",
+      "supports_assignment": true,
+      "supports_escalation": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": false
+    },
+    "integration_profile": {
+      "external_sync_enabled": false
+    },
+    "lifecycle_states": [
+      "draft",
+      "submitted",
+      "approved",
+      "executed",
+      "cancelled",
+      "archived"
+    ],
+    "is_transactional": false
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "requested_amount": "monetary_value",
+      "approver": "actor_reference"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "request_number",
+      "source_invoice",
+      "requested_amount"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "workflow_state",
+      "modified"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "submitted",
+      "approved",
+      "executed",
+      "cancelled",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "submit": "submitted",
+      "review": null,
+      "approve": "approved",
+      "reject": null,
+      "execute": null,
+      "cancel": null,
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "receive supplier invoices, verify them against procurement evidence, approve them, pay them, and keep the payable ledger current",
+    "actors": [
+      "AP clerk",
+      "reviewer",
+      "approver",
+      "treasury or finance officer"
+    ],
+    "start_condition": "a supplier invoice is received",
+    "ordered_steps": [
+      "Raise and approve the payment request.",
+      "Archive invoice and payment evidence."
+    ],
+    "primary_actions": [
+      "create",
+      "submit",
+      "review",
+      "approve",
+      "archive"
+    ],
+    "primary_transitions": [
+      "payment_request: draft -> submitted -> approved"
+    ],
+    "downstream_effects": [
+      "updates AP aging, cash management, bookkeeping, and supplier history"
+    ]
+  },
+  "related_docs": [
+    "supplier_invoice",
+    "supplier_payment",
+    "cash_account"
+  ],
+  "borrowed_fields": [
+    "amount",
+    "due date",
+    "supplier from supplier_invoice"
+  ]
+}

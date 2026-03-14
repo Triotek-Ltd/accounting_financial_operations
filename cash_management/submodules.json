@@ -1,0 +1,6 @@
+{
+  "submodules": [
+    "cash_positions",
+    "bank_control"
+  ]
+}

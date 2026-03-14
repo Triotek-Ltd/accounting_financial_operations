@@ -1,0 +1,27 @@
+{
+  "doc_key": "statement_line",
+  "doc_title": "Statement Line",
+  "doc_kind": "ledger",
+  "status": "draft",
+  "module_id": "financial_reporting",
+  "submodule_id": "statement_generation",
+  "app_id": "accounting_financial_operations",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "ledger",
+  "classification": {
+    "archetype": "ledger",
+    "bundle": "operations"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "operations",
+    "app": "accounting_financial_operations",
+    "module": "financial_reporting",
+    "submodule": "statement_generation",
+    "reference_doc_id": "statement_line",
+    "evidence_gaps": [
+      "mapping logic",
+      "presentation hierarchy"
+    ]
+  }
+}

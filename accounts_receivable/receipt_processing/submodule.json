@@ -1,0 +1,8 @@
+{
+  "id": "receipt_processing",
+  "title": "Receipt Processing",
+  "app_id": "accounting_financial_operations",
+  "module_id": "accounts_receivable",
+  "type": "submodule",
+  "status": "draft"
+}

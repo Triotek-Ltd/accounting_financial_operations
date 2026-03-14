@@ -1,0 +1,8 @@
+{
+  "id": "reporting_periods",
+  "title": "Reporting Periods",
+  "app_id": "accounting_financial_operations",
+  "module_id": "financial_reporting",
+  "type": "submodule",
+  "status": "draft"
+}

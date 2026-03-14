@@ -1,0 +1,8 @@
+{
+  "docs": [
+    "bank_reconciliation",
+    "treasury_movement",
+    "cash_account",
+    "cash_position_snapshot"
+  ]
+}

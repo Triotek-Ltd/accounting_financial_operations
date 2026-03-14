@@ -1,0 +1,6 @@
+{
+  "submodules": [
+    "journal_capture",
+    "period_closing"
+  ]
+}

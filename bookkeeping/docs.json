@@ -1,0 +1,8 @@
+{
+  "docs": [
+    "ledger_posting",
+    "general_ledger_account",
+    "journal_entry",
+    "closing_batch"
+  ]
+}

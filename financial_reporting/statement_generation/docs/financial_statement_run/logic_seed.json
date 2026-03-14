@@ -1,0 +1,146 @@
+{
+  "doc_id": "financial_statement_run",
+  "doc_title": "Financial Statement Run",
+  "archetype": "transaction",
+  "doc_kind": "transaction",
+  "actions": [
+    "create",
+    "generate",
+    "review",
+    "approve",
+    "publish",
+    "archive"
+  ],
+  "lifecycle": {
+    "initial_state": "draft",
+    "states": [
+      "draft",
+      "generated",
+      "reviewed",
+      "approved",
+      "published",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ]
+  },
+  "related_doc_count": 4,
+  "fetch_rule_count": 0,
+  "action_handler_count": 6,
+  "archetype_profile": {
+    "workflow_profile": {
+      "mode": "transaction_flow",
+      "supports_submission": true
+    },
+    "reporting_profile": {
+      "supports_snapshots": true,
+      "supports_outputs": true
+    },
+    "integration_profile": {
+      "external_sync_enabled": true,
+      "tracks_external_refs": true
+    },
+    "lifecycle_states": [
+      "draft",
+      "generated",
+      "reviewed",
+      "approved",
+      "published",
+      "archived"
+    ],
+    "is_transactional": true
+  },
+  "contract_summary": {
+    "title_field": "title",
+    "status_field": "workflow_state",
+    "reference_field": "reference_no",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "field_purposes": {
+      "workflow_state": "lifecycle_state",
+      "transaction_date": "transaction_date",
+      "party": "primary_party",
+      "currency": "currency_code",
+      "total_amount": "total_amount",
+      "generation_date": "schedule_marker"
+    },
+    "search_fields": [
+      "title",
+      "reference_no",
+      "description",
+      "run_code",
+      "reporting_period",
+      "statement_set"
+    ],
+    "list_columns": [
+      "title",
+      "reference_no",
+      "transaction_date",
+      "party",
+      "total_amount",
+      "workflow_state"
+    ],
+    "initial_state": "draft",
+    "lifecycle_states": [
+      "draft",
+      "generated",
+      "reviewed",
+      "approved",
+      "published",
+      "archived"
+    ],
+    "terminal_states": [
+      "archived"
+    ],
+    "action_targets": {
+      "create": null,
+      "generate": null,
+      "review": "reviewed",
+      "approve": "approved",
+      "publish": "published",
+      "archive": "archived"
+    }
+  },
+  "workflow_hints": {
+    "business_objective": "collect accounting records for a reporting period, generate financial statements, review them, and publish management-ready financial outputs",
+    "actors": [
+      "finance controller",
+      "reporting accountant",
+      "approver",
+      "management audience"
+    ],
+    "start_condition": "a reporting period is ready for statement preparation",
+    "ordered_steps": [
+      "Create the statement generation run.",
+      "Review, approve, and publish the statement set."
+    ],
+    "primary_actions": [
+      "create",
+      "generate",
+      "review",
+      "approve",
+      "publish"
+    ],
+    "primary_transitions": [
+      "financial_statement_run: draft -> generated",
+      "financial_statement_run: generated -> reviewed -> approved -> published"
+    ],
+    "downstream_effects": [
+      "feeds management reporting, audit, compliance, and executive decision-making"
+    ]
+  },
+  "related_docs": [
+    "statement_line",
+    "reporting_period",
+    "adjustment_entry",
+    "closing_batch"
+  ],
+  "borrowed_fields": [
+    "reporting windows from reporting_period",
+    "close state from closing_batch"
+  ]
+}

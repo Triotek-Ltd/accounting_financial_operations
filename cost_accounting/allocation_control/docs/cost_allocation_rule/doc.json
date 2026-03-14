@@ -1,0 +1,27 @@
+{
+  "doc_key": "cost_allocation_rule",
+  "doc_title": "Cost Allocation Rule",
+  "doc_kind": "configuration",
+  "status": "draft",
+  "module_id": "cost_accounting",
+  "submodule_id": "allocation_control",
+  "app_id": "accounting_financial_operations",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "configuration",
+  "classification": {
+    "archetype": "configuration",
+    "bundle": "operations"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "operations",
+    "app": "accounting_financial_operations",
+    "module": "cost_accounting",
+    "submodule": "allocation_control",
+    "reference_doc_id": "cost_allocation_rule",
+    "evidence_gaps": [
+      "allocation-basis taxonomy",
+      "effective-dating rules"
+    ]
+  }
+}

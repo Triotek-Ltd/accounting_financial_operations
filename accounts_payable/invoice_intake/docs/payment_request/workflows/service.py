@@ -1,0 +1,59 @@
+"""Workflow service seed for payment_request."""
+
+from __future__ import annotations
+
+
+DOC_ID = "payment_request"
+ARCHETYPE = "workflow_case"
+INITIAL_STATE = 'draft'
+STATES = ['draft', 'submitted', 'approved', 'executed', 'cancelled', 'archived']
+TERMINAL_STATES = ['archived']
+ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'submitted', 'approved', 'executed', 'cancelled'], 'transitions_to': None}, 'submit': {'allowed_in_states': ['draft', 'submitted', 'approved', 'executed', 'cancelled'], 'transitions_to': 'submitted'}, 'review': {'allowed_in_states': ['draft', 'submitted', 'approved', 'executed', 'cancelled'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['draft', 'submitted', 'approved', 'executed', 'cancelled'], 'transitions_to': 'approved'}, 'reject': {'allowed_in_states': ['draft', 'submitted', 'approved', 'executed', 'cancelled'], 'transitions_to': None}, 'execute': {'allowed_in_states': ['draft', 'submitted', 'approved', 'executed', 'cancelled'], 'transitions_to': None}, 'cancel': {'allowed_in_states': ['draft', 'submitted', 'approved', 'executed', 'cancelled'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'submitted', 'approved', 'executed', 'cancelled'], 'transitions_to': 'archived'}}
+
+STATE_FIELD = 'workflow_state'
+WORKFLOW_HINTS = {'business_objective': 'receive supplier invoices, verify them against procurement evidence, approve them, pay them, and keep the payable ledger current', 'actors': ['AP clerk', 'reviewer', 'approver', 'treasury or finance officer'], 'start_condition': 'a supplier invoice is received', 'ordered_steps': ['Raise and approve the payment request.', 'Archive invoice and payment evidence.'], 'primary_actions': ['create', 'submit', 'review', 'approve', 'archive'], 'primary_transitions': ['payment_request: draft -> submitted -> approved'], 'downstream_effects': ['updates AP aging, cash management, bookkeeping, and supplier history']}
+
+class WorkflowService:
+    def allowed_actions_for_state(self, state: str | None) -> list[str]:
+        if not state:
+            return list(ACTION_RULES.keys())
+        allowed = []
+        for action_id, rule in ACTION_RULES.items():
+            states = rule.get("allowed_in_states") or []
+            if not states or state in states:
+                allowed.append(action_id)
+        return allowed
+
+    def is_action_allowed(self, action_id: str, state: str | None) -> bool:
+        return action_id in self.allowed_actions_for_state(state)
+
+    def next_state_for(self, action_id: str) -> str | None:
+        rule = ACTION_RULES.get(action_id, {})
+        return rule.get("transitions_to")
+
+    def apply_action(self, action_id: str, state: str | None) -> dict:
+        if not self.is_action_allowed(action_id, state):
+            raise ValueError(f"Action '{action_id}' is not allowed in state '{state}'")
+        next_state = self.next_state_for(action_id)
+        updates = {STATE_FIELD: next_state} if STATE_FIELD and next_state else {}
+        return {
+            "action_id": action_id,
+            "current_state": state,
+            "next_state": next_state,
+            "updates": updates,
+        }
+
+    def is_terminal(self, state: str | None) -> bool:
+        return bool(state and state in TERMINAL_STATES)
+
+    def workflow_summary(self) -> dict:
+        return {
+            "initial_state": INITIAL_STATE,
+            "states": STATES,
+            "terminal_states": TERMINAL_STATES,
+            "business_objective": WORKFLOW_HINTS.get("business_objective"),
+            "ordered_steps": WORKFLOW_HINTS.get("ordered_steps", []),
+        }
+
+    def workflow_profile(self) -> dict:
+        return {'mode': 'case_flow', 'supports_assignment': True, 'supports_escalation': True}
