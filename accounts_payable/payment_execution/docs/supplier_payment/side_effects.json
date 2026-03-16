@@ -1,0 +1,110 @@
+{
+  "create": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "draft"
+      }
+    }
+  ],
+  "review": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "draft"
+      }
+    }
+  ],
+  "approve": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "approved"
+      }
+    }
+  ],
+  "post": [
+    {
+      "type": "create_record",
+      "effect_id": "journal_entry",
+      "target_doc": "journal_entry",
+      "lookup": {
+        "reference_document": {
+          "$from": [
+            "payment_number",
+            "reference_no",
+            "pk"
+          ]
+        }
+      },
+      "values": {
+        "title": {
+          "$template": "Payment Journal {payment_number|reference_no|pk}"
+        },
+        "reference_no": {
+          "$template": "PAYJ-{payment_number|reference_no|pk}"
+        },
+        "journal_number": {
+          "$template": "PAYJ-{payment_number|reference_no|pk}"
+        },
+        "reference_document": {
+          "$from": [
+            "payment_number",
+            "reference_no",
+            "pk"
+          ]
+        },
+        "transaction_date": {
+          "$from": [
+            "payment_date",
+            "transaction_date"
+          ]
+        },
+        "posting_date": {
+          "$from": [
+            "payment_date",
+            "transaction_date"
+          ]
+        },
+        "workflow_state": "draft",
+        "currency": {
+          "$from": [
+            "currency"
+          ]
+        },
+        "total_amount": {
+          "$from": [
+            "total_amount",
+            "amount"
+          ]
+        },
+        "voucher_type": "supplier_payment",
+        "company_or_business_unit": "default"
+      }
+    }
+  ],
+  "reconcile": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "reconciled"
+      }
+    }
+  ],
+  "reverse": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "reversed"
+      }
+    }
+  ],
+  "archive": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "archived"
+      }
+    }
+  ]
+}

@@ -53,7 +53,8 @@
       "workflow_state": "lifecycle_state",
       "posting_date": "posting_date",
       "as_of_date": "schedule_marker",
-      "supplier": "party_reference"
+      "supplier": "party_reference",
+      "related_supplier_invoice": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -83,7 +84,39 @@
       "archive": "archived"
     }
   },
-  "workflow_hints": {},
+  "workflow_hints": {
+    "relation_context": {
+      "related_docs": [
+        "supplier_invoice",
+        "supplier_profile"
+      ],
+      "borrowed_fields": [
+        "supplier identity from supplier_profile",
+        "outstanding balances from supplier_invoice"
+      ],
+      "inferred_roles": [
+        "procurement officer",
+        "finance officer"
+      ]
+    },
+    "actors": [
+      "procurement officer",
+      "finance officer"
+    ],
+    "action_actors": {
+      "create": [
+        "procurement officer"
+      ],
+      "review": [
+        "finance officer"
+      ],
+      "archive": [
+        "procurement officer"
+      ]
+    }
+  },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "supplier_invoice",
     "supplier_profile"

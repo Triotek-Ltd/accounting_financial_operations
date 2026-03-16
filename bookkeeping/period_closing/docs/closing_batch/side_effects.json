@@ -1,0 +1,42 @@
+{
+  "create": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "in_review"
+      }
+    }
+  ],
+  "review": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "in_review"
+      }
+    }
+  ],
+  "approve": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "approved"
+      }
+    }
+  ],
+  "close": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "closed"
+      }
+    }
+  ],
+  "archive": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "archived"
+      }
+    }
+  ]
+}

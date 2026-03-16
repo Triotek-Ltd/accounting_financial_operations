@@ -53,7 +53,10 @@
     "field_purposes": {
       "workflow_state": "lifecycle_state",
       "currency": "currency_code",
-      "active_status": "status_flag"
+      "active_status": "status_flag",
+      "related_journal_entry": "relation_collection",
+      "related_ledger_posting": "relation_collection",
+      "related_cost_center": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -107,8 +110,26 @@
     "primary_transitions": [],
     "downstream_effects": [
       "postings feed reporting, reconciliation, receivables, payables, and closing workflows"
-    ]
+    ],
+    "action_actors": {
+      "create": [
+        "accounting officer"
+      ],
+      "update": [
+        "accounting officer"
+      ],
+      "review": [
+        "reviewer"
+      ],
+      "archive": [
+        "accounting officer"
+      ]
+    }
   },
+  "downstream_effects": [
+    "postings feed reporting, reconciliation, receivables, payables, and closing workflows"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "journal_entry",
     "ledger_posting",

@@ -40,6 +40,12 @@
       "doc_id": "customer_invoice",
       "lookup_mode": "multiple",
       "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_receipt_record",
+      "doc_id": "receipt_record",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
     }
   ],
   "fetch_rules": [
@@ -66,7 +72,8 @@
   "relation_rules": {
     "parent_doc": null,
     "child_docs": [
-      "customer_invoice"
+      "customer_invoice",
+      "receipt_record"
     ],
     "show_related_panel": true
   },
@@ -121,7 +128,22 @@
       ],
       "downstream_effects": [
         "updates AR aging, customer history, cash management, and bookkeeping"
-      ]
-    }
+      ],
+      "action_actors": {
+        "create": [
+          "billing officer"
+        ],
+        "assign": [
+          "billing officer"
+        ],
+        "close": [
+          "billing officer"
+        ],
+        "archive": [
+          "billing officer"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
   }
 }

@@ -7,7 +7,9 @@ ARCHETYPE_PROFILE = {'workflow_profile': {'mode': 'posting_flow', 'supports_reco
 
 CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'posting_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'posting_date': 'posting_date', 'journal_entry': 'source_reference', 'account': 'account_reference', 'debit_amount': 'monetary_value', 'credit_amount': 'monetary_value', 'cost_center': 'cost_center_reference'}, 'search_fields': ['title', 'reference_no', 'description', 'posting_code', 'journal_entry', 'account'], 'list_columns': ['title', 'reference_no', 'posting_date', 'workflow_state'], 'initial_state': 'active', 'lifecycle_states': ['active', 'reversed', 'archived'], 'terminal_states': ['reversed', 'archived'], 'action_targets': {'record': None, 'review': None, 'reverse': 'reversed', 'archive': 'archived'}}
 
-WORKFLOW_HINTS = {'business_objective': 'validate financial transaction evidence, capture journals, post ledger entries, and retain auditable accounting records', 'actors': ['accounting officer', 'reviewer', 'approver', 'finance controller'], 'start_condition': 'a financial transaction or adjustment requires accounting recognition', 'ordered_steps': ['Record debit and credit ledger postings.', 'Post the journal to the ledger.', 'Reconcile or reverse if errors are found.', 'Retain the accounting record set for audit and reporting.'], 'primary_actions': ['record', 'review', 'post', 'reverse', 'archive'], 'primary_transitions': ['ledger_posting: active', 'ledger_posting: active -> reversed'], 'downstream_effects': ['postings feed reporting, reconciliation, receivables, payables, and closing workflows']}
+WORKFLOW_HINTS = {'business_objective': 'validate financial transaction evidence, capture journals, post ledger entries, and retain auditable accounting records', 'actors': ['accounting officer', 'reviewer', 'approver', 'finance controller'], 'start_condition': 'a financial transaction or adjustment requires accounting recognition', 'ordered_steps': ['Record debit and credit ledger postings.', 'Post the journal to the ledger.', 'Reconcile or reverse if errors are found.', 'Retain the accounting record set for audit and reporting.'], 'primary_actions': ['record', 'review', 'post', 'reverse', 'archive'], 'primary_transitions': ['ledger_posting: active', 'ledger_posting: active -> reversed'], 'downstream_effects': ['postings feed reporting, reconciliation, receivables, payables, and closing workflows'], 'action_actors': {'record': ['accounting officer'], 'review': ['reviewer'], 'reverse': ['accounting officer'], 'archive': ['accounting officer']}}
+
+SIDE_EFFECT_HINTS = {'downstream_effects': ['postings feed reporting, reconciliation, receivables, payables, and closing workflows'], 'related_docs': ['journal_entry', 'general_ledger_account', 'cost_center'], 'action_targets': {'record': None, 'review': None, 'reverse': 'reversed', 'archive': 'archived'}, 'action_side_effects_file': 'side_effects.json'}
 
 class DomainService:
     doc_id = "ledger_posting"
@@ -63,12 +65,28 @@ class DomainService:
     def after_update(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         return serialized_data
 
+    def after_action(
+        self,
+        instance,
+        action_id: str,
+        payload: dict,
+        action_result: dict,
+        context: dict | None = None,
+    ) -> dict:
+        return {
+            "updates": {},
+            "side_effects": [],
+        }
+
     def shape_retrieve_data(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         serialized_data.setdefault("_business_capabilities", self.business_capabilities())
         return serialized_data
 
     def workflow_objective(self) -> str | None:
         return WORKFLOW_HINTS.get("business_objective")
+
+    def side_effect_hints(self) -> dict:
+        return SIDE_EFFECT_HINTS
 
     def business_capabilities(self) -> dict:
         return {

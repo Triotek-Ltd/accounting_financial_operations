@@ -5,9 +5,11 @@ from __future__ import annotations
 
 ARCHETYPE_PROFILE = {'workflow_profile': {'mode': 'transaction_flow', 'supports_submission': True}, 'reporting_profile': {'supports_snapshots': True, 'supports_outputs': True}, 'integration_profile': {'external_sync_enabled': True, 'tracks_external_refs': True}, 'lifecycle_states': ['draft', 'approved', 'posted', 'reconciled', 'reversed', 'archived'], 'is_transactional': True}
 
-CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'transaction_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'transaction_date': 'transaction_date', 'party': 'primary_party', 'currency': 'currency_code', 'total_amount': 'total_amount', 'supplier': 'party_reference', 'payment_date': 'schedule_marker', 'settled_invoices': 'relation_collection'}, 'search_fields': ['title', 'reference_no', 'description', 'payment_number', 'supplier', 'payment_date'], 'list_columns': ['title', 'reference_no', 'transaction_date', 'party', 'total_amount', 'workflow_state'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'approved', 'posted', 'reconciled', 'reversed', 'archived'], 'terminal_states': ['reversed', 'archived'], 'action_targets': {'create': None, 'review': None, 'approve': 'approved', 'post': None, 'reconcile': None, 'reverse': 'reversed', 'archive': 'archived'}}
+CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'transaction_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'transaction_date': 'transaction_date', 'party': 'primary_party', 'currency': 'currency_code', 'total_amount': 'total_amount', 'supplier': 'party_reference', 'payment_date': 'schedule_marker', 'settled_invoices': 'relation_collection', 'related_payment_request': 'relation_collection', 'related_cash_account': 'relation_collection', 'related_journal_entry': 'relation_collection'}, 'search_fields': ['title', 'reference_no', 'description', 'payment_number', 'supplier', 'payment_date'], 'list_columns': ['title', 'reference_no', 'transaction_date', 'party', 'total_amount', 'workflow_state'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'approved', 'posted', 'reconciled', 'reversed', 'archived'], 'terminal_states': ['reversed', 'archived'], 'action_targets': {'create': None, 'review': None, 'approve': 'approved', 'post': None, 'reconcile': None, 'reverse': 'reversed', 'archive': 'archived'}}
 
-WORKFLOW_HINTS = {'business_objective': 'receive supplier invoices, verify them against procurement evidence, approve them, pay them, and keep the payable ledger current', 'actors': ['AP clerk', 'reviewer', 'approver', 'treasury or finance officer'], 'start_condition': 'a supplier invoice is received', 'ordered_steps': ['Execute supplier payment.', 'Reconcile payment against invoice balances.', 'Archive invoice and payment evidence.'], 'primary_actions': ['create', 'review', 'approve', 'post', 'reconcile', 'mark_payable', 'archive'], 'primary_transitions': ['supplier_payment: draft -> approved -> posted', 'supplier_payment: posted -> reconciled'], 'downstream_effects': ['updates AP aging, cash management, bookkeeping, and supplier history']}
+WORKFLOW_HINTS = {'business_objective': 'receive supplier invoices, verify them against procurement evidence, approve them, pay them, and keep the payable ledger current', 'actors': ['AP clerk', 'reviewer', 'approver', 'treasury or finance officer'], 'start_condition': 'a supplier invoice is received', 'ordered_steps': ['Execute supplier payment.', 'Reconcile payment against invoice balances.', 'Archive invoice and payment evidence.'], 'primary_actions': ['create', 'review', 'approve', 'post', 'reconcile', 'reverse', 'archive'], 'primary_transitions': ['supplier_payment: draft -> approved -> posted', 'supplier_payment: posted -> reconciled'], 'downstream_effects': ['updates AP aging, cash management, bookkeeping, and supplier history'], 'action_actors': {'create': ['AP clerk'], 'review': ['reviewer'], 'approve': ['approver'], 'post': ['treasury or finance officer'], 'reconcile': ['treasury or finance officer'], 'reverse': ['approver'], 'archive': ['AP clerk']}}
+
+SIDE_EFFECT_HINTS = {'downstream_effects': ['updates AP aging, cash management, bookkeeping, and supplier history'], 'related_docs': ['supplier_invoice', 'payment_request', 'cash_account', 'journal_entry'], 'action_targets': {'create': None, 'review': None, 'approve': 'approved', 'post': None, 'reconcile': None, 'reverse': 'reversed', 'archive': 'archived'}, 'action_side_effects_file': 'side_effects.json'}
 
 class DomainService:
     doc_id = "supplier_payment"
@@ -63,12 +65,28 @@ class DomainService:
     def after_update(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         return serialized_data
 
+    def after_action(
+        self,
+        instance,
+        action_id: str,
+        payload: dict,
+        action_result: dict,
+        context: dict | None = None,
+    ) -> dict:
+        return {
+            "updates": {},
+            "side_effects": [],
+        }
+
     def shape_retrieve_data(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         serialized_data.setdefault("_business_capabilities", self.business_capabilities())
         return serialized_data
 
     def workflow_objective(self) -> str | None:
         return WORKFLOW_HINTS.get("business_objective")
+
+    def side_effect_hints(self) -> dict:
+        return SIDE_EFFECT_HINTS
 
     def business_capabilities(self) -> dict:
         return {

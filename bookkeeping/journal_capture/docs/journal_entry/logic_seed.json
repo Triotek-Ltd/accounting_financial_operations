@@ -70,7 +70,13 @@
       "total_amount": "total_amount",
       "posting_date": "posting_date",
       "approval_status": "status_flag",
-      "posting_status": "status_flag"
+      "posting_status": "status_flag",
+      "related_general_ledger_account": "relation_collection",
+      "related_ledger_posting": "relation_collection",
+      "related_supplier_invoice": "relation_collection",
+      "related_customer_invoice": "relation_collection",
+      "related_supplier_payment": "relation_collection",
+      "related_receipt_record": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -132,8 +138,35 @@
     "primary_transitions": [],
     "downstream_effects": [
       "feeds management reporting, audit, compliance, and executive decision-making"
-    ]
+    ],
+    "action_actors": {
+      "create": [
+        "finance controller"
+      ],
+      "update": [
+        "finance controller"
+      ],
+      "review": [
+        "reporting accountant"
+      ],
+      "approve": [
+        "approver"
+      ],
+      "post": [
+        "finance controller"
+      ],
+      "reverse": [
+        "finance controller"
+      ],
+      "archive": [
+        "finance controller"
+      ]
+    }
   },
+  "downstream_effects": [
+    "feeds management reporting, audit, compliance, and executive decision-making"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "general_ledger_account",
     "ledger_posting",

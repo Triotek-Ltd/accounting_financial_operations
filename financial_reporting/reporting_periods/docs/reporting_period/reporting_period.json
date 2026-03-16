@@ -58,7 +58,11 @@
         "fiscal_year",
         "status"
       ],
-      "relations": [],
+      "relations": [
+        "related_closing_batch",
+        "related_financial_statement_run",
+        "related_adjustment_entry"
+      ],
       "amounts": [],
       "dates": [
         "start_date",
@@ -317,6 +321,78 @@
           "filterable": true,
           "sortable": true
         }
+      },
+      {
+        "field_id": "related_closing_batch",
+        "label": "Related Closing Batch",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "closing_batch",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_financial_statement_run",
+        "label": "Related Financial Statement Run",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "financial_statement_run",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_adjustment_entry",
+        "label": "Related Adjustment Entry",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "adjustment_entry",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
       }
     ],
     "title_field": "title",
@@ -407,17 +483,45 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
-          "review",
-          "assign",
-          "track",
-          "monitor",
-          "confirm",
+          "create",
+          "update",
+          "open",
+          "close",
           "archive"
+        ]
+      },
+      {
+        "role_id": "finance controller",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "update",
+          "close",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "reporting accountant",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "approver",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "management audience",
+        "actions": [
+          "view",
+          "list"
         ]
       }
     ],
@@ -495,7 +599,26 @@
         "show_in_related_panel": true
       }
     ],
-    "lookup_rules": [],
+    "lookup_rules": [
+      {
+        "field_id": "related_closing_batch",
+        "doc_id": "closing_batch",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_financial_statement_run",
+        "doc_id": "financial_statement_run",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_adjustment_entry",
+        "doc_id": "adjustment_entry",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      }
+    ],
     "fetch_rules": [],
     "reference_map": {
       "primary_reference_field": "reference_no",
@@ -503,7 +626,11 @@
     },
     "relation_rules": {
       "parent_doc": null,
-      "child_docs": [],
+      "child_docs": [
+        "closing_batch",
+        "financial_statement_run",
+        "adjustment_entry"
+      ],
       "show_related_panel": true
     },
     "borrowed_fields": [],
@@ -543,8 +670,23 @@
         ],
         "downstream_effects": [
           "feeds management reporting, audit, compliance, and executive decision-making"
-        ]
-      }
+        ],
+        "action_actors": {
+          "create": [
+            "finance controller"
+          ],
+          "update": [
+            "finance controller"
+          ],
+          "close": [
+            "finance controller"
+          ],
+          "archive": [
+            "finance controller"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -620,6 +762,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -637,6 +782,39 @@
       "doc_kind": "configuration"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/accounting_financial_operations/financial_reporting/reporting_periods/reporting_period/",
+    "status_field": "workflow_state",
+    "initial_state": "planned",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "close",
+        "source_state": "planned",
+        "target_state": "closed",
+        "disallowed_state": "closed"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "planned",
+        "target_state": "archived",
+        "disallowed_state": "closed"
+      }
+    ],
+    "related_docs": [
+      "closing_batch",
+      "financial_statement_run",
+      "adjustment_entry"
+    ],
+    "downstream_effects": [
+      "feeds management reporting, audit, compliance, and executive decision-making"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -644,7 +822,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

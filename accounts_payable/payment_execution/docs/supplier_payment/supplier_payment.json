@@ -72,7 +72,10 @@
       ],
       "relations": [
         "supplier",
-        "settled_invoices"
+        "settled_invoices",
+        "related_payment_request",
+        "related_cash_account",
+        "related_journal_entry"
       ],
       "amounts": [
         "currency",
@@ -458,6 +461,78 @@
           "filterable": true,
           "sortable": true
         }
+      },
+      {
+        "field_id": "related_payment_request",
+        "label": "Related Payment Request",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "payment_request",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_cash_account",
+        "label": "Related Cash Account",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "cash_account",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_journal_entry",
+        "label": "Related Journal Entry",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "journal_entry",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
       }
     ],
     "title_field": "title",
@@ -572,17 +647,50 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
+          "create",
           "review",
-          "assign",
-          "track",
-          "monitor",
-          "confirm",
+          "approve",
+          "post",
+          "reconcile",
+          "reverse",
           "archive"
+        ]
+      },
+      {
+        "role_id": "AP clerk",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "reviewer",
+        "actions": [
+          "view",
+          "list",
+          "review"
+        ]
+      },
+      {
+        "role_id": "approver",
+        "actions": [
+          "view",
+          "list",
+          "approve",
+          "reverse"
+        ]
+      },
+      {
+        "role_id": "treasury or finance officer",
+        "actions": [
+          "view",
+          "list",
+          "post",
+          "reconcile"
         ]
       }
     ],
@@ -683,6 +791,24 @@
         "doc_id": "supplier_invoice",
         "lookup_mode": "multiple",
         "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_payment_request",
+        "doc_id": "payment_request",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_cash_account",
+        "doc_id": "cash_account",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_journal_entry",
+        "doc_id": "journal_entry",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
       }
     ],
     "fetch_rules": [
@@ -709,7 +835,10 @@
     "relation_rules": {
       "parent_doc": null,
       "child_docs": [
-        "supplier_invoice"
+        "supplier_invoice",
+        "payment_request",
+        "cash_account",
+        "journal_entry"
       ],
       "show_related_panel": true
     },
@@ -758,7 +887,7 @@
           "approve",
           "post",
           "reconcile",
-          "mark_payable",
+          "reverse",
           "archive"
         ],
         "primary_transitions": [
@@ -767,8 +896,32 @@
         ],
         "downstream_effects": [
           "updates AP aging, cash management, bookkeeping, and supplier history"
-        ]
-      }
+        ],
+        "action_actors": {
+          "create": [
+            "AP clerk"
+          ],
+          "review": [
+            "reviewer"
+          ],
+          "approve": [
+            "approver"
+          ],
+          "post": [
+            "treasury or finance officer"
+          ],
+          "reconcile": [
+            "treasury or finance officer"
+          ],
+          "reverse": [
+            "approver"
+          ],
+          "archive": [
+            "AP clerk"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -848,6 +1001,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -867,6 +1023,47 @@
       "doc_kind": "transaction"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/accounting_financial_operations/accounts_payable/payment_execution/supplier_payment/",
+    "status_field": "workflow_state",
+    "initial_state": "draft",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "approve",
+        "source_state": "draft",
+        "target_state": "approved",
+        "disallowed_state": "reversed"
+      },
+      {
+        "action_id": "reverse",
+        "source_state": "draft",
+        "target_state": "reversed",
+        "disallowed_state": "reversed"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "draft",
+        "target_state": "archived",
+        "disallowed_state": "reversed"
+      }
+    ],
+    "related_docs": [
+      "supplier_invoice",
+      "payment_request",
+      "cash_account",
+      "journal_entry"
+    ],
+    "downstream_effects": [
+      "updates AP aging, cash management, bookkeeping, and supplier history"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -874,7 +1071,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

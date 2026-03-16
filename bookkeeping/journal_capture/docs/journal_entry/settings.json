@@ -45,7 +45,44 @@
       "show_in_related_panel": true
     }
   ],
-  "lookup_rules": [],
+  "lookup_rules": [
+    {
+      "field_id": "related_general_ledger_account",
+      "doc_id": "general_ledger_account",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_ledger_posting",
+      "doc_id": "ledger_posting",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_supplier_invoice",
+      "doc_id": "supplier_invoice",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_customer_invoice",
+      "doc_id": "customer_invoice",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_supplier_payment",
+      "doc_id": "supplier_payment",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_receipt_record",
+      "doc_id": "receipt_record",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    }
+  ],
   "fetch_rules": [],
   "reference_map": {
     "primary_reference_field": "reference_no",
@@ -53,7 +90,14 @@
   },
   "relation_rules": {
     "parent_doc": null,
-    "child_docs": [],
+    "child_docs": [
+      "general_ledger_account",
+      "ledger_posting",
+      "supplier_invoice",
+      "customer_invoice",
+      "supplier_payment",
+      "receipt_record"
+    ],
     "show_related_panel": true
   },
   "borrowed_fields": [
@@ -102,7 +146,31 @@
       "primary_transitions": [],
       "downstream_effects": [
         "feeds management reporting, audit, compliance, and executive decision-making"
-      ]
-    }
+      ],
+      "action_actors": {
+        "create": [
+          "finance controller"
+        ],
+        "update": [
+          "finance controller"
+        ],
+        "review": [
+          "reporting accountant"
+        ],
+        "approve": [
+          "approver"
+        ],
+        "post": [
+          "finance controller"
+        ],
+        "reverse": [
+          "finance controller"
+        ],
+        "archive": [
+          "finance controller"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
   }
 }

@@ -28,7 +28,20 @@
       "show_in_related_panel": true
     }
   ],
-  "lookup_rules": [],
+  "lookup_rules": [
+    {
+      "field_id": "related_bank_reconciliation",
+      "doc_id": "bank_reconciliation",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_treasury_movement",
+      "doc_id": "treasury_movement",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    }
+  ],
   "fetch_rules": [],
   "reference_map": {
     "primary_reference_field": "reference_no",
@@ -36,7 +49,10 @@
   },
   "relation_rules": {
     "parent_doc": null,
-    "child_docs": [],
+    "child_docs": [
+      "bank_reconciliation",
+      "treasury_movement"
+    ],
     "show_related_panel": true
   },
   "borrowed_fields": [
@@ -57,6 +73,36 @@
   "runtime_hints": {
     "doc_key": "cash_position_snapshot",
     "supports_related_lookup": true,
-    "supports_fetch_rules": true
+    "supports_fetch_rules": true,
+    "workflow_hints": {
+      "relation_context": {
+        "related_docs": [
+          "cash_account",
+          "bank_reconciliation",
+          "treasury_movement"
+        ],
+        "borrowed_fields": [
+          "account identity from cash_account"
+        ],
+        "inferred_roles": [
+          "finance officer"
+        ]
+      },
+      "actors": [
+        "finance officer"
+      ],
+      "action_actors": {
+        "create": [
+          "finance officer"
+        ],
+        "review": [
+          "finance officer"
+        ],
+        "archive": [
+          "finance officer"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
   }
 }

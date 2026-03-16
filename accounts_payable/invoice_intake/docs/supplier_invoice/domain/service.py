@@ -5,9 +5,11 @@ from __future__ import annotations
 
 ARCHETYPE_PROFILE = {'workflow_profile': {'mode': 'transaction_flow', 'supports_submission': True}, 'reporting_profile': {'supports_snapshots': True, 'supports_outputs': True}, 'integration_profile': {'external_sync_enabled': True, 'tracks_external_refs': True}, 'lifecycle_states': ['draft', 'approved', 'payable', 'partially_paid', 'paid', 'archived'], 'is_transactional': True}
 
-CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'transaction_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'transaction_date': 'transaction_date', 'party': 'primary_party', 'currency': 'currency_code', 'total_amount': 'total_amount', 'invoice_number': 'reference', 'supplier': 'party_reference', 'invoice_date': 'schedule_marker', 'due_date': 'schedule_marker', 'totals': 'structured_payload', 'approval_status': 'status_flag', 'payment_status': 'status_flag'}, 'search_fields': ['title', 'reference_no', 'description', 'invoice_number', 'supplier', 'invoice_date'], 'list_columns': ['title', 'reference_no', 'transaction_date', 'party', 'total_amount', 'workflow_state'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'approved', 'payable', 'partially_paid', 'paid', 'archived'], 'terminal_states': ['paid', 'archived'], 'action_targets': {'create': None, 'update': None, 'review': None, 'approve': 'approved', 'post': None, 'mark_payable': None, 'archive': 'archived'}}
+CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'transaction_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'transaction_date': 'transaction_date', 'party': 'primary_party', 'currency': 'currency_code', 'total_amount': 'total_amount', 'invoice_number': 'reference', 'supplier': 'party_reference', 'invoice_date': 'schedule_marker', 'due_date': 'schedule_marker', 'totals': 'structured_payload', 'approval_status': 'status_flag', 'payment_status': 'status_flag', 'related_payment_request': 'relation_collection', 'related_supplier_payment': 'relation_collection', 'related_journal_entry': 'relation_collection', 'related_purchase_order': 'relation_collection', 'related_goods_receipt': 'relation_collection'}, 'search_fields': ['title', 'reference_no', 'description', 'invoice_number', 'supplier', 'invoice_date'], 'list_columns': ['title', 'reference_no', 'transaction_date', 'party', 'total_amount', 'workflow_state'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'approved', 'payable', 'partially_paid', 'paid', 'archived'], 'terminal_states': ['paid', 'archived'], 'action_targets': {'create': None, 'update': None, 'review': None, 'approve': 'approved', 'post': None, 'mark_payable': None, 'archive': 'archived'}}
 
-WORKFLOW_HINTS = {'business_objective': 'receive supplier invoices, verify them against procurement evidence, approve them, pay them, and keep the payable ledger current', 'actors': ['AP clerk', 'reviewer', 'approver', 'treasury or finance officer'], 'start_condition': 'a supplier invoice is received', 'ordered_steps': ['Capture the supplier invoice and basic terms.', 'Match invoice against purchase and receipt records.', 'Reconcile payment against invoice balances.', 'Archive invoice and payment evidence.'], 'primary_actions': ['create', 'update', 'review', 'approve', 'reconcile', 'mark_payable', 'archive'], 'primary_transitions': ['supplier_invoice: draft', 'supplier_invoice: draft -> approved -> payable', 'supplier_invoice: payable -> partially_paid or paid'], 'downstream_effects': ['updates AP aging, cash management, bookkeeping, and supplier history']}
+WORKFLOW_HINTS = {'business_objective': 'receive supplier invoices, verify them against procurement evidence, approve them, pay them, and keep the payable ledger current', 'actors': ['AP clerk', 'reviewer', 'approver', 'treasury or finance officer'], 'start_condition': 'a supplier invoice is received', 'ordered_steps': ['Capture the supplier invoice and basic terms.', 'Match invoice against purchase and receipt records.', 'Reconcile payment against invoice balances.', 'Archive invoice and payment evidence.'], 'primary_actions': ['create', 'update', 'review', 'approve', 'reconcile', 'mark_payable', 'archive'], 'primary_transitions': ['supplier_invoice: draft', 'supplier_invoice: draft -> approved -> payable', 'supplier_invoice: payable -> partially_paid or paid'], 'downstream_effects': ['updates AP aging, cash management, bookkeeping, and supplier history'], 'action_actors': {'create': ['AP clerk'], 'update': ['AP clerk'], 'review': ['reviewer'], 'approve': ['approver'], 'post': ['treasury or finance officer'], 'archive': ['AP clerk']}}
+
+SIDE_EFFECT_HINTS = {'downstream_effects': ['updates AP aging, cash management, bookkeeping, and supplier history'], 'related_docs': ['supplier_profile', 'payment_request', 'supplier_payment', 'journal_entry', 'purchase_order', 'goods_receipt'], 'action_targets': {'create': None, 'update': None, 'review': None, 'approve': 'approved', 'post': None, 'mark_payable': None, 'archive': 'archived'}, 'action_side_effects_file': 'side_effects.json'}
 
 class DomainService:
     doc_id = "supplier_invoice"
@@ -63,12 +65,28 @@ class DomainService:
     def after_update(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         return serialized_data
 
+    def after_action(
+        self,
+        instance,
+        action_id: str,
+        payload: dict,
+        action_result: dict,
+        context: dict | None = None,
+    ) -> dict:
+        return {
+            "updates": {},
+            "side_effects": [],
+        }
+
     def shape_retrieve_data(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         serialized_data.setdefault("_business_capabilities", self.business_capabilities())
         return serialized_data
 
     def workflow_objective(self) -> str | None:
         return WORKFLOW_HINTS.get("business_objective")
+
+    def side_effect_hints(self) -> dict:
+        return SIDE_EFFECT_HINTS
 
     def business_capabilities(self) -> dict:
         return {

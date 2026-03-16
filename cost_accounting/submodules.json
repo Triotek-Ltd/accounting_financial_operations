@@ -1,6 +1,6 @@
 {
   "submodules": [
-    "cost_collection",
-    "allocation_control"
+    "allocation_control",
+    "cost_collection"
   ]
 }

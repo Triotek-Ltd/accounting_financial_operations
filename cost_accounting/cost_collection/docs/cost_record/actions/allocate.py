@@ -8,7 +8,7 @@ ACTION_ID = "allocate"
 ACTION_RULE = {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {}
+WORKFLOW_HINTS = {'relation_context': {'related_docs': ['cost_center', 'cost_allocation_rule', 'variance_record', 'journal_entry'], 'borrowed_fields': ['target centers', 'allocation basis from linked rules'], 'inferred_roles': ['finance officer']}, 'actors': ['finance officer'], 'action_actors': {'create': ['finance officer'], 'review': ['finance officer'], 'post': ['finance officer'], 'archive': ['finance officer']}}
 
 def handle_allocate(payload: dict, context: dict | None = None) -> dict:
     context = context or {}

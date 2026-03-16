@@ -5,9 +5,11 @@ from __future__ import annotations
 
 ARCHETYPE_PROFILE = {'workflow_profile': {'mode': 'posting_flow', 'supports_reconciliation': True}, 'reporting_profile': {'supports_snapshots': True, 'supports_outputs': True}, 'integration_profile': {'external_sync_enabled': True, 'tracks_external_refs': True}, 'lifecycle_states': ['active', 'reviewed', 'archived'], 'is_transactional': True}
 
-CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'posting_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'posting_date': 'posting_date'}, 'search_fields': ['title', 'reference_no', 'description', 'line_code', 'source_statement_run', 'line_category'], 'list_columns': ['title', 'reference_no', 'posting_date', 'workflow_state'], 'initial_state': 'active', 'lifecycle_states': ['active', 'reviewed', 'archived'], 'terminal_states': ['archived'], 'action_targets': {'record': None, 'review': 'reviewed', 'archive': 'archived'}}
+CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'posting_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'posting_date': 'posting_date', 'related_financial_statement_run': 'relation_collection', 'related_general_ledger_account': 'relation_collection'}, 'search_fields': ['title', 'reference_no', 'description', 'line_code', 'source_statement_run', 'line_category'], 'list_columns': ['title', 'reference_no', 'posting_date', 'workflow_state'], 'initial_state': 'active', 'lifecycle_states': ['active', 'reviewed', 'archived'], 'terminal_states': ['archived'], 'action_targets': {'record': None, 'review': 'reviewed', 'archive': 'archived'}}
 
-WORKFLOW_HINTS = {'business_objective': 'collect accounting records for a reporting period, generate financial statements, review them, and publish management-ready financial outputs', 'actors': ['finance controller', 'reporting accountant', 'approver', 'management audience'], 'start_condition': 'a reporting period is ready for statement preparation', 'ordered_steps': ['Produce statement lines and mapped totals.'], 'primary_actions': ['record', 'review'], 'primary_transitions': ['statement_line: active -> reviewed'], 'downstream_effects': ['feeds management reporting, audit, compliance, and executive decision-making']}
+WORKFLOW_HINTS = {'business_objective': 'collect accounting records for a reporting period, generate financial statements, review them, and publish management-ready financial outputs', 'actors': ['finance controller', 'reporting accountant', 'approver', 'management audience'], 'start_condition': 'a reporting period is ready for statement preparation', 'ordered_steps': ['Produce statement lines and mapped totals.'], 'primary_actions': ['record', 'review'], 'primary_transitions': ['statement_line: active -> reviewed'], 'downstream_effects': ['feeds management reporting, audit, compliance, and executive decision-making'], 'action_actors': {'record': ['finance controller'], 'review': ['reporting accountant'], 'archive': ['finance controller']}}
+
+SIDE_EFFECT_HINTS = {'downstream_effects': ['feeds management reporting, audit, compliance, and executive decision-making'], 'related_docs': ['financial_statement_run', 'general_ledger_account'], 'action_targets': {'record': None, 'review': 'reviewed', 'archive': 'archived'}, 'action_side_effects_file': 'side_effects.json'}
 
 class DomainService:
     doc_id = "statement_line"
@@ -63,12 +65,28 @@ class DomainService:
     def after_update(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         return serialized_data
 
+    def after_action(
+        self,
+        instance,
+        action_id: str,
+        payload: dict,
+        action_result: dict,
+        context: dict | None = None,
+    ) -> dict:
+        return {
+            "updates": {},
+            "side_effects": [],
+        }
+
     def shape_retrieve_data(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         serialized_data.setdefault("_business_capabilities", self.business_capabilities())
         return serialized_data
 
     def workflow_objective(self) -> str | None:
         return WORKFLOW_HINTS.get("business_objective")
+
+    def side_effect_hints(self) -> dict:
+        return SIDE_EFFECT_HINTS
 
     def business_capabilities(self) -> dict:
         return {

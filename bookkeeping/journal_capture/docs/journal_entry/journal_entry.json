@@ -70,7 +70,14 @@
         "voucher_type",
         "reference_document"
       ],
-      "relations": [],
+      "relations": [
+        "related_general_ledger_account",
+        "related_ledger_posting",
+        "related_supplier_invoice",
+        "related_customer_invoice",
+        "related_supplier_payment",
+        "related_receipt_record"
+      ],
       "amounts": [
         "currency",
         "total_amount"
@@ -471,6 +478,150 @@
           "filterable": true,
           "sortable": true
         }
+      },
+      {
+        "field_id": "related_general_ledger_account",
+        "label": "Related General Ledger Account",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "general_ledger_account",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_ledger_posting",
+        "label": "Related Ledger Posting",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "ledger_posting",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_supplier_invoice",
+        "label": "Related Supplier Invoice",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "supplier_invoice",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_customer_invoice",
+        "label": "Related Customer Invoice",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "customer_invoice",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_supplier_payment",
+        "label": "Related Supplier Payment",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "supplier_payment",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_receipt_record",
+        "label": "Related Receipt Record",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "receipt_record",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
       }
     ],
     "title_field": "title",
@@ -585,17 +736,50 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
+          "create",
+          "update",
           "review",
-          "assign",
-          "track",
-          "monitor",
-          "confirm",
+          "approve",
+          "post",
+          "reverse",
           "archive"
+        ]
+      },
+      {
+        "role_id": "finance controller",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "update",
+          "post",
+          "reverse",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "reporting accountant",
+        "actions": [
+          "view",
+          "list",
+          "review"
+        ]
+      },
+      {
+        "role_id": "approver",
+        "actions": [
+          "view",
+          "list",
+          "approve"
+        ]
+      },
+      {
+        "role_id": "management audience",
+        "actions": [
+          "view",
+          "list"
         ]
       }
     ],
@@ -694,7 +878,44 @@
         "show_in_related_panel": true
       }
     ],
-    "lookup_rules": [],
+    "lookup_rules": [
+      {
+        "field_id": "related_general_ledger_account",
+        "doc_id": "general_ledger_account",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_ledger_posting",
+        "doc_id": "ledger_posting",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_supplier_invoice",
+        "doc_id": "supplier_invoice",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_customer_invoice",
+        "doc_id": "customer_invoice",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_supplier_payment",
+        "doc_id": "supplier_payment",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_receipt_record",
+        "doc_id": "receipt_record",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      }
+    ],
     "fetch_rules": [],
     "reference_map": {
       "primary_reference_field": "reference_no",
@@ -702,7 +923,14 @@
     },
     "relation_rules": {
       "parent_doc": null,
-      "child_docs": [],
+      "child_docs": [
+        "general_ledger_account",
+        "ledger_posting",
+        "supplier_invoice",
+        "customer_invoice",
+        "supplier_payment",
+        "receipt_record"
+      ],
       "show_related_panel": true
     },
     "borrowed_fields": [
@@ -751,8 +979,32 @@
         "primary_transitions": [],
         "downstream_effects": [
           "feeds management reporting, audit, compliance, and executive decision-making"
-        ]
-      }
+        ],
+        "action_actors": {
+          "create": [
+            "finance controller"
+          ],
+          "update": [
+            "finance controller"
+          ],
+          "review": [
+            "reporting accountant"
+          ],
+          "approve": [
+            "approver"
+          ],
+          "post": [
+            "finance controller"
+          ],
+          "reverse": [
+            "finance controller"
+          ],
+          "archive": [
+            "finance controller"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -832,6 +1084,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -851,6 +1106,55 @@
       "doc_kind": "transaction"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/accounting_financial_operations/bookkeeping/journal_capture/journal_entry/",
+    "status_field": "workflow_state",
+    "initial_state": "draft",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "review",
+        "source_state": "draft",
+        "target_state": "reviewed",
+        "disallowed_state": "reversed"
+      },
+      {
+        "action_id": "approve",
+        "source_state": "draft",
+        "target_state": "approved",
+        "disallowed_state": "reversed"
+      },
+      {
+        "action_id": "reverse",
+        "source_state": "draft",
+        "target_state": "reversed",
+        "disallowed_state": "reversed"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "draft",
+        "target_state": "archived",
+        "disallowed_state": "reversed"
+      }
+    ],
+    "related_docs": [
+      "general_ledger_account",
+      "ledger_posting",
+      "supplier_invoice",
+      "customer_invoice",
+      "supplier_payment",
+      "receipt_record"
+    ],
+    "downstream_effects": [
+      "feeds management reporting, audit, compliance, and executive decision-making"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -858,7 +1162,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

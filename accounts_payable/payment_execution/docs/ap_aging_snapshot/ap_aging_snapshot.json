@@ -55,7 +55,8 @@
         "total_outstanding"
       ],
       "relations": [
-        "supplier"
+        "supplier",
+        "related_supplier_invoice"
       ],
       "amounts": [],
       "dates": [
@@ -336,6 +337,30 @@
           "filterable": true,
           "sortable": true
         }
+      },
+      {
+        "field_id": "related_supplier_invoice",
+        "label": "Related Supplier Invoice",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "supplier_invoice",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
       }
     ],
     "title_field": "title",
@@ -400,17 +425,28 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
+          "create",
           "review",
-          "assign",
-          "track",
-          "monitor",
-          "confirm",
           "archive"
+        ]
+      },
+      {
+        "role_id": "procurement officer",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "finance officer",
+        "actions": [
+          "view",
+          "list",
+          "review"
         ]
       }
     ],
@@ -489,6 +525,12 @@
         "doc_id": "supplier_profile",
         "lookup_mode": "single",
         "purpose": "party_reference"
+      },
+      {
+        "field_id": "related_supplier_invoice",
+        "doc_id": "supplier_invoice",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
       }
     ],
     "fetch_rules": [
@@ -514,7 +556,9 @@
     },
     "relation_rules": {
       "parent_doc": null,
-      "child_docs": [],
+      "child_docs": [
+        "supplier_invoice"
+      ],
       "show_related_panel": true
     },
     "borrowed_fields": [
@@ -538,7 +582,39 @@
     "runtime_hints": {
       "doc_key": "ap_aging_snapshot",
       "supports_related_lookup": true,
-      "supports_fetch_rules": true
+      "supports_fetch_rules": true,
+      "workflow_hints": {
+        "relation_context": {
+          "related_docs": [
+            "supplier_invoice",
+            "supplier_profile"
+          ],
+          "borrowed_fields": [
+            "supplier identity from supplier_profile",
+            "outstanding balances from supplier_invoice"
+          ],
+          "inferred_roles": [
+            "procurement officer",
+            "finance officer"
+          ]
+        },
+        "actors": [
+          "procurement officer",
+          "finance officer"
+        ],
+        "action_actors": {
+          "create": [
+            "procurement officer"
+          ],
+          "review": [
+            "finance officer"
+          ],
+          "archive": [
+            "procurement officer"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -614,6 +690,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -629,6 +708,31 @@
       "doc_kind": "ledger"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/accounting_financial_operations/accounts_payable/payment_execution/ap_aging_snapshot/",
+    "status_field": "workflow_state",
+    "initial_state": "active",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "posting_date"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "archive",
+        "source_state": "active",
+        "target_state": "archived",
+        "disallowed_state": "archived"
+      }
+    ],
+    "related_docs": [
+      "supplier_invoice",
+      "supplier_profile"
+    ],
+    "downstream_effects": [],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -636,7 +740,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

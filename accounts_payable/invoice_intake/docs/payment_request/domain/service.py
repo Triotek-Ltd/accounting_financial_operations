@@ -5,9 +5,11 @@ from __future__ import annotations
 
 ARCHETYPE_PROFILE = {'workflow_profile': {'mode': 'case_flow', 'supports_assignment': True, 'supports_escalation': True}, 'reporting_profile': {'supports_snapshots': True, 'supports_outputs': False}, 'integration_profile': {'external_sync_enabled': False}, 'lifecycle_states': ['draft', 'submitted', 'approved', 'executed', 'cancelled', 'archived'], 'is_transactional': False}
 
-CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'requested_amount': 'monetary_value', 'approver': 'actor_reference'}, 'search_fields': ['title', 'reference_no', 'description', 'request_number', 'source_invoice', 'requested_amount'], 'list_columns': ['title', 'reference_no', 'workflow_state', 'modified'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'submitted', 'approved', 'executed', 'cancelled', 'archived'], 'terminal_states': ['archived'], 'action_targets': {'create': None, 'submit': 'submitted', 'review': None, 'approve': 'approved', 'reject': None, 'execute': None, 'cancel': None, 'archive': 'archived'}}
+CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'requested_amount': 'monetary_value', 'approver': 'actor_reference', 'related_supplier_invoice': 'relation_collection', 'related_supplier_payment': 'relation_collection', 'related_cash_account': 'relation_collection'}, 'search_fields': ['title', 'reference_no', 'description', 'request_number', 'source_invoice', 'requested_amount'], 'list_columns': ['title', 'reference_no', 'workflow_state', 'modified'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'submitted', 'approved', 'executed', 'cancelled', 'archived'], 'terminal_states': ['archived'], 'action_targets': {'create': None, 'submit': 'submitted', 'review': None, 'approve': 'approved', 'reject': None, 'execute': None, 'cancel': None, 'archive': 'archived'}}
 
-WORKFLOW_HINTS = {'business_objective': 'receive supplier invoices, verify them against procurement evidence, approve them, pay them, and keep the payable ledger current', 'actors': ['AP clerk', 'reviewer', 'approver', 'treasury or finance officer'], 'start_condition': 'a supplier invoice is received', 'ordered_steps': ['Raise and approve the payment request.', 'Archive invoice and payment evidence.'], 'primary_actions': ['create', 'submit', 'review', 'approve', 'archive'], 'primary_transitions': ['payment_request: draft -> submitted -> approved'], 'downstream_effects': ['updates AP aging, cash management, bookkeeping, and supplier history']}
+WORKFLOW_HINTS = {'business_objective': 'receive supplier invoices, verify them against procurement evidence, approve them, pay them, and keep the payable ledger current', 'actors': ['AP clerk', 'reviewer', 'approver', 'treasury or finance officer'], 'start_condition': 'a supplier invoice is received', 'ordered_steps': ['Raise and approve the payment request.', 'Archive invoice and payment evidence.'], 'primary_actions': ['create', 'submit', 'review', 'approve', 'execute', 'archive'], 'primary_transitions': ['payment_request: draft -> submitted -> approved -> executed'], 'downstream_effects': ['updates AP aging, cash management, bookkeeping, and supplier history'], 'action_actors': {'create': ['AP clerk'], 'submit': ['AP clerk'], 'review': ['reviewer'], 'approve': ['approver'], 'reject': ['approver'], 'execute': ['treasury or finance officer'], 'cancel': ['AP clerk', 'approver'], 'archive': ['AP clerk']}}
+
+SIDE_EFFECT_HINTS = {'downstream_effects': ['updates AP aging, cash management, bookkeeping, and supplier history'], 'related_docs': ['supplier_invoice', 'supplier_payment', 'cash_account'], 'action_targets': {'create': None, 'submit': 'submitted', 'review': None, 'approve': 'approved', 'reject': None, 'execute': None, 'cancel': None, 'archive': 'archived'}, 'action_side_effects_file': 'side_effects.json'}
 
 class DomainService:
     doc_id = "payment_request"
@@ -63,12 +65,28 @@ class DomainService:
     def after_update(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         return serialized_data
 
+    def after_action(
+        self,
+        instance,
+        action_id: str,
+        payload: dict,
+        action_result: dict,
+        context: dict | None = None,
+    ) -> dict:
+        return {
+            "updates": {},
+            "side_effects": [],
+        }
+
     def shape_retrieve_data(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         serialized_data.setdefault("_business_capabilities", self.business_capabilities())
         return serialized_data
 
     def workflow_objective(self) -> str | None:
         return WORKFLOW_HINTS.get("business_objective")
+
+    def side_effect_hints(self) -> dict:
+        return SIDE_EFFECT_HINTS
 
     def business_capabilities(self) -> dict:
         return {

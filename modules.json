@@ -1,10 +1,10 @@
 {
   "modules": [
-    "accounts_receivable",
-    "financial_reporting",
-    "bookkeeping",
     "accounts_payable",
+    "accounts_receivable",
+    "bookkeeping",
+    "cash_management",
     "cost_accounting",
-    "cash_management"
+    "financial_reporting"
   ]
 }

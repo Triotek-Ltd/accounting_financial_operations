@@ -36,6 +36,18 @@
       "doc_id": "customer_invoice",
       "lookup_mode": "single",
       "purpose": "party_reference"
+    },
+    {
+      "field_id": "related_cash_account",
+      "doc_id": "cash_account",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_journal_entry",
+      "doc_id": "journal_entry",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
     }
   ],
   "fetch_rules": [
@@ -56,7 +68,10 @@
   },
   "relation_rules": {
     "parent_doc": null,
-    "child_docs": [],
+    "child_docs": [
+      "cash_account",
+      "journal_entry"
+    ],
     "show_related_panel": true
   },
   "borrowed_fields": [
@@ -106,7 +121,31 @@
       ],
       "downstream_effects": [
         "updates AR aging, customer history, cash management, and bookkeeping"
-      ]
-    }
+      ],
+      "action_actors": {
+        "create": [
+          "billing officer"
+        ],
+        "review": [
+          "collections officer"
+        ],
+        "approve": [
+          "collections officer"
+        ],
+        "post": [
+          "customer-facing finance team"
+        ],
+        "reconcile": [
+          "customer-facing finance team"
+        ],
+        "reverse": [
+          "billing officer"
+        ],
+        "archive": [
+          "billing officer"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
   }
 }

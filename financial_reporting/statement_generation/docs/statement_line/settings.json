@@ -23,7 +23,20 @@
       "show_in_related_panel": true
     }
   ],
-  "lookup_rules": [],
+  "lookup_rules": [
+    {
+      "field_id": "related_financial_statement_run",
+      "doc_id": "financial_statement_run",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_general_ledger_account",
+      "doc_id": "general_ledger_account",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    }
+  ],
   "fetch_rules": [],
   "reference_map": {
     "primary_reference_field": "reference_no",
@@ -31,7 +44,10 @@
   },
   "relation_rules": {
     "parent_doc": null,
-    "child_docs": [],
+    "child_docs": [
+      "financial_statement_run",
+      "general_ledger_account"
+    ],
     "show_related_panel": true
   },
   "borrowed_fields": [
@@ -77,7 +93,19 @@
       ],
       "downstream_effects": [
         "feeds management reporting, audit, compliance, and executive decision-making"
-      ]
-    }
+      ],
+      "action_actors": {
+        "record": [
+          "finance controller"
+        ],
+        "review": [
+          "reporting accountant"
+        ],
+        "archive": [
+          "finance controller"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
   }
 }

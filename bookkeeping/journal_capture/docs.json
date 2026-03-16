@@ -1,7 +1,7 @@
 {
   "docs": [
-    "ledger_posting",
     "general_ledger_account",
-    "journal_entry"
+    "journal_entry",
+    "ledger_posting"
   ]
 }

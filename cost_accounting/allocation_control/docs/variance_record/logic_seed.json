@@ -58,7 +58,10 @@
       "workflow_state": "lifecycle_state",
       "posting_date": "posting_date",
       "actual_amount": "monetary_value",
-      "variance_amount": "monetary_value"
+      "variance_amount": "monetary_value",
+      "related_cost_record": "relation_collection",
+      "related_cost_center": "relation_collection",
+      "related_budget_plan": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -92,6 +95,8 @@
     }
   },
   "workflow_hints": {},
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "cost_record",
     "cost_center",

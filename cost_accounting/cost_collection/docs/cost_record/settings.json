@@ -41,6 +41,24 @@
       "doc_id": "cost_center",
       "lookup_mode": "single",
       "purpose": "cost_center_reference"
+    },
+    {
+      "field_id": "related_cost_allocation_rule",
+      "doc_id": "cost_allocation_rule",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_variance_record",
+      "doc_id": "variance_record",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_journal_entry",
+      "doc_id": "journal_entry",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
     }
   ],
   "fetch_rules": [
@@ -61,7 +79,11 @@
   },
   "relation_rules": {
     "parent_doc": null,
-    "child_docs": [],
+    "child_docs": [
+      "cost_allocation_rule",
+      "variance_record",
+      "journal_entry"
+    ],
     "show_related_panel": true
   },
   "borrowed_fields": [
@@ -85,6 +107,41 @@
   "runtime_hints": {
     "doc_key": "cost_record",
     "supports_related_lookup": true,
-    "supports_fetch_rules": true
+    "supports_fetch_rules": true,
+    "workflow_hints": {
+      "relation_context": {
+        "related_docs": [
+          "cost_center",
+          "cost_allocation_rule",
+          "variance_record",
+          "journal_entry"
+        ],
+        "borrowed_fields": [
+          "target centers",
+          "allocation basis from linked rules"
+        ],
+        "inferred_roles": [
+          "finance officer"
+        ]
+      },
+      "actors": [
+        "finance officer"
+      ],
+      "action_actors": {
+        "create": [
+          "finance officer"
+        ],
+        "review": [
+          "finance officer"
+        ],
+        "post": [
+          "finance officer"
+        ],
+        "archive": [
+          "finance officer"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
   }
 }

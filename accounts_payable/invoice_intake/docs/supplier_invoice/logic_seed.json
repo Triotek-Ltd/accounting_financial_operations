@@ -74,7 +74,12 @@
       "due_date": "schedule_marker",
       "totals": "structured_payload",
       "approval_status": "status_flag",
-      "payment_status": "status_flag"
+      "payment_status": "status_flag",
+      "related_payment_request": "relation_collection",
+      "related_supplier_payment": "relation_collection",
+      "related_journal_entry": "relation_collection",
+      "related_purchase_order": "relation_collection",
+      "related_goods_receipt": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -146,8 +151,32 @@
     ],
     "downstream_effects": [
       "updates AP aging, cash management, bookkeeping, and supplier history"
-    ]
+    ],
+    "action_actors": {
+      "create": [
+        "AP clerk"
+      ],
+      "update": [
+        "AP clerk"
+      ],
+      "review": [
+        "reviewer"
+      ],
+      "approve": [
+        "approver"
+      ],
+      "post": [
+        "treasury or finance officer"
+      ],
+      "archive": [
+        "AP clerk"
+      ]
+    }
   },
+  "downstream_effects": [
+    "updates AP aging, cash management, bookkeeping, and supplier history"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "supplier_profile",
     "payment_request",

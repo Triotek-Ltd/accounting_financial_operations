@@ -67,7 +67,8 @@
       "workflow_state": "lifecycle_state",
       "customer": "party_reference",
       "invoice_set": "relation_collection",
-      "aging_status": "status_flag"
+      "aging_status": "status_flag",
+      "related_receipt_record": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -133,8 +134,26 @@
     ],
     "downstream_effects": [
       "updates AR aging, customer history, cash management, and bookkeeping"
-    ]
+    ],
+    "action_actors": {
+      "create": [
+        "billing officer"
+      ],
+      "assign": [
+        "billing officer"
+      ],
+      "close": [
+        "billing officer"
+      ],
+      "archive": [
+        "billing officer"
+      ]
+    }
   },
+  "downstream_effects": [
+    "updates AR aging, customer history, cash management, and bookkeeping"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "customer_invoice",
     "customer_account",

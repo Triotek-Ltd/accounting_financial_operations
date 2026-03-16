@@ -70,7 +70,10 @@
       "total_amount": "total_amount",
       "supplier": "party_reference",
       "payment_date": "schedule_marker",
-      "settled_invoices": "relation_collection"
+      "settled_invoices": "relation_collection",
+      "related_payment_request": "relation_collection",
+      "related_cash_account": "relation_collection",
+      "related_journal_entry": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -131,7 +134,7 @@
       "approve",
       "post",
       "reconcile",
-      "mark_payable",
+      "reverse",
       "archive"
     ],
     "primary_transitions": [
@@ -140,8 +143,35 @@
     ],
     "downstream_effects": [
       "updates AP aging, cash management, bookkeeping, and supplier history"
-    ]
+    ],
+    "action_actors": {
+      "create": [
+        "AP clerk"
+      ],
+      "review": [
+        "reviewer"
+      ],
+      "approve": [
+        "approver"
+      ],
+      "post": [
+        "treasury or finance officer"
+      ],
+      "reconcile": [
+        "treasury or finance officer"
+      ],
+      "reverse": [
+        "approver"
+      ],
+      "archive": [
+        "AP clerk"
+      ]
+    }
   },
+  "downstream_effects": [
+    "updates AP aging, cash management, bookkeeping, and supplier history"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "supplier_invoice",
     "payment_request",

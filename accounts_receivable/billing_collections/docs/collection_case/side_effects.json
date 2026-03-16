@@ -1,0 +1,137 @@
+{
+  "close": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "closed"
+      }
+    }
+  ],
+  "archive": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "archived"
+      }
+    }
+  ],
+  "approve": [
+    {
+      "type": "update_current",
+      "fields": {
+        "posting_status": "draft"
+      }
+    }
+  ],
+  "issue": [
+    {
+      "type": "update_current",
+      "fields": {
+        "collection_status": "active"
+      }
+    },
+    {
+      "type": "create_record",
+      "effect_id": "collection_case",
+      "target_doc": "collection_case",
+      "lookup": {
+        "reference_no": {
+          "$template": "COLL-{invoice_number|reference_no|pk}"
+        }
+      },
+      "values": {
+        "title": {
+          "$template": "Collection Case {invoice_number|reference_no|pk}"
+        },
+        "reference_no": {
+          "$template": "COLL-{invoice_number|reference_no|pk}"
+        },
+        "case_number": {
+          "$template": "COLL-{invoice_number|reference_no|pk}"
+        },
+        "customer": {
+          "$from": [
+            "customer"
+          ]
+        },
+        "workflow_state": "open",
+        "aging_status": "open",
+        "invoice_set": [
+          {
+            "$from": [
+              "invoice_number",
+              "reference_no",
+              "pk"
+            ]
+          }
+        ],
+        "contact_activity": "invoice_issued"
+      }
+    }
+  ],
+  "post": [
+    {
+      "type": "update_current",
+      "fields": {
+        "posting_status": "active"
+      }
+    },
+    {
+      "type": "create_record",
+      "effect_id": "journal_entry",
+      "target_doc": "journal_entry",
+      "lookup": {
+        "reference_document": {
+          "$from": [
+            "invoice_number",
+            "reference_no",
+            "pk"
+          ]
+        }
+      },
+      "values": {
+        "title": {
+          "$template": "AR Journal Entry {invoice_number|reference_no|pk}"
+        },
+        "reference_no": {
+          "$template": "ARJ-{invoice_number|reference_no|pk}"
+        },
+        "journal_number": {
+          "$template": "ARJ-{invoice_number|reference_no|pk}"
+        },
+        "reference_document": {
+          "$from": [
+            "invoice_number",
+            "reference_no",
+            "pk"
+          ]
+        },
+        "transaction_date": {
+          "$from": [
+            "transaction_date",
+            "invoice_date"
+          ]
+        },
+        "posting_date": {
+          "$from": [
+            "transaction_date",
+            "invoice_date"
+          ]
+        },
+        "workflow_state": "draft",
+        "currency": {
+          "$from": [
+            "currency"
+          ]
+        },
+        "total_amount": {
+          "$from": [
+            "total_amount"
+          ]
+        },
+        "voucher_type": "customer_invoice",
+        "company_or_business_unit": "default"
+      }
+    }
+  ]
+}

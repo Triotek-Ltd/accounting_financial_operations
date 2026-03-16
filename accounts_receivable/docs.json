@@ -1,8 +1,8 @@
 {
   "docs": [
-    "customer_invoice",
     "ar_aging_snapshot",
     "collection_case",
+    "customer_invoice",
     "receipt_record"
   ]
 }

@@ -57,7 +57,11 @@
         "parent_account",
         "currency"
       ],
-      "relations": [],
+      "relations": [
+        "related_journal_entry",
+        "related_ledger_posting",
+        "related_cost_center"
+      ],
       "amounts": [],
       "dates": [],
       "parties": [],
@@ -319,6 +323,78 @@
           "filterable": true,
           "sortable": true
         }
+      },
+      {
+        "field_id": "related_journal_entry",
+        "label": "Related Journal Entry",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "journal_entry",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_ledger_posting",
+        "label": "Related Ledger Posting",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "ledger_posting",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_cost_center",
+        "label": "Related Cost Center",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "cost_center",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
       }
     ],
     "title_field": "title",
@@ -394,17 +470,44 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
+          "create",
+          "update",
           "review",
-          "assign",
-          "track",
-          "monitor",
-          "confirm",
           "archive"
+        ]
+      },
+      {
+        "role_id": "accounting officer",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "update",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "reviewer",
+        "actions": [
+          "view",
+          "list",
+          "review"
+        ]
+      },
+      {
+        "role_id": "approver",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "finance controller",
+        "actions": [
+          "view",
+          "list"
         ]
       }
     ],
@@ -482,7 +585,26 @@
         "show_in_related_panel": true
       }
     ],
-    "lookup_rules": [],
+    "lookup_rules": [
+      {
+        "field_id": "related_journal_entry",
+        "doc_id": "journal_entry",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_ledger_posting",
+        "doc_id": "ledger_posting",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_cost_center",
+        "doc_id": "cost_center",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      }
+    ],
     "fetch_rules": [],
     "reference_map": {
       "primary_reference_field": "reference_no",
@@ -490,7 +612,11 @@
     },
     "relation_rules": {
       "parent_doc": null,
-      "child_docs": [],
+      "child_docs": [
+        "journal_entry",
+        "ledger_posting",
+        "cost_center"
+      ],
       "show_related_panel": true
     },
     "borrowed_fields": [],
@@ -530,8 +656,23 @@
         "primary_transitions": [],
         "downstream_effects": [
           "postings feed reporting, reconciliation, receivables, payables, and closing workflows"
-        ]
-      }
+        ],
+        "action_actors": {
+          "create": [
+            "accounting officer"
+          ],
+          "update": [
+            "accounting officer"
+          ],
+          "review": [
+            "reviewer"
+          ],
+          "archive": [
+            "accounting officer"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -607,6 +748,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -623,6 +767,33 @@
       "doc_kind": "master"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/accounting_financial_operations/bookkeeping/journal_capture/general_ledger_account/",
+    "status_field": "workflow_state",
+    "initial_state": "active",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "archive",
+        "source_state": "active",
+        "target_state": "archived",
+        "disallowed_state": "archived"
+      }
+    ],
+    "related_docs": [
+      "journal_entry",
+      "ledger_posting",
+      "cost_center"
+    ],
+    "downstream_effects": [
+      "postings feed reporting, reconciliation, receivables, payables, and closing workflows"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -630,7 +801,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

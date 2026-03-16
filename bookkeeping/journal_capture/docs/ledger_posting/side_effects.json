@@ -1,0 +1,34 @@
+{
+  "record": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "active"
+      }
+    }
+  ],
+  "review": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "active"
+      }
+    }
+  ],
+  "reverse": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "reversed"
+      }
+    }
+  ],
+  "archive": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "archived"
+      }
+    }
+  ]
+}

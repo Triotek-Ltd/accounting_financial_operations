@@ -29,6 +29,12 @@
       "doc_id": "customer_account",
       "lookup_mode": "single",
       "purpose": "party_reference"
+    },
+    {
+      "field_id": "related_customer_invoice",
+      "doc_id": "customer_invoice",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
     }
   ],
   "fetch_rules": [
@@ -54,7 +60,9 @@
   },
   "relation_rules": {
     "parent_doc": null,
-    "child_docs": [],
+    "child_docs": [
+      "customer_invoice"
+    ],
     "show_related_panel": true
   },
   "borrowed_fields": [
@@ -78,6 +86,38 @@
   "runtime_hints": {
     "doc_key": "ar_aging_snapshot",
     "supports_related_lookup": true,
-    "supports_fetch_rules": true
+    "supports_fetch_rules": true,
+    "workflow_hints": {
+      "relation_context": {
+        "related_docs": [
+          "customer_invoice",
+          "customer_account"
+        ],
+        "borrowed_fields": [
+          "customer identity from customer_account",
+          "due balances from customer_invoice"
+        ],
+        "inferred_roles": [
+          "account owner",
+          "finance officer"
+        ]
+      },
+      "actors": [
+        "account owner",
+        "finance officer"
+      ],
+      "action_actors": {
+        "create": [
+          "account owner"
+        ],
+        "review": [
+          "finance officer"
+        ],
+        "archive": [
+          "account owner"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
   }
 }

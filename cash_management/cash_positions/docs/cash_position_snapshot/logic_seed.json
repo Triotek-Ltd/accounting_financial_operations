@@ -55,7 +55,9 @@
       "as_of_date": "schedule_marker",
       "opening_balance": "monetary_value",
       "closing_balance": "monetary_value",
-      "available_balance": "monetary_value"
+      "available_balance": "monetary_value",
+      "related_bank_reconciliation": "relation_collection",
+      "related_treasury_movement": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -85,7 +87,37 @@
       "archive": "archived"
     }
   },
-  "workflow_hints": {},
+  "workflow_hints": {
+    "relation_context": {
+      "related_docs": [
+        "cash_account",
+        "bank_reconciliation",
+        "treasury_movement"
+      ],
+      "borrowed_fields": [
+        "account identity from cash_account"
+      ],
+      "inferred_roles": [
+        "finance officer"
+      ]
+    },
+    "actors": [
+      "finance officer"
+    ],
+    "action_actors": {
+      "create": [
+        "finance officer"
+      ],
+      "review": [
+        "finance officer"
+      ],
+      "archive": [
+        "finance officer"
+      ]
+    }
+  },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "cash_account",
     "bank_reconciliation",

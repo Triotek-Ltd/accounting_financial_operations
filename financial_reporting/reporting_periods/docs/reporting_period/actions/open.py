@@ -8,7 +8,7 @@ ACTION_ID = "open"
 ACTION_RULE = {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': None}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'collect accounting records for a reporting period, generate financial statements, review them, and publish management-ready financial outputs', 'actors': ['finance controller', 'reporting accountant', 'approver', 'management audience'], 'start_condition': 'a reporting period is ready for statement preparation', 'ordered_steps': ['Confirm the reporting period and close readiness.'], 'primary_actions': ['review', 'approve', 'close'], 'primary_transitions': ['reporting_period: open -> closing -> closed'], 'downstream_effects': ['feeds management reporting, audit, compliance, and executive decision-making']}
+WORKFLOW_HINTS = {'business_objective': 'collect accounting records for a reporting period, generate financial statements, review them, and publish management-ready financial outputs', 'actors': ['finance controller', 'reporting accountant', 'approver', 'management audience'], 'start_condition': 'a reporting period is ready for statement preparation', 'ordered_steps': ['Confirm the reporting period and close readiness.'], 'primary_actions': ['review', 'approve', 'close'], 'primary_transitions': ['reporting_period: open -> closing -> closed'], 'downstream_effects': ['feeds management reporting, audit, compliance, and executive decision-making'], 'action_actors': {'create': ['finance controller'], 'update': ['finance controller'], 'close': ['finance controller'], 'archive': ['finance controller']}}
 
 def handle_open(payload: dict, context: dict | None = None) -> dict:
     context = context or {}

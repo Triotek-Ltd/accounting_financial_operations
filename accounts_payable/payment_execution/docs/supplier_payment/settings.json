@@ -47,6 +47,24 @@
       "doc_id": "supplier_invoice",
       "lookup_mode": "multiple",
       "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_payment_request",
+      "doc_id": "payment_request",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_cash_account",
+      "doc_id": "cash_account",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_journal_entry",
+      "doc_id": "journal_entry",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
     }
   ],
   "fetch_rules": [
@@ -73,7 +91,10 @@
   "relation_rules": {
     "parent_doc": null,
     "child_docs": [
-      "supplier_invoice"
+      "supplier_invoice",
+      "payment_request",
+      "cash_account",
+      "journal_entry"
     ],
     "show_related_panel": true
   },
@@ -122,7 +143,7 @@
         "approve",
         "post",
         "reconcile",
-        "mark_payable",
+        "reverse",
         "archive"
       ],
       "primary_transitions": [
@@ -131,7 +152,31 @@
       ],
       "downstream_effects": [
         "updates AP aging, cash management, bookkeeping, and supplier history"
-      ]
-    }
+      ],
+      "action_actors": {
+        "create": [
+          "AP clerk"
+        ],
+        "review": [
+          "reviewer"
+        ],
+        "approve": [
+          "approver"
+        ],
+        "post": [
+          "treasury or finance officer"
+        ],
+        "reconcile": [
+          "treasury or finance officer"
+        ],
+        "reverse": [
+          "approver"
+        ],
+        "archive": [
+          "AP clerk"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
   }
 }

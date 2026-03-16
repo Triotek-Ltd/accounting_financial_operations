@@ -1,0 +1,104 @@
+{
+  "create": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "draft"
+      }
+    }
+  ],
+  "submit": [
+    {
+      "type": "update_current",
+      "fields": {
+        "execution_readiness": "under_review"
+      }
+    }
+  ],
+  "review": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "draft"
+      }
+    }
+  ],
+  "approve": [
+    {
+      "type": "update_current",
+      "fields": {
+        "execution_readiness": "approved",
+        "outcome": "ready_for_payment"
+      }
+    }
+  ],
+  "execute": [
+    {
+      "type": "update_current",
+      "fields": {
+        "outcome": "payment_initiated"
+      }
+    },
+    {
+      "type": "create_record",
+      "effect_id": "supplier_payment",
+      "target_doc": "supplier_payment",
+      "lookup": {
+        "reference_no": {
+          "$template": "SPAY-{request_number|reference_no|pk}"
+        }
+      },
+      "values": {
+        "title": {
+          "$template": "Supplier Payment {request_number|reference_no|pk}"
+        },
+        "reference_no": {
+          "$template": "SPAY-{request_number|reference_no|pk}"
+        },
+        "payment_number": {
+          "$template": "SPAY-{request_number|reference_no|pk}"
+        },
+        "supplier": {
+          "$from": [
+            "supplier"
+          ]
+        },
+        "payment_date": {
+          "$today": true
+        },
+        "payment_account": {
+          "$from": [
+            "payment_method"
+          ]
+        },
+        "amount": {
+          "$from": [
+            "requested_amount"
+          ]
+        },
+        "total_amount": {
+          "$from": [
+            "requested_amount"
+          ]
+        },
+        "workflow_state": "draft"
+      }
+    }
+  ],
+  "cancel": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "cancelled"
+      }
+    }
+  ],
+  "archive": [
+    {
+      "type": "update_current",
+      "fields": {
+        "workflow_state": "archived"
+      }
+    }
+  ]
+}

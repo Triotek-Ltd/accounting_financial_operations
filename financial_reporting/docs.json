@@ -1,8 +1,8 @@
 {
   "docs": [
     "adjustment_entry",
-    "reporting_period",
     "financial_statement_run",
+    "reporting_period",
     "statement_line"
   ]
 }

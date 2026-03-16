@@ -1,8 +1,8 @@
 {
   "docs": [
+    "ap_aging_snapshot",
     "payment_request",
     "supplier_invoice",
-    "ap_aging_snapshot",
     "supplier_payment"
   ]
 }

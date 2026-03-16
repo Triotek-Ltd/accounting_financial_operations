@@ -69,7 +69,9 @@
       "currency": "currency_code",
       "total_amount": "total_amount",
       "customer": "party_reference",
-      "receipt_date": "schedule_marker"
+      "receipt_date": "schedule_marker",
+      "related_cash_account": "relation_collection",
+      "related_journal_entry": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -135,8 +137,35 @@
     ],
     "downstream_effects": [
       "updates AR aging, customer history, cash management, and bookkeeping"
-    ]
+    ],
+    "action_actors": {
+      "create": [
+        "billing officer"
+      ],
+      "review": [
+        "collections officer"
+      ],
+      "approve": [
+        "collections officer"
+      ],
+      "post": [
+        "customer-facing finance team"
+      ],
+      "reconcile": [
+        "customer-facing finance team"
+      ],
+      "reverse": [
+        "billing officer"
+      ],
+      "archive": [
+        "billing officer"
+      ]
+    }
   },
+  "downstream_effects": [
+    "updates AR aging, customer history, cash management, and bookkeeping"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "customer_invoice",
     "cash_account",

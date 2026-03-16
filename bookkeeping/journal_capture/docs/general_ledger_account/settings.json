@@ -28,7 +28,26 @@
       "show_in_related_panel": true
     }
   ],
-  "lookup_rules": [],
+  "lookup_rules": [
+    {
+      "field_id": "related_journal_entry",
+      "doc_id": "journal_entry",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_ledger_posting",
+      "doc_id": "ledger_posting",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_cost_center",
+      "doc_id": "cost_center",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    }
+  ],
   "fetch_rules": [],
   "reference_map": {
     "primary_reference_field": "reference_no",
@@ -36,7 +55,11 @@
   },
   "relation_rules": {
     "parent_doc": null,
-    "child_docs": [],
+    "child_docs": [
+      "journal_entry",
+      "ledger_posting",
+      "cost_center"
+    ],
     "show_related_panel": true
   },
   "borrowed_fields": [],
@@ -76,7 +99,22 @@
       "primary_transitions": [],
       "downstream_effects": [
         "postings feed reporting, reconciliation, receivables, payables, and closing workflows"
-      ]
-    }
+      ],
+      "action_actors": {
+        "create": [
+          "accounting officer"
+        ],
+        "update": [
+          "accounting officer"
+        ],
+        "review": [
+          "reviewer"
+        ],
+        "archive": [
+          "accounting officer"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
   }
 }

@@ -383,6 +383,78 @@
         "filterable": true,
         "sortable": true
       }
+    },
+    {
+      "field_id": "related_payment_request",
+      "label": "Related Payment Request",
+      "type": "Table MultiSelect",
+      "required": false,
+      "read_only": false,
+      "default": null,
+      "unique": false,
+      "options": null,
+      "purpose": "relation_collection",
+      "linked_doc": "payment_request",
+      "depends_on": null,
+      "mandatory_depends_on": null,
+      "read_only_depends_on": null,
+      "fetch_from": null,
+      "allow_on_submit": false,
+      "indexed": false,
+      "ui": {
+        "visible": false,
+        "list_visible": false,
+        "filterable": false,
+        "sortable": false
+      }
+    },
+    {
+      "field_id": "related_cash_account",
+      "label": "Related Cash Account",
+      "type": "Table MultiSelect",
+      "required": false,
+      "read_only": false,
+      "default": null,
+      "unique": false,
+      "options": null,
+      "purpose": "relation_collection",
+      "linked_doc": "cash_account",
+      "depends_on": null,
+      "mandatory_depends_on": null,
+      "read_only_depends_on": null,
+      "fetch_from": null,
+      "allow_on_submit": false,
+      "indexed": false,
+      "ui": {
+        "visible": false,
+        "list_visible": false,
+        "filterable": false,
+        "sortable": false
+      }
+    },
+    {
+      "field_id": "related_journal_entry",
+      "label": "Related Journal Entry",
+      "type": "Table MultiSelect",
+      "required": false,
+      "read_only": false,
+      "default": null,
+      "unique": false,
+      "options": null,
+      "purpose": "relation_collection",
+      "linked_doc": "journal_entry",
+      "depends_on": null,
+      "mandatory_depends_on": null,
+      "read_only_depends_on": null,
+      "fetch_from": null,
+      "allow_on_submit": false,
+      "indexed": false,
+      "ui": {
+        "visible": false,
+        "list_visible": false,
+        "filterable": false,
+        "sortable": false
+      }
     }
   ],
   "field_groups": {
@@ -407,7 +479,10 @@
     ],
     "relations": [
       "supplier",
-      "settled_invoices"
+      "settled_invoices",
+      "related_payment_request",
+      "related_cash_account",
+      "related_journal_entry"
     ],
     "amounts": [
       "currency",
@@ -529,17 +604,50 @@
     {
       "role_id": "System Manager",
       "actions": [
-        "create",
-        "update",
         "view",
         "list",
-        "record",
+        "create",
         "review",
-        "assign",
-        "track",
-        "monitor",
-        "confirm",
+        "approve",
+        "post",
+        "reconcile",
+        "reverse",
         "archive"
+      ]
+    },
+    {
+      "role_id": "AP clerk",
+      "actions": [
+        "view",
+        "list",
+        "create",
+        "archive"
+      ]
+    },
+    {
+      "role_id": "reviewer",
+      "actions": [
+        "view",
+        "list",
+        "review"
+      ]
+    },
+    {
+      "role_id": "approver",
+      "actions": [
+        "view",
+        "list",
+        "approve",
+        "reverse"
+      ]
+    },
+    {
+      "role_id": "treasury or finance officer",
+      "actions": [
+        "view",
+        "list",
+        "post",
+        "reconcile"
       ]
     }
   ],

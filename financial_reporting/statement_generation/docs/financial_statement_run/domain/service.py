@@ -5,9 +5,11 @@ from __future__ import annotations
 
 ARCHETYPE_PROFILE = {'workflow_profile': {'mode': 'transaction_flow', 'supports_submission': True}, 'reporting_profile': {'supports_snapshots': True, 'supports_outputs': True}, 'integration_profile': {'external_sync_enabled': True, 'tracks_external_refs': True}, 'lifecycle_states': ['draft', 'generated', 'reviewed', 'approved', 'published', 'archived'], 'is_transactional': True}
 
-CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'transaction_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'transaction_date': 'transaction_date', 'party': 'primary_party', 'currency': 'currency_code', 'total_amount': 'total_amount', 'generation_date': 'schedule_marker'}, 'search_fields': ['title', 'reference_no', 'description', 'run_code', 'reporting_period', 'statement_set'], 'list_columns': ['title', 'reference_no', 'transaction_date', 'party', 'total_amount', 'workflow_state'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'generated', 'reviewed', 'approved', 'published', 'archived'], 'terminal_states': ['archived'], 'action_targets': {'create': None, 'generate': None, 'review': 'reviewed', 'approve': 'approved', 'publish': 'published', 'archive': 'archived'}}
+CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'transaction_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'transaction_date': 'transaction_date', 'party': 'primary_party', 'currency': 'currency_code', 'total_amount': 'total_amount', 'generation_date': 'schedule_marker', 'related_statement_line': 'relation_collection', 'related_adjustment_entry': 'relation_collection', 'related_closing_batch': 'relation_collection'}, 'search_fields': ['title', 'reference_no', 'description', 'run_code', 'reporting_period', 'statement_set'], 'list_columns': ['title', 'reference_no', 'transaction_date', 'party', 'total_amount', 'workflow_state'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'generated', 'reviewed', 'approved', 'published', 'archived'], 'terminal_states': ['archived'], 'action_targets': {'create': None, 'generate': None, 'review': 'reviewed', 'approve': 'approved', 'publish': 'published', 'archive': 'archived'}}
 
-WORKFLOW_HINTS = {'business_objective': 'collect accounting records for a reporting period, generate financial statements, review them, and publish management-ready financial outputs', 'actors': ['finance controller', 'reporting accountant', 'approver', 'management audience'], 'start_condition': 'a reporting period is ready for statement preparation', 'ordered_steps': ['Create the statement generation run.', 'Review, approve, and publish the statement set.'], 'primary_actions': ['create', 'generate', 'review', 'approve', 'publish'], 'primary_transitions': ['financial_statement_run: draft -> generated', 'financial_statement_run: generated -> reviewed -> approved -> published'], 'downstream_effects': ['feeds management reporting, audit, compliance, and executive decision-making']}
+WORKFLOW_HINTS = {'business_objective': 'collect accounting records for a reporting period, generate financial statements, review them, and publish management-ready financial outputs', 'actors': ['finance controller', 'reporting accountant', 'approver', 'management audience'], 'start_condition': 'a reporting period is ready for statement preparation', 'ordered_steps': ['Create the statement generation run.', 'Review, approve, and publish the statement set.'], 'primary_actions': ['create', 'generate', 'review', 'approve', 'publish'], 'primary_transitions': ['financial_statement_run: draft -> generated', 'financial_statement_run: generated -> reviewed -> approved -> published'], 'downstream_effects': ['feeds management reporting, audit, compliance, and executive decision-making'], 'action_actors': {'create': ['finance controller'], 'review': ['reporting accountant'], 'approve': ['approver'], 'publish': ['finance controller'], 'archive': ['finance controller']}}
+
+SIDE_EFFECT_HINTS = {'downstream_effects': ['feeds management reporting, audit, compliance, and executive decision-making'], 'related_docs': ['statement_line', 'reporting_period', 'adjustment_entry', 'closing_batch'], 'action_targets': {'create': None, 'generate': None, 'review': 'reviewed', 'approve': 'approved', 'publish': 'published', 'archive': 'archived'}, 'action_side_effects_file': 'side_effects.json'}
 
 class DomainService:
     doc_id = "financial_statement_run"
@@ -63,12 +65,28 @@ class DomainService:
     def after_update(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         return serialized_data
 
+    def after_action(
+        self,
+        instance,
+        action_id: str,
+        payload: dict,
+        action_result: dict,
+        context: dict | None = None,
+    ) -> dict:
+        return {
+            "updates": {},
+            "side_effects": [],
+        }
+
     def shape_retrieve_data(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         serialized_data.setdefault("_business_capabilities", self.business_capabilities())
         return serialized_data
 
     def workflow_objective(self) -> str | None:
         return WORKFLOW_HINTS.get("business_objective")
+
+    def side_effect_hints(self) -> dict:
+        return SIDE_EFFECT_HINTS
 
     def business_capabilities(self) -> dict:
         return {

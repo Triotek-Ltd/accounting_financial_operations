@@ -267,6 +267,78 @@
         "filterable": true,
         "sortable": true
       }
+    },
+    {
+      "field_id": "related_journal_entry",
+      "label": "Related Journal Entry",
+      "type": "Table MultiSelect",
+      "required": false,
+      "read_only": false,
+      "default": null,
+      "unique": false,
+      "options": null,
+      "purpose": "relation_collection",
+      "linked_doc": "journal_entry",
+      "depends_on": null,
+      "mandatory_depends_on": null,
+      "read_only_depends_on": null,
+      "fetch_from": null,
+      "allow_on_submit": false,
+      "indexed": false,
+      "ui": {
+        "visible": false,
+        "list_visible": false,
+        "filterable": false,
+        "sortable": false
+      }
+    },
+    {
+      "field_id": "related_ledger_posting",
+      "label": "Related Ledger Posting",
+      "type": "Table MultiSelect",
+      "required": false,
+      "read_only": false,
+      "default": null,
+      "unique": false,
+      "options": null,
+      "purpose": "relation_collection",
+      "linked_doc": "ledger_posting",
+      "depends_on": null,
+      "mandatory_depends_on": null,
+      "read_only_depends_on": null,
+      "fetch_from": null,
+      "allow_on_submit": false,
+      "indexed": false,
+      "ui": {
+        "visible": false,
+        "list_visible": false,
+        "filterable": false,
+        "sortable": false
+      }
+    },
+    {
+      "field_id": "related_cost_center",
+      "label": "Related Cost Center",
+      "type": "Table MultiSelect",
+      "required": false,
+      "read_only": false,
+      "default": null,
+      "unique": false,
+      "options": null,
+      "purpose": "relation_collection",
+      "linked_doc": "cost_center",
+      "depends_on": null,
+      "mandatory_depends_on": null,
+      "read_only_depends_on": null,
+      "fetch_from": null,
+      "allow_on_submit": false,
+      "indexed": false,
+      "ui": {
+        "visible": false,
+        "list_visible": false,
+        "filterable": false,
+        "sortable": false
+      }
     }
   ],
   "field_groups": {
@@ -290,7 +362,11 @@
       "parent_account",
       "currency"
     ],
-    "relations": [],
+    "relations": [
+      "related_journal_entry",
+      "related_ledger_posting",
+      "related_cost_center"
+    ],
     "amounts": [],
     "dates": [],
     "parties": [],
@@ -365,17 +441,44 @@
     {
       "role_id": "System Manager",
       "actions": [
-        "create",
-        "update",
         "view",
         "list",
-        "record",
+        "create",
+        "update",
         "review",
-        "assign",
-        "track",
-        "monitor",
-        "confirm",
         "archive"
+      ]
+    },
+    {
+      "role_id": "accounting officer",
+      "actions": [
+        "view",
+        "list",
+        "create",
+        "update",
+        "archive"
+      ]
+    },
+    {
+      "role_id": "reviewer",
+      "actions": [
+        "view",
+        "list",
+        "review"
+      ]
+    },
+    {
+      "role_id": "approver",
+      "actions": [
+        "view",
+        "list"
+      ]
+    },
+    {
+      "role_id": "finance controller",
+      "actions": [
+        "view",
+        "list"
       ]
     }
   ],

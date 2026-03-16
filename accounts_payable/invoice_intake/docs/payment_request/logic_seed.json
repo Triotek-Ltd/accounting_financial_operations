@@ -64,7 +64,10 @@
     "field_purposes": {
       "workflow_state": "lifecycle_state",
       "requested_amount": "monetary_value",
-      "approver": "actor_reference"
+      "approver": "actor_reference",
+      "related_supplier_invoice": "relation_collection",
+      "related_supplier_payment": "relation_collection",
+      "related_cash_account": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -121,15 +124,47 @@
       "submit",
       "review",
       "approve",
+      "execute",
       "archive"
     ],
     "primary_transitions": [
-      "payment_request: draft -> submitted -> approved"
+      "payment_request: draft -> submitted -> approved -> executed"
     ],
     "downstream_effects": [
       "updates AP aging, cash management, bookkeeping, and supplier history"
-    ]
+    ],
+    "action_actors": {
+      "create": [
+        "AP clerk"
+      ],
+      "submit": [
+        "AP clerk"
+      ],
+      "review": [
+        "reviewer"
+      ],
+      "approve": [
+        "approver"
+      ],
+      "reject": [
+        "approver"
+      ],
+      "execute": [
+        "treasury or finance officer"
+      ],
+      "cancel": [
+        "AP clerk",
+        "approver"
+      ],
+      "archive": [
+        "AP clerk"
+      ]
+    }
   },
+  "downstream_effects": [
+    "updates AP aging, cash management, bookkeeping, and supplier history"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "supplier_invoice",
     "supplier_payment",

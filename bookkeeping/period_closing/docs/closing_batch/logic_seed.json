@@ -63,7 +63,9 @@
     ],
     "field_purposes": {
       "workflow_state": "lifecycle_state",
-      "approver": "actor_reference"
+      "approver": "actor_reference",
+      "related_adjustment_entry": "relation_collection",
+      "related_financial_statement_run": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -124,8 +126,32 @@
     ],
     "downstream_effects": [
       "feeds management reporting, audit, compliance, and executive decision-making"
-    ]
+    ],
+    "action_actors": {
+      "create": [
+        "finance controller"
+      ],
+      "assign": [
+        "finance controller"
+      ],
+      "review": [
+        "reporting accountant"
+      ],
+      "approve": [
+        "approver"
+      ],
+      "close": [
+        "finance controller"
+      ],
+      "archive": [
+        "finance controller"
+      ]
+    }
   },
+  "downstream_effects": [
+    "feeds management reporting, audit, compliance, and executive decision-making"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "reporting_period",
     "adjustment_entry",

@@ -64,7 +64,10 @@
       "currency": "currency_code",
       "total_amount": "total_amount",
       "cost_center": "cost_center_reference",
-      "allocation_status": "status_flag"
+      "allocation_status": "status_flag",
+      "related_cost_allocation_rule": "relation_collection",
+      "related_variance_record": "relation_collection",
+      "related_journal_entry": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -101,7 +104,42 @@
       "archive": "archived"
     }
   },
-  "workflow_hints": {},
+  "workflow_hints": {
+    "relation_context": {
+      "related_docs": [
+        "cost_center",
+        "cost_allocation_rule",
+        "variance_record",
+        "journal_entry"
+      ],
+      "borrowed_fields": [
+        "target centers",
+        "allocation basis from linked rules"
+      ],
+      "inferred_roles": [
+        "finance officer"
+      ]
+    },
+    "actors": [
+      "finance officer"
+    ],
+    "action_actors": {
+      "create": [
+        "finance officer"
+      ],
+      "review": [
+        "finance officer"
+      ],
+      "post": [
+        "finance officer"
+      ],
+      "archive": [
+        "finance officer"
+      ]
+    }
+  },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "cost_center",
     "cost_allocation_rule",

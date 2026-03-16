@@ -5,9 +5,11 @@ from __future__ import annotations
 
 ARCHETYPE_PROFILE = {'workflow_profile': {'mode': 'transaction_flow', 'supports_submission': True}, 'reporting_profile': {'supports_snapshots': True, 'supports_outputs': True}, 'integration_profile': {'external_sync_enabled': True, 'tracks_external_refs': True}, 'lifecycle_states': ['draft', 'reviewed', 'allocated', 'posted', 'archived'], 'is_transactional': True}
 
-CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'transaction_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'transaction_date': 'transaction_date', 'party': 'primary_party', 'currency': 'currency_code', 'total_amount': 'total_amount', 'cost_center': 'cost_center_reference', 'allocation_status': 'status_flag'}, 'search_fields': ['title', 'reference_no', 'description', 'cost_record_code', 'date', 'source_event'], 'list_columns': ['title', 'reference_no', 'transaction_date', 'party', 'total_amount', 'workflow_state'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'reviewed', 'allocated', 'posted', 'archived'], 'terminal_states': ['archived'], 'action_targets': {'create': None, 'review': 'reviewed', 'allocate': None, 'post': None, 'archive': 'archived'}}
+CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state', 'transaction_date'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'transaction_date': 'transaction_date', 'party': 'primary_party', 'currency': 'currency_code', 'total_amount': 'total_amount', 'cost_center': 'cost_center_reference', 'allocation_status': 'status_flag', 'related_cost_allocation_rule': 'relation_collection', 'related_variance_record': 'relation_collection', 'related_journal_entry': 'relation_collection'}, 'search_fields': ['title', 'reference_no', 'description', 'cost_record_code', 'date', 'source_event'], 'list_columns': ['title', 'reference_no', 'transaction_date', 'party', 'total_amount', 'workflow_state'], 'initial_state': 'draft', 'lifecycle_states': ['draft', 'reviewed', 'allocated', 'posted', 'archived'], 'terminal_states': ['archived'], 'action_targets': {'create': None, 'review': 'reviewed', 'allocate': None, 'post': None, 'archive': 'archived'}}
 
-WORKFLOW_HINTS = {}
+WORKFLOW_HINTS = {'relation_context': {'related_docs': ['cost_center', 'cost_allocation_rule', 'variance_record', 'journal_entry'], 'borrowed_fields': ['target centers', 'allocation basis from linked rules'], 'inferred_roles': ['finance officer']}, 'actors': ['finance officer'], 'action_actors': {'create': ['finance officer'], 'review': ['finance officer'], 'post': ['finance officer'], 'archive': ['finance officer']}}
+
+SIDE_EFFECT_HINTS = {'downstream_effects': [], 'related_docs': ['cost_center', 'cost_allocation_rule', 'variance_record', 'journal_entry'], 'action_targets': {'create': None, 'review': 'reviewed', 'allocate': None, 'post': None, 'archive': 'archived'}, 'action_side_effects_file': 'side_effects.json'}
 
 class DomainService:
     doc_id = "cost_record"
@@ -63,12 +65,28 @@ class DomainService:
     def after_update(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         return serialized_data
 
+    def after_action(
+        self,
+        instance,
+        action_id: str,
+        payload: dict,
+        action_result: dict,
+        context: dict | None = None,
+    ) -> dict:
+        return {
+            "updates": {},
+            "side_effects": [],
+        }
+
     def shape_retrieve_data(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         serialized_data.setdefault("_business_capabilities", self.business_capabilities())
         return serialized_data
 
     def workflow_objective(self) -> str | None:
         return WORKFLOW_HINTS.get("business_objective")
+
+    def side_effect_hints(self) -> dict:
+        return SIDE_EFFECT_HINTS
 
     def business_capabilities(self) -> dict:
         return {

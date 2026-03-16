@@ -66,7 +66,10 @@
       "party": "primary_party",
       "currency": "currency_code",
       "total_amount": "total_amount",
-      "generation_date": "schedule_marker"
+      "generation_date": "schedule_marker",
+      "related_statement_line": "relation_collection",
+      "related_adjustment_entry": "relation_collection",
+      "related_closing_batch": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -131,8 +134,29 @@
     ],
     "downstream_effects": [
       "feeds management reporting, audit, compliance, and executive decision-making"
-    ]
+    ],
+    "action_actors": {
+      "create": [
+        "finance controller"
+      ],
+      "review": [
+        "reporting accountant"
+      ],
+      "approve": [
+        "approver"
+      ],
+      "publish": [
+        "finance controller"
+      ],
+      "archive": [
+        "finance controller"
+      ]
+    }
   },
+  "downstream_effects": [
+    "feeds management reporting, audit, compliance, and executive decision-making"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "statement_line",
     "reporting_period",

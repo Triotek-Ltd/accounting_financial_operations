@@ -53,7 +53,9 @@
     ],
     "field_purposes": {
       "workflow_state": "lifecycle_state",
-      "posting_date": "posting_date"
+      "posting_date": "posting_date",
+      "related_financial_statement_run": "relation_collection",
+      "related_general_ledger_account": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -105,8 +107,23 @@
     ],
     "downstream_effects": [
       "feeds management reporting, audit, compliance, and executive decision-making"
-    ]
+    ],
+    "action_actors": {
+      "record": [
+        "finance controller"
+      ],
+      "review": [
+        "reporting accountant"
+      ],
+      "archive": [
+        "finance controller"
+      ]
+    }
   },
+  "downstream_effects": [
+    "feeds management reporting, audit, compliance, and executive decision-making"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "financial_statement_run",
     "general_ledger_account"

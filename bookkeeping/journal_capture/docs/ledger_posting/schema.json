@@ -409,17 +409,44 @@
     {
       "role_id": "System Manager",
       "actions": [
-        "create",
-        "update",
         "view",
         "list",
         "record",
         "review",
-        "assign",
-        "track",
-        "monitor",
-        "confirm",
+        "reverse",
         "archive"
+      ]
+    },
+    {
+      "role_id": "accounting officer",
+      "actions": [
+        "view",
+        "list",
+        "record",
+        "reverse",
+        "archive"
+      ]
+    },
+    {
+      "role_id": "reviewer",
+      "actions": [
+        "view",
+        "list",
+        "review"
+      ]
+    },
+    {
+      "role_id": "approver",
+      "actions": [
+        "view",
+        "list"
+      ]
+    },
+    {
+      "role_id": "finance controller",
+      "actions": [
+        "view",
+        "list"
       ]
     }
   ],

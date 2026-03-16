@@ -28,7 +28,26 @@
       "show_in_related_panel": true
     }
   ],
-  "lookup_rules": [],
+  "lookup_rules": [
+    {
+      "field_id": "related_cost_center",
+      "doc_id": "cost_center",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_cost_record",
+      "doc_id": "cost_record",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_variance_record",
+      "doc_id": "variance_record",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    }
+  ],
   "fetch_rules": [],
   "reference_map": {
     "primary_reference_field": "reference_no",
@@ -36,7 +55,11 @@
   },
   "relation_rules": {
     "parent_doc": null,
-    "child_docs": [],
+    "child_docs": [
+      "cost_center",
+      "cost_record",
+      "variance_record"
+    ],
     "show_related_panel": true
   },
   "borrowed_fields": [
@@ -57,6 +80,7 @@
   "runtime_hints": {
     "doc_key": "cost_allocation_rule",
     "supports_related_lookup": true,
-    "supports_fetch_rules": true
+    "supports_fetch_rules": true,
+    "action_side_effects_file": "side_effects.json"
   }
 }

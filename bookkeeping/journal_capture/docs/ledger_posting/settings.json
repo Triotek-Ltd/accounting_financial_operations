@@ -143,7 +143,22 @@
       ],
       "downstream_effects": [
         "postings feed reporting, reconciliation, receivables, payables, and closing workflows"
-      ]
-    }
+      ],
+      "action_actors": {
+        "record": [
+          "accounting officer"
+        ],
+        "review": [
+          "reviewer"
+        ],
+        "reverse": [
+          "accounting officer"
+        ],
+        "archive": [
+          "accounting officer"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
   }
 }

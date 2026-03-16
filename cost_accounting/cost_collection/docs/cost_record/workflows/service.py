@@ -11,7 +11,7 @@ TERMINAL_STATES = ['archived']
 ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': 'reviewed'}, 'allocate': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'post': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {}
+WORKFLOW_HINTS = {'relation_context': {'related_docs': ['cost_center', 'cost_allocation_rule', 'variance_record', 'journal_entry'], 'borrowed_fields': ['target centers', 'allocation basis from linked rules'], 'inferred_roles': ['finance officer']}, 'actors': ['finance officer'], 'action_actors': {'create': ['finance officer'], 'review': ['finance officer'], 'post': ['finance officer'], 'archive': ['finance officer']}}
 
 class WorkflowService:
     def allowed_actions_for_state(self, state: str | None) -> list[str]:

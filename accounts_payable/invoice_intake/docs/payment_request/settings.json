@@ -28,7 +28,26 @@
       "show_in_related_panel": true
     }
   ],
-  "lookup_rules": [],
+  "lookup_rules": [
+    {
+      "field_id": "related_supplier_invoice",
+      "doc_id": "supplier_invoice",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_supplier_payment",
+      "doc_id": "supplier_payment",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_cash_account",
+      "doc_id": "cash_account",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    }
+  ],
   "fetch_rules": [],
   "reference_map": {
     "primary_reference_field": "reference_no",
@@ -36,7 +55,11 @@
   },
   "relation_rules": {
     "parent_doc": null,
-    "child_docs": [],
+    "child_docs": [
+      "supplier_invoice",
+      "supplier_payment",
+      "cash_account"
+    ],
     "show_related_panel": true
   },
   "borrowed_fields": [
@@ -82,14 +105,43 @@
         "submit",
         "review",
         "approve",
+        "execute",
         "archive"
       ],
       "primary_transitions": [
-        "payment_request: draft -> submitted -> approved"
+        "payment_request: draft -> submitted -> approved -> executed"
       ],
       "downstream_effects": [
         "updates AP aging, cash management, bookkeeping, and supplier history"
-      ]
-    }
+      ],
+      "action_actors": {
+        "create": [
+          "AP clerk"
+        ],
+        "submit": [
+          "AP clerk"
+        ],
+        "review": [
+          "reviewer"
+        ],
+        "approve": [
+          "approver"
+        ],
+        "reject": [
+          "approver"
+        ],
+        "execute": [
+          "treasury or finance officer"
+        ],
+        "cancel": [
+          "AP clerk",
+          "approver"
+        ],
+        "archive": [
+          "AP clerk"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
   }
 }

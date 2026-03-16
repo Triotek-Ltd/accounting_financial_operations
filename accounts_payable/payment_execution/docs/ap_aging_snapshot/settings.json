@@ -29,6 +29,12 @@
       "doc_id": "supplier_profile",
       "lookup_mode": "single",
       "purpose": "party_reference"
+    },
+    {
+      "field_id": "related_supplier_invoice",
+      "doc_id": "supplier_invoice",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
     }
   ],
   "fetch_rules": [
@@ -54,7 +60,9 @@
   },
   "relation_rules": {
     "parent_doc": null,
-    "child_docs": [],
+    "child_docs": [
+      "supplier_invoice"
+    ],
     "show_related_panel": true
   },
   "borrowed_fields": [
@@ -78,6 +86,38 @@
   "runtime_hints": {
     "doc_key": "ap_aging_snapshot",
     "supports_related_lookup": true,
-    "supports_fetch_rules": true
+    "supports_fetch_rules": true,
+    "workflow_hints": {
+      "relation_context": {
+        "related_docs": [
+          "supplier_invoice",
+          "supplier_profile"
+        ],
+        "borrowed_fields": [
+          "supplier identity from supplier_profile",
+          "outstanding balances from supplier_invoice"
+        ],
+        "inferred_roles": [
+          "procurement officer",
+          "finance officer"
+        ]
+      },
+      "actors": [
+        "procurement officer",
+        "finance officer"
+      ],
+      "action_actors": {
+        "create": [
+          "procurement officer"
+        ],
+        "review": [
+          "finance officer"
+        ],
+        "archive": [
+          "procurement officer"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
   }
 }

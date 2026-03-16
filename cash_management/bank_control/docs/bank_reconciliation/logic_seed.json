@@ -63,7 +63,11 @@
     "field_purposes": {
       "workflow_state": "lifecycle_state",
       "closing_balance": "monetary_value",
-      "reconciliation_status": "status_flag"
+      "reconciliation_status": "status_flag",
+      "related_cash_account": "relation_collection",
+      "related_receipt_record": "relation_collection",
+      "related_supplier_payment": "relation_collection",
+      "related_journal_entry": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -101,7 +105,47 @@
       "archive": "archived"
     }
   },
-  "workflow_hints": {},
+  "workflow_hints": {
+    "relation_context": {
+      "related_docs": [
+        "cash_account",
+        "receipt_record",
+        "supplier_payment",
+        "journal_entry"
+      ],
+      "borrowed_fields": [
+        "account details from cash_account",
+        "transaction refs from linked receipts/payments"
+      ],
+      "inferred_roles": [
+        "procurement officer",
+        "finance officer"
+      ]
+    },
+    "actors": [
+      "procurement officer",
+      "finance officer"
+    ],
+    "action_actors": {
+      "create": [
+        "procurement officer"
+      ],
+      "review": [
+        "finance officer"
+      ],
+      "approve": [
+        "finance officer"
+      ],
+      "close": [
+        "procurement officer"
+      ],
+      "archive": [
+        "procurement officer"
+      ]
+    }
+  },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "cash_account",
     "receipt_record",

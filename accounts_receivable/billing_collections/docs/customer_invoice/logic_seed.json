@@ -75,7 +75,12 @@
       "taxes": "structured_payload",
       "totals": "structured_payload",
       "collection_status": "status_flag",
-      "posting_status": "status_flag"
+      "posting_status": "status_flag",
+      "related_receipt_record": "relation_collection",
+      "related_collection_case": "relation_collection",
+      "related_journal_entry": "relation_collection",
+      "related_sales_order": "relation_collection",
+      "related_delivery_note": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -144,8 +149,35 @@
     ],
     "downstream_effects": [
       "updates AR aging, customer history, cash management, and bookkeeping"
-    ]
+    ],
+    "action_actors": {
+      "create": [
+        "billing officer"
+      ],
+      "update": [
+        "billing officer"
+      ],
+      "review": [
+        "collections officer"
+      ],
+      "approve": [
+        "collections officer"
+      ],
+      "post": [
+        "customer-facing finance team"
+      ],
+      "issue": [
+        "billing officer"
+      ],
+      "archive": [
+        "billing officer"
+      ]
+    }
   },
+  "downstream_effects": [
+    "updates AR aging, customer history, cash management, and bookkeeping"
+  ],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "customer_account",
     "receipt_record",

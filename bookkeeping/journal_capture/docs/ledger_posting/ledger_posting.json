@@ -438,17 +438,44 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
           "record",
           "review",
-          "assign",
-          "track",
-          "monitor",
-          "confirm",
+          "reverse",
           "archive"
+        ]
+      },
+      {
+        "role_id": "accounting officer",
+        "actions": [
+          "view",
+          "list",
+          "record",
+          "reverse",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "reviewer",
+        "actions": [
+          "view",
+          "list",
+          "review"
+        ]
+      },
+      {
+        "role_id": "approver",
+        "actions": [
+          "view",
+          "list"
+        ]
+      },
+      {
+        "role_id": "finance controller",
+        "actions": [
+          "view",
+          "list"
         ]
       }
     ],
@@ -641,8 +668,23 @@
         ],
         "downstream_effects": [
           "postings feed reporting, reconciliation, receivables, payables, and closing workflows"
-        ]
-      }
+        ],
+        "action_actors": {
+          "record": [
+            "accounting officer"
+          ],
+          "review": [
+            "reviewer"
+          ],
+          "reverse": [
+            "accounting officer"
+          ],
+          "archive": [
+            "accounting officer"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -718,6 +760,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -734,6 +779,40 @@
       "doc_kind": "ledger"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/accounting_financial_operations/bookkeeping/journal_capture/ledger_posting/",
+    "status_field": "workflow_state",
+    "initial_state": "active",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "posting_date"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "reverse",
+        "source_state": "active",
+        "target_state": "reversed",
+        "disallowed_state": "reversed"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "active",
+        "target_state": "archived",
+        "disallowed_state": "reversed"
+      }
+    ],
+    "related_docs": [
+      "journal_entry",
+      "general_ledger_account",
+      "cost_center"
+    ],
+    "downstream_effects": [
+      "postings feed reporting, reconciliation, receivables, payables, and closing workflows"
+    ],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -741,7 +820,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

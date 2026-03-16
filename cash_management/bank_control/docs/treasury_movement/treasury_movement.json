@@ -70,7 +70,11 @@
         "movement_reason",
         "posting_state"
       ],
-      "relations": [],
+      "relations": [
+        "related_cash_account",
+        "related_journal_entry",
+        "related_cash_position_snapshot"
+      ],
       "amounts": [
         "currency",
         "total_amount"
@@ -454,6 +458,78 @@
           "filterable": true,
           "sortable": true
         }
+      },
+      {
+        "field_id": "related_cash_account",
+        "label": "Related Cash Account",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "cash_account",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_journal_entry",
+        "label": "Related Journal Entry",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "journal_entry",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_cash_position_snapshot",
+        "label": "Related Cash Position Snapshot",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "cash_position_snapshot",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
       }
     ],
     "title_field": "title",
@@ -552,16 +628,26 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
+          "create",
           "review",
-          "assign",
-          "track",
-          "monitor",
-          "confirm",
+          "approve",
+          "post",
+          "reverse",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "finance officer",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "review",
+          "approve",
+          "post",
+          "reverse",
           "archive"
         ]
       }
@@ -646,7 +732,26 @@
         "show_in_related_panel": true
       }
     ],
-    "lookup_rules": [],
+    "lookup_rules": [
+      {
+        "field_id": "related_cash_account",
+        "doc_id": "cash_account",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_journal_entry",
+        "doc_id": "journal_entry",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_cash_position_snapshot",
+        "doc_id": "cash_position_snapshot",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      }
+    ],
     "fetch_rules": [],
     "reference_map": {
       "primary_reference_field": "reference_no",
@@ -654,7 +759,11 @@
     },
     "relation_rules": {
       "parent_doc": null,
-      "child_docs": [],
+      "child_docs": [
+        "cash_account",
+        "journal_entry",
+        "cash_position_snapshot"
+      ],
       "show_related_panel": true
     },
     "borrowed_fields": [
@@ -675,7 +784,46 @@
     "runtime_hints": {
       "doc_key": "treasury_movement",
       "supports_related_lookup": true,
-      "supports_fetch_rules": true
+      "supports_fetch_rules": true,
+      "workflow_hints": {
+        "relation_context": {
+          "related_docs": [
+            "cash_account",
+            "journal_entry",
+            "cash_position_snapshot"
+          ],
+          "borrowed_fields": [
+            "source/destination identities from cash_account"
+          ],
+          "inferred_roles": [
+            "finance officer"
+          ]
+        },
+        "actors": [
+          "finance officer"
+        ],
+        "action_actors": {
+          "create": [
+            "finance officer"
+          ],
+          "review": [
+            "finance officer"
+          ],
+          "approve": [
+            "finance officer"
+          ],
+          "post": [
+            "finance officer"
+          ],
+          "reverse": [
+            "finance officer"
+          ],
+          "archive": [
+            "finance officer"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -755,6 +903,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -773,6 +924,44 @@
       "doc_kind": "transaction"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/accounting_financial_operations/cash_management/bank_control/treasury_movement/",
+    "status_field": "workflow_state",
+    "initial_state": "draft",
+    "required_fields": [
+      "title",
+      "workflow_state",
+      "transaction_date"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "approve",
+        "source_state": "draft",
+        "target_state": "approved",
+        "disallowed_state": "reversed"
+      },
+      {
+        "action_id": "reverse",
+        "source_state": "draft",
+        "target_state": "reversed",
+        "disallowed_state": "reversed"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "draft",
+        "target_state": "archived",
+        "disallowed_state": "reversed"
+      }
+    ],
+    "related_docs": [
+      "cash_account",
+      "journal_entry",
+      "cash_position_snapshot"
+    ],
+    "downstream_effects": [],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -780,7 +969,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }
