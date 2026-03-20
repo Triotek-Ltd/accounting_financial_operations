@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "cost_record"
 ARCHETYPE = "transaction"
 INITIAL_STATE = 'draft'
 STATES = ['draft', 'reviewed', 'allocated', 'posted', 'archived']
 TERMINAL_STATES = ['archived']
-ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': 'reviewed'}, 'allocate': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'post': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': 'reviewed'}, 'allocate': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'post': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'relation_context': {'related_docs': ['cost_center', 'cost_allocation_rule', 'variance_record', 'journal_entry'], 'borrowed_fields': ['target centers', 'allocation basis from linked rules'], 'inferred_roles': ['finance officer']}, 'actors': ['finance officer'], 'action_actors': {'create': ['finance officer'], 'review': ['finance officer'], 'post': ['finance officer'], 'archive': ['finance officer']}}
@@ -29,7 +31,7 @@ class WorkflowService:
 
     def next_state_for(self, action_id: str) -> str | None:
         rule = ACTION_RULES.get(action_id, {})
-        return rule.get("transitions_to")
+        return cast(str | None, rule.get("transitions_to"))
 
     def apply_action(self, action_id: str, state: str | None) -> dict:
         if not self.is_action_allowed(action_id, state):

@@ -4,5 +4,818 @@
   "app_id": "accounting_financial_operations",
   "type": "module",
   "status": "draft",
-  "supports_submodules": true
+  "supports_submodules": true,
+  "ui": {
+    "icon_key": "apps",
+    "accent": "#246f89",
+    "logo_image": null,
+    "cover_image": null
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "module",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "docs",
+      "flatten_submodules_in_ui": true
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Cash Management KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "cash_management",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Cash Management summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "cash_management",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Cash Management charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "cash_management",
+          "metric_family": "trend"
+        },
+        "chart_specs": [
+          {
+            "id": "cash_management_trend_line",
+            "label": "Cash Management trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "cash_management_volume_column",
+            "label": "Cash Management volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "cash_management_distribution_donut",
+            "label": "Cash Management distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "bank_reconciliation_trend_line",
+            "label": "Bank Reconciliation trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "bank_reconciliation_volume_column",
+            "label": "Bank Reconciliation volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "bank_reconciliation_distribution_donut",
+            "label": "Bank Reconciliation distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "treasury_movement_trend_line",
+            "label": "Treasury Movement trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "treasury_movement_volume_column",
+            "label": "Treasury Movement volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "treasury_movement_distribution_donut",
+            "label": "Treasury Movement distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "cash_account_trend_line",
+            "label": "Cash Account trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "cash_account_volume_column",
+            "label": "Cash Account volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "cash_account_distribution_donut",
+            "label": "Cash Account distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "cash_position_snapshot_trend_line",
+            "label": "Cash Position Snapshot trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "cash_position_snapshot_volume_column",
+            "label": "Cash Position Snapshot volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "cash_position_snapshot_distribution_donut",
+            "label": "Cash Position Snapshot distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          }
+        ]
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Cash Management reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "cash_management",
+          "metric_family": "reporting"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "cash_management",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "cash_management",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "cash_management",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "cash_management",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "cash_management_overview_report",
+        "label": "Cash Management Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module",
+        "source_docs": [
+          "bank_reconciliation",
+          "cash_account",
+          "cash_position_snapshot",
+          "treasury_movement"
+        ],
+        "source_fields": [
+          "title",
+          "reference_no",
+          "description",
+          "workflow_state",
+          "reconciliation_code",
+          "bank_account",
+          "statement_period",
+          "opening",
+          "closing_balance",
+          "unmatched_items",
+          "reconciliation_status",
+          "related_cash_account",
+          "related_receipt_record",
+          "related_supplier_payment",
+          "related_journal_entry",
+          "transaction_date",
+          "party",
+          "currency"
+        ],
+        "output_columns": [
+          "period",
+          "count",
+          "status",
+          "amount",
+          "owner"
+        ]
+      },
+      {
+        "id": "cash_management_detail_report",
+        "label": "Cash Management Detail",
+        "report_type": "detail_report",
+        "surface": "module",
+        "source_docs": [
+          "bank_reconciliation",
+          "cash_account",
+          "cash_position_snapshot",
+          "treasury_movement"
+        ],
+        "source_fields": [
+          "title",
+          "reference_no",
+          "description",
+          "workflow_state",
+          "reconciliation_code",
+          "bank_account",
+          "statement_period",
+          "opening",
+          "closing_balance",
+          "unmatched_items",
+          "reconciliation_status",
+          "related_cash_account",
+          "related_receipt_record",
+          "related_supplier_payment",
+          "related_journal_entry",
+          "transaction_date",
+          "party",
+          "currency"
+        ],
+        "output_columns": [
+          "reference_no",
+          "title",
+          "workflow_state",
+          "modified"
+        ]
+      },
+      {
+        "id": "cash_management_trend_report",
+        "label": "Cash Management Trends",
+        "report_type": "trend_analysis",
+        "surface": "module",
+        "source_docs": [
+          "bank_reconciliation",
+          "cash_account",
+          "cash_position_snapshot",
+          "treasury_movement"
+        ],
+        "source_fields": [
+          "title",
+          "reference_no",
+          "description",
+          "workflow_state",
+          "reconciliation_code",
+          "bank_account",
+          "statement_period",
+          "opening",
+          "closing_balance",
+          "unmatched_items",
+          "reconciliation_status",
+          "related_cash_account",
+          "related_receipt_record",
+          "related_supplier_payment",
+          "related_journal_entry",
+          "transaction_date",
+          "party",
+          "currency"
+        ],
+        "output_columns": [
+          "period",
+          "count",
+          "amount"
+        ]
+      },
+      {
+        "id": "overview_report",
+        "label": "Cash Management Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module"
+      },
+      {
+        "id": "trend_report",
+        "label": "Cash Management Trends",
+        "report_type": "trend_analysis",
+        "surface": "module"
+      },
+      {
+        "id": "summary_report",
+        "label": "Bank Reconciliation Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Bank Reconciliation Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "cash_management_trend_line",
+        "label": "Cash Management trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cash_management_volume_column",
+        "label": "Cash Management volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cash_management_distribution_donut",
+        "label": "Cash Management distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "bank_reconciliation_trend_line",
+        "label": "Bank Reconciliation trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "bank_reconciliation_volume_column",
+        "label": "Bank Reconciliation volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "bank_reconciliation_distribution_donut",
+        "label": "Bank Reconciliation distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "treasury_movement_trend_line",
+        "label": "Treasury Movement trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "treasury_movement_volume_column",
+        "label": "Treasury Movement volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "treasury_movement_distribution_donut",
+        "label": "Treasury Movement distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "cash_account_trend_line",
+        "label": "Cash Account trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cash_account_volume_column",
+        "label": "Cash Account volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cash_account_distribution_donut",
+        "label": "Cash Account distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "cash_position_snapshot_trend_line",
+        "label": "Cash Position Snapshot trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cash_position_snapshot_volume_column",
+        "label": "Cash Position Snapshot volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cash_position_snapshot_distribution_donut",
+        "label": "Cash Position Snapshot distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ],
+    "source_docs": [],
+    "source_fields": [],
+    "child_sources": [
+      {
+        "id": "bank_reconciliation",
+        "title": "Bank Reconciliation",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "treasury_movement",
+        "title": "Treasury Movement",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "cash_account",
+        "title": "Cash Account",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "cash_position_snapshot",
+        "title": "Cash Position Snapshot",
+        "surface": null,
+        "source_docs": []
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "cash_account",
+      "receipt_record",
+      "supplier_payment",
+      "journal_entry",
+      "cash_position_snapshot",
+      "bank_reconciliation",
+      "treasury_movement"
+    ],
+    "upstream_docs": [
+      "cash_account",
+      "receipt_record",
+      "supplier_payment",
+      "journal_entry",
+      "cash_position_snapshot",
+      "bank_reconciliation",
+      "treasury_movement"
+    ],
+    "downstream_docs": [
+      "journal_entry"
+    ],
+    "actors": [
+      "procurement officer",
+      "finance officer"
+    ],
+    "downstream_effects": [],
+    "emits_records": [
+      {
+        "action_id": "approve",
+        "target_doc": "journal_entry",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "post",
+        "target_doc": "journal_entry",
+        "effect_type": "create_record"
+      }
+    ],
+    "handoff_targets": [
+      "cash_account",
+      "receipt_record",
+      "supplier_payment",
+      "journal_entry",
+      "cash_position_snapshot",
+      "bank_reconciliation",
+      "treasury_movement"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "bank_reconciliation",
+        "target_doc": "cash_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "bank_reconciliation",
+        "target_doc": "receipt_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "bank_reconciliation",
+        "target_doc": "supplier_payment",
+        "relation": "references"
+      },
+      {
+        "source_doc": "bank_reconciliation",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "bank_reconciliation",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "treasury_movement",
+        "target_doc": "cash_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "treasury_movement",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "treasury_movement",
+        "target_doc": "cash_position_snapshot",
+        "relation": "references"
+      },
+      {
+        "source_doc": "treasury_movement",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "treasury_movement",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "post"
+      },
+      {
+        "source_doc": "cash_account",
+        "target_doc": "receipt_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cash_account",
+        "target_doc": "supplier_payment",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cash_account",
+        "target_doc": "bank_reconciliation",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cash_account",
+        "target_doc": "treasury_movement",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cash_position_snapshot",
+        "target_doc": "cash_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cash_position_snapshot",
+        "target_doc": "bank_reconciliation",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cash_position_snapshot",
+        "target_doc": "treasury_movement",
+        "relation": "references"
+      }
+    ],
+    "operating_graph": {
+      "nodes": [
+        {
+          "id": "cash_account",
+          "kind": "doc"
+        },
+        {
+          "id": "receipt_record",
+          "kind": "doc"
+        },
+        {
+          "id": "supplier_payment",
+          "kind": "doc"
+        },
+        {
+          "id": "journal_entry",
+          "kind": "doc"
+        },
+        {
+          "id": "cash_position_snapshot",
+          "kind": "doc"
+        },
+        {
+          "id": "bank_reconciliation",
+          "kind": "doc"
+        },
+        {
+          "id": "treasury_movement",
+          "kind": "doc"
+        }
+      ],
+      "edges": [
+        {
+          "source_doc": "bank_reconciliation",
+          "target_doc": "cash_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "bank_reconciliation",
+          "target_doc": "receipt_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "bank_reconciliation",
+          "target_doc": "supplier_payment",
+          "relation": "references"
+        },
+        {
+          "source_doc": "bank_reconciliation",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "bank_reconciliation",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "treasury_movement",
+          "target_doc": "cash_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "treasury_movement",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "treasury_movement",
+          "target_doc": "cash_position_snapshot",
+          "relation": "references"
+        },
+        {
+          "source_doc": "treasury_movement",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "treasury_movement",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "post"
+        },
+        {
+          "source_doc": "cash_account",
+          "target_doc": "receipt_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cash_account",
+          "target_doc": "supplier_payment",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cash_account",
+          "target_doc": "bank_reconciliation",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cash_account",
+          "target_doc": "treasury_movement",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cash_position_snapshot",
+          "target_doc": "cash_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cash_position_snapshot",
+          "target_doc": "bank_reconciliation",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cash_position_snapshot",
+          "target_doc": "treasury_movement",
+          "relation": "references"
+        }
+      ]
+    }
+  },
+  "contract_version": 1
 }

@@ -8,5 +8,4086 @@
     "id": "CUSTOM-PROPRIETARY",
     "type": "proprietary_custom",
     "terms_ref": "LICENSE"
+  },
+  "ui": {
+    "icon_key": "apps",
+    "accent": "#246f89",
+    "logo_image": null,
+    "cover_image": null
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "app",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "modules",
+      "flatten_submodules_in_ui": false
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "My Plug App KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "app",
+          "entity_id": "accounting_financial_operations",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "My Plug App summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "app",
+          "entity_id": "accounting_financial_operations",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "My Plug App charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "app",
+          "entity_id": "accounting_financial_operations",
+          "metric_family": "trend"
+        },
+        "chart_specs": [
+          {
+            "id": "accounting_financial_operations_trend_line",
+            "label": "My Plug App trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "accounting_financial_operations_volume_column",
+            "label": "My Plug App volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "accounting_financial_operations_distribution_donut",
+            "label": "My Plug App distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "payables_due_line",
+            "label": "Accounts Payable due trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "outstanding_amount"
+          },
+          {
+            "id": "payables_aging_column",
+            "label": "Accounts Payable aging buckets",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "aging_bucket",
+            "y_field": "amount"
+          },
+          {
+            "id": "payables_supplier_donut",
+            "label": "Accounts Payable supplier mix",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "supplier",
+            "value_field": "outstanding_amount"
+          },
+          {
+            "id": "accounts_payable_trend_line",
+            "label": "Accounts Payable trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "accounts_payable_volume_column",
+            "label": "Accounts Payable volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "accounts_payable_distribution_donut",
+            "label": "Accounts Payable distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "payment_request_trend_line",
+            "label": "Payment Request trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "payment_request_volume_column",
+            "label": "Payment Request volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "payment_request_distribution_donut",
+            "label": "Payment Request distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "supplier_invoice_trend_line",
+            "label": "Supplier Invoice trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "supplier_invoice_volume_column",
+            "label": "Supplier Invoice volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "supplier_invoice_distribution_donut",
+            "label": "Supplier Invoice distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "ap_aging_snapshot_trend_line",
+            "label": "Ap Aging Snapshot trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "ap_aging_snapshot_volume_column",
+            "label": "Ap Aging Snapshot volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "ap_aging_snapshot_distribution_donut",
+            "label": "Ap Aging Snapshot distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "supplier_payment_trend_line",
+            "label": "Supplier Payment trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "supplier_payment_volume_column",
+            "label": "Supplier Payment volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "supplier_payment_distribution_donut",
+            "label": "Supplier Payment distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "receivables_due_line",
+            "label": "Accounts Receivable due trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "outstanding_amount"
+          },
+          {
+            "id": "receivables_aging_column",
+            "label": "Accounts Receivable aging buckets",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "aging_bucket",
+            "y_field": "amount"
+          },
+          {
+            "id": "receivables_customer_donut",
+            "label": "Accounts Receivable customer mix",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "customer",
+            "value_field": "outstanding_amount"
+          },
+          {
+            "id": "accounts_receivable_trend_line",
+            "label": "Accounts Receivable trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "accounts_receivable_volume_column",
+            "label": "Accounts Receivable volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "accounts_receivable_distribution_donut",
+            "label": "Accounts Receivable distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "ar_aging_snapshot_trend_line",
+            "label": "Ar Aging Snapshot trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "ar_aging_snapshot_volume_column",
+            "label": "Ar Aging Snapshot volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "ar_aging_snapshot_distribution_donut",
+            "label": "Ar Aging Snapshot distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "collection_case_trend_line",
+            "label": "Collection Case trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "collection_case_volume_column",
+            "label": "Collection Case volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "collection_case_distribution_donut",
+            "label": "Collection Case distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "customer_invoice_trend_line",
+            "label": "Customer Invoice trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "customer_invoice_volume_column",
+            "label": "Customer Invoice volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "customer_invoice_distribution_donut",
+            "label": "Customer Invoice distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "receipt_record_trend_line",
+            "label": "Receipt Record trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "receipt_record_volume_column",
+            "label": "Receipt Record volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "receipt_record_distribution_donut",
+            "label": "Receipt Record distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "ledger_activity_line",
+            "label": "Bookkeeping ledger activity",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "entry_count"
+          },
+          {
+            "id": "debit_credit_column",
+            "label": "Bookkeeping debit vs credit",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "period",
+            "y_field": "amount"
+          },
+          {
+            "id": "bookkeeping_trend_line",
+            "label": "Bookkeeping trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "bookkeeping_volume_column",
+            "label": "Bookkeeping volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "bookkeeping_distribution_donut",
+            "label": "Bookkeeping distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "general_ledger_account_trend_line",
+            "label": "General Ledger Account trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "general_ledger_account_volume_column",
+            "label": "General Ledger Account volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "general_ledger_account_distribution_donut",
+            "label": "General Ledger Account distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "journal_entry_trend_line",
+            "label": "Journal Entry trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "journal_entry_volume_column",
+            "label": "Journal Entry volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "journal_entry_distribution_donut",
+            "label": "Journal Entry distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "ledger_posting_trend_line",
+            "label": "Ledger Posting trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "ledger_posting_volume_column",
+            "label": "Ledger Posting volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "ledger_posting_distribution_donut",
+            "label": "Ledger Posting distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "closing_batch_trend_line",
+            "label": "Closing Batch trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "closing_batch_volume_column",
+            "label": "Closing Batch volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "closing_batch_distribution_donut",
+            "label": "Closing Batch distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "cash_management_trend_line",
+            "label": "Cash Management trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "cash_management_volume_column",
+            "label": "Cash Management volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "cash_management_distribution_donut",
+            "label": "Cash Management distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "bank_reconciliation_trend_line",
+            "label": "Bank Reconciliation trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "bank_reconciliation_volume_column",
+            "label": "Bank Reconciliation volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "bank_reconciliation_distribution_donut",
+            "label": "Bank Reconciliation distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "treasury_movement_trend_line",
+            "label": "Treasury Movement trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "treasury_movement_volume_column",
+            "label": "Treasury Movement volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "treasury_movement_distribution_donut",
+            "label": "Treasury Movement distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "cash_account_trend_line",
+            "label": "Cash Account trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "cash_account_volume_column",
+            "label": "Cash Account volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "cash_account_distribution_donut",
+            "label": "Cash Account distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "cash_position_snapshot_trend_line",
+            "label": "Cash Position Snapshot trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "cash_position_snapshot_volume_column",
+            "label": "Cash Position Snapshot volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "cash_position_snapshot_distribution_donut",
+            "label": "Cash Position Snapshot distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "cost_accounting_trend_line",
+            "label": "Cost Accounting trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "cost_accounting_volume_column",
+            "label": "Cost Accounting volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "cost_accounting_distribution_donut",
+            "label": "Cost Accounting distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "cost_allocation_rule_trend_line",
+            "label": "Cost Allocation Rule trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "cost_allocation_rule_volume_column",
+            "label": "Cost Allocation Rule volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "cost_allocation_rule_distribution_donut",
+            "label": "Cost Allocation Rule distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "cost_center_trend_line",
+            "label": "Cost Center trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "cost_center_volume_column",
+            "label": "Cost Center volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "cost_center_distribution_donut",
+            "label": "Cost Center distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "variance_record_trend_line",
+            "label": "Variance Record trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "variance_record_volume_column",
+            "label": "Variance Record volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "variance_record_distribution_donut",
+            "label": "Variance Record distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "cost_record_trend_line",
+            "label": "Cost Record trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "cost_record_volume_column",
+            "label": "Cost Record volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "cost_record_distribution_donut",
+            "label": "Cost Record distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "financial_performance_line",
+            "label": "Financial Reporting profit trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "net_profit"
+          },
+          {
+            "id": "financial_structure_column",
+            "label": "Financial Reporting statement comparison",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "statement",
+            "y_field": "amount"
+          },
+          {
+            "id": "expense_mix_donut",
+            "label": "Financial Reporting expense mix",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "expense_category",
+            "value_field": "amount"
+          },
+          {
+            "id": "financial_reporting_trend_line",
+            "label": "Financial Reporting trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "financial_reporting_volume_column",
+            "label": "Financial Reporting volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "financial_reporting_distribution_donut",
+            "label": "Financial Reporting distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "adjustment_entry_trend_line",
+            "label": "Adjustment Entry trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "adjustment_entry_volume_column",
+            "label": "Adjustment Entry volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "adjustment_entry_distribution_donut",
+            "label": "Adjustment Entry distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "reporting_period_trend_line",
+            "label": "Reporting Period trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "reporting_period_volume_column",
+            "label": "Reporting Period volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "reporting_period_distribution_donut",
+            "label": "Reporting Period distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "financial_statement_run_trend_line",
+            "label": "Financial Statement Run trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "financial_statement_run_volume_column",
+            "label": "Financial Statement Run volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "financial_statement_run_distribution_donut",
+            "label": "Financial Statement Run distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "statement_line_trend_line",
+            "label": "Statement Line trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "statement_line_volume_column",
+            "label": "Statement Line volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "statement_line_distribution_donut",
+            "label": "Statement Line distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          }
+        ]
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "My Plug App reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "app",
+          "entity_id": "accounting_financial_operations",
+          "metric_family": "reporting"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "app",
+        "entity_id": "accounting_financial_operations",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "app",
+        "entity_id": "accounting_financial_operations",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "app",
+        "entity_id": "accounting_financial_operations",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "app",
+        "entity_id": "accounting_financial_operations",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "My Plug App Overview",
+        "report_type": "dashboard_summary",
+        "surface": "app"
+      },
+      {
+        "id": "trend_report",
+        "label": "My Plug App Trends",
+        "report_type": "trend_analysis",
+        "surface": "app"
+      },
+      {
+        "id": "aged_payables",
+        "label": "Aged Payables",
+        "report_type": "aging_report",
+        "surface": "module",
+        "source_docs": [
+          "ap_aging_snapshot",
+          "payment_request",
+          "supplier_invoice",
+          "supplier_payment"
+        ],
+        "source_fields": [
+          "supplier",
+          "invoice_date",
+          "due_date",
+          "outstanding_amount",
+          "currency",
+          "workflow_state"
+        ],
+        "output_columns": [
+          "supplier",
+          "current",
+          "days_30",
+          "days_60",
+          "days_90_plus",
+          "total_outstanding"
+        ]
+      },
+      {
+        "id": "payables_summary",
+        "label": "Payables Summary",
+        "report_type": "summary_report",
+        "surface": "module",
+        "source_docs": [
+          "ap_aging_snapshot",
+          "payment_request",
+          "supplier_invoice",
+          "supplier_payment"
+        ],
+        "source_fields": [
+          "supplier",
+          "amount",
+          "outstanding_amount",
+          "status",
+          "posting_date"
+        ],
+        "output_columns": [
+          "supplier",
+          "invoice_count",
+          "outstanding_amount",
+          "paid_amount"
+        ]
+      },
+      {
+        "id": "summary_report",
+        "label": "Payment Request Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Payment Request Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      },
+      {
+        "id": "aged_receivables",
+        "label": "Aged Receivables",
+        "report_type": "aging_report",
+        "surface": "module",
+        "source_docs": [
+          "ar_aging_snapshot",
+          "collection_case",
+          "customer_invoice",
+          "receipt_record"
+        ],
+        "source_fields": [
+          "customer",
+          "invoice_date",
+          "due_date",
+          "outstanding_amount",
+          "currency",
+          "workflow_state"
+        ],
+        "output_columns": [
+          "customer",
+          "current",
+          "days_30",
+          "days_60",
+          "days_90_plus",
+          "total_outstanding"
+        ]
+      },
+      {
+        "id": "collections_summary",
+        "label": "Collections Summary",
+        "report_type": "summary_report",
+        "surface": "module",
+        "source_docs": [
+          "ar_aging_snapshot",
+          "collection_case",
+          "customer_invoice",
+          "receipt_record"
+        ],
+        "source_fields": [
+          "customer",
+          "amount",
+          "outstanding_amount",
+          "status",
+          "posting_date"
+        ],
+        "output_columns": [
+          "customer",
+          "invoice_count",
+          "outstanding_amount",
+          "collected_amount"
+        ]
+      },
+      {
+        "id": "general_ledger",
+        "label": "General Ledger",
+        "report_type": "ledger_report",
+        "surface": "module",
+        "source_docs": [
+          "closing_batch",
+          "general_ledger_account",
+          "journal_entry",
+          "ledger_posting"
+        ],
+        "source_fields": [
+          "posting_date",
+          "account",
+          "debit",
+          "credit",
+          "balance",
+          "reference_no",
+          "workflow_state"
+        ],
+        "output_columns": [
+          "posting_date",
+          "account",
+          "reference_no",
+          "debit",
+          "credit",
+          "balance"
+        ]
+      },
+      {
+        "id": "journal_summary",
+        "label": "Journal Summary",
+        "report_type": "summary_report",
+        "surface": "module",
+        "source_docs": [
+          "closing_batch",
+          "general_ledger_account",
+          "journal_entry",
+          "ledger_posting"
+        ],
+        "source_fields": [
+          "posting_date",
+          "journal_entry",
+          "account",
+          "debit",
+          "credit",
+          "workflow_state"
+        ],
+        "output_columns": [
+          "period",
+          "entry_count",
+          "total_debit",
+          "total_credit"
+        ]
+      },
+      {
+        "id": "cash_management_overview_report",
+        "label": "Cash Management Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module",
+        "source_docs": [
+          "bank_reconciliation",
+          "cash_account",
+          "cash_position_snapshot",
+          "treasury_movement"
+        ],
+        "source_fields": [
+          "title",
+          "reference_no",
+          "description",
+          "workflow_state",
+          "reconciliation_code",
+          "bank_account",
+          "statement_period",
+          "opening",
+          "closing_balance",
+          "unmatched_items",
+          "reconciliation_status",
+          "related_cash_account",
+          "related_receipt_record",
+          "related_supplier_payment",
+          "related_journal_entry",
+          "transaction_date",
+          "party",
+          "currency"
+        ],
+        "output_columns": [
+          "period",
+          "count",
+          "status",
+          "amount",
+          "owner"
+        ]
+      },
+      {
+        "id": "cash_management_detail_report",
+        "label": "Cash Management Detail",
+        "report_type": "detail_report",
+        "surface": "module",
+        "source_docs": [
+          "bank_reconciliation",
+          "cash_account",
+          "cash_position_snapshot",
+          "treasury_movement"
+        ],
+        "source_fields": [
+          "title",
+          "reference_no",
+          "description",
+          "workflow_state",
+          "reconciliation_code",
+          "bank_account",
+          "statement_period",
+          "opening",
+          "closing_balance",
+          "unmatched_items",
+          "reconciliation_status",
+          "related_cash_account",
+          "related_receipt_record",
+          "related_supplier_payment",
+          "related_journal_entry",
+          "transaction_date",
+          "party",
+          "currency"
+        ],
+        "output_columns": [
+          "reference_no",
+          "title",
+          "workflow_state",
+          "modified"
+        ]
+      },
+      {
+        "id": "cash_management_trend_report",
+        "label": "Cash Management Trends",
+        "report_type": "trend_analysis",
+        "surface": "module",
+        "source_docs": [
+          "bank_reconciliation",
+          "cash_account",
+          "cash_position_snapshot",
+          "treasury_movement"
+        ],
+        "source_fields": [
+          "title",
+          "reference_no",
+          "description",
+          "workflow_state",
+          "reconciliation_code",
+          "bank_account",
+          "statement_period",
+          "opening",
+          "closing_balance",
+          "unmatched_items",
+          "reconciliation_status",
+          "related_cash_account",
+          "related_receipt_record",
+          "related_supplier_payment",
+          "related_journal_entry",
+          "transaction_date",
+          "party",
+          "currency"
+        ],
+        "output_columns": [
+          "period",
+          "count",
+          "amount"
+        ]
+      },
+      {
+        "id": "cost_accounting_overview_report",
+        "label": "Cost Accounting Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module",
+        "source_docs": [
+          "cost_allocation_rule",
+          "cost_center",
+          "cost_record",
+          "variance_record"
+        ],
+        "source_fields": [
+          "title",
+          "reference_no",
+          "description",
+          "workflow_state",
+          "rule_code",
+          "allocation_basis",
+          "source_pool",
+          "target_scope",
+          "effective_date",
+          "active_state",
+          "related_cost_center",
+          "related_cost_record",
+          "related_variance_record",
+          "cost_center_code",
+          "name",
+          "owning_unit",
+          "reporting_scope",
+          "related_cost_allocation_rule"
+        ],
+        "output_columns": [
+          "period",
+          "count",
+          "status",
+          "amount",
+          "owner"
+        ]
+      },
+      {
+        "id": "cost_accounting_detail_report",
+        "label": "Cost Accounting Detail",
+        "report_type": "detail_report",
+        "surface": "module",
+        "source_docs": [
+          "cost_allocation_rule",
+          "cost_center",
+          "cost_record",
+          "variance_record"
+        ],
+        "source_fields": [
+          "title",
+          "reference_no",
+          "description",
+          "workflow_state",
+          "rule_code",
+          "allocation_basis",
+          "source_pool",
+          "target_scope",
+          "effective_date",
+          "active_state",
+          "related_cost_center",
+          "related_cost_record",
+          "related_variance_record",
+          "cost_center_code",
+          "name",
+          "owning_unit",
+          "reporting_scope",
+          "related_cost_allocation_rule"
+        ],
+        "output_columns": [
+          "reference_no",
+          "title",
+          "workflow_state",
+          "modified"
+        ]
+      },
+      {
+        "id": "cost_accounting_trend_report",
+        "label": "Cost Accounting Trends",
+        "report_type": "trend_analysis",
+        "surface": "module",
+        "source_docs": [
+          "cost_allocation_rule",
+          "cost_center",
+          "cost_record",
+          "variance_record"
+        ],
+        "source_fields": [
+          "title",
+          "reference_no",
+          "description",
+          "workflow_state",
+          "rule_code",
+          "allocation_basis",
+          "source_pool",
+          "target_scope",
+          "effective_date",
+          "active_state",
+          "related_cost_center",
+          "related_cost_record",
+          "related_variance_record",
+          "cost_center_code",
+          "name",
+          "owning_unit",
+          "reporting_scope",
+          "related_cost_allocation_rule"
+        ],
+        "output_columns": [
+          "period",
+          "count",
+          "amount"
+        ]
+      },
+      {
+        "id": "profit_and_loss",
+        "label": "Profit and Loss",
+        "report_type": "financial_statement",
+        "surface": "module",
+        "source_docs": [
+          "adjustment_entry",
+          "financial_statement_run",
+          "reporting_period",
+          "statement_line"
+        ],
+        "source_fields": [
+          "posting_date",
+          "account",
+          "account_type",
+          "debit",
+          "credit",
+          "amount",
+          "currency",
+          "cost_center",
+          "workflow_state"
+        ],
+        "output_columns": [
+          "period",
+          "revenue",
+          "cost_of_sales",
+          "gross_profit",
+          "operating_expense",
+          "net_profit"
+        ]
+      },
+      {
+        "id": "balance_sheet",
+        "label": "Balance Sheet",
+        "report_type": "financial_statement",
+        "surface": "module",
+        "source_docs": [
+          "adjustment_entry",
+          "financial_statement_run",
+          "reporting_period",
+          "statement_line"
+        ],
+        "source_fields": [
+          "posting_date",
+          "account",
+          "account_type",
+          "debit",
+          "credit",
+          "balance",
+          "currency",
+          "workflow_state"
+        ],
+        "output_columns": [
+          "period",
+          "assets",
+          "liabilities",
+          "equity"
+        ]
+      },
+      {
+        "id": "cash_flow_statement",
+        "label": "Cash Flow Statement",
+        "report_type": "financial_statement",
+        "surface": "module",
+        "source_docs": [
+          "adjustment_entry",
+          "financial_statement_run",
+          "reporting_period",
+          "statement_line"
+        ],
+        "source_fields": [
+          "posting_date",
+          "account",
+          "cash_account",
+          "amount",
+          "debit",
+          "credit",
+          "currency",
+          "workflow_state"
+        ],
+        "output_columns": [
+          "period",
+          "operating_cash_flow",
+          "investing_cash_flow",
+          "financing_cash_flow",
+          "net_cash_flow"
+        ]
+      },
+      {
+        "id": "trial_balance",
+        "label": "Trial Balance",
+        "report_type": "ledger_report",
+        "surface": "module",
+        "source_docs": [
+          "adjustment_entry",
+          "financial_statement_run",
+          "reporting_period",
+          "statement_line"
+        ],
+        "source_fields": [
+          "posting_date",
+          "account",
+          "debit",
+          "credit",
+          "balance",
+          "currency",
+          "workflow_state"
+        ],
+        "output_columns": [
+          "account",
+          "debit",
+          "credit",
+          "balance"
+        ]
+      }
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "accounting_financial_operations_trend_line",
+        "label": "My Plug App trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "accounting_financial_operations_volume_column",
+        "label": "My Plug App volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "accounting_financial_operations_distribution_donut",
+        "label": "My Plug App distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "payables_due_line",
+        "label": "Accounts Payable due trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "outstanding_amount"
+      },
+      {
+        "id": "payables_aging_column",
+        "label": "Accounts Payable aging buckets",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "aging_bucket",
+        "y_field": "amount"
+      },
+      {
+        "id": "payables_supplier_donut",
+        "label": "Accounts Payable supplier mix",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "supplier",
+        "value_field": "outstanding_amount"
+      },
+      {
+        "id": "accounts_payable_trend_line",
+        "label": "Accounts Payable trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "accounts_payable_volume_column",
+        "label": "Accounts Payable volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "accounts_payable_distribution_donut",
+        "label": "Accounts Payable distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "payment_request_trend_line",
+        "label": "Payment Request trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "payment_request_volume_column",
+        "label": "Payment Request volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "payment_request_distribution_donut",
+        "label": "Payment Request distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "supplier_invoice_trend_line",
+        "label": "Supplier Invoice trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "supplier_invoice_volume_column",
+        "label": "Supplier Invoice volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "supplier_invoice_distribution_donut",
+        "label": "Supplier Invoice distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "ap_aging_snapshot_trend_line",
+        "label": "Ap Aging Snapshot trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "ap_aging_snapshot_volume_column",
+        "label": "Ap Aging Snapshot volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "ap_aging_snapshot_distribution_donut",
+        "label": "Ap Aging Snapshot distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "supplier_payment_trend_line",
+        "label": "Supplier Payment trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "supplier_payment_volume_column",
+        "label": "Supplier Payment volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "supplier_payment_distribution_donut",
+        "label": "Supplier Payment distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "receivables_due_line",
+        "label": "Accounts Receivable due trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "outstanding_amount"
+      },
+      {
+        "id": "receivables_aging_column",
+        "label": "Accounts Receivable aging buckets",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "aging_bucket",
+        "y_field": "amount"
+      },
+      {
+        "id": "receivables_customer_donut",
+        "label": "Accounts Receivable customer mix",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "customer",
+        "value_field": "outstanding_amount"
+      },
+      {
+        "id": "accounts_receivable_trend_line",
+        "label": "Accounts Receivable trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "accounts_receivable_volume_column",
+        "label": "Accounts Receivable volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "accounts_receivable_distribution_donut",
+        "label": "Accounts Receivable distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "ar_aging_snapshot_trend_line",
+        "label": "Ar Aging Snapshot trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "ar_aging_snapshot_volume_column",
+        "label": "Ar Aging Snapshot volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "ar_aging_snapshot_distribution_donut",
+        "label": "Ar Aging Snapshot distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "collection_case_trend_line",
+        "label": "Collection Case trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "collection_case_volume_column",
+        "label": "Collection Case volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "collection_case_distribution_donut",
+        "label": "Collection Case distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "customer_invoice_trend_line",
+        "label": "Customer Invoice trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "customer_invoice_volume_column",
+        "label": "Customer Invoice volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "customer_invoice_distribution_donut",
+        "label": "Customer Invoice distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "receipt_record_trend_line",
+        "label": "Receipt Record trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "receipt_record_volume_column",
+        "label": "Receipt Record volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "receipt_record_distribution_donut",
+        "label": "Receipt Record distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "ledger_activity_line",
+        "label": "Bookkeeping ledger activity",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "entry_count"
+      },
+      {
+        "id": "debit_credit_column",
+        "label": "Bookkeeping debit vs credit",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "period",
+        "y_field": "amount"
+      },
+      {
+        "id": "bookkeeping_trend_line",
+        "label": "Bookkeeping trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "bookkeeping_volume_column",
+        "label": "Bookkeeping volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "bookkeeping_distribution_donut",
+        "label": "Bookkeeping distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "general_ledger_account_trend_line",
+        "label": "General Ledger Account trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "general_ledger_account_volume_column",
+        "label": "General Ledger Account volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "general_ledger_account_distribution_donut",
+        "label": "General Ledger Account distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "journal_entry_trend_line",
+        "label": "Journal Entry trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "journal_entry_volume_column",
+        "label": "Journal Entry volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "journal_entry_distribution_donut",
+        "label": "Journal Entry distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "ledger_posting_trend_line",
+        "label": "Ledger Posting trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "ledger_posting_volume_column",
+        "label": "Ledger Posting volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "ledger_posting_distribution_donut",
+        "label": "Ledger Posting distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "closing_batch_trend_line",
+        "label": "Closing Batch trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "closing_batch_volume_column",
+        "label": "Closing Batch volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "closing_batch_distribution_donut",
+        "label": "Closing Batch distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "cash_management_trend_line",
+        "label": "Cash Management trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cash_management_volume_column",
+        "label": "Cash Management volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cash_management_distribution_donut",
+        "label": "Cash Management distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "bank_reconciliation_trend_line",
+        "label": "Bank Reconciliation trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "bank_reconciliation_volume_column",
+        "label": "Bank Reconciliation volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "bank_reconciliation_distribution_donut",
+        "label": "Bank Reconciliation distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "treasury_movement_trend_line",
+        "label": "Treasury Movement trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "treasury_movement_volume_column",
+        "label": "Treasury Movement volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "treasury_movement_distribution_donut",
+        "label": "Treasury Movement distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "cash_account_trend_line",
+        "label": "Cash Account trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cash_account_volume_column",
+        "label": "Cash Account volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cash_account_distribution_donut",
+        "label": "Cash Account distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "cash_position_snapshot_trend_line",
+        "label": "Cash Position Snapshot trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cash_position_snapshot_volume_column",
+        "label": "Cash Position Snapshot volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cash_position_snapshot_distribution_donut",
+        "label": "Cash Position Snapshot distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "cost_accounting_trend_line",
+        "label": "Cost Accounting trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cost_accounting_volume_column",
+        "label": "Cost Accounting volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cost_accounting_distribution_donut",
+        "label": "Cost Accounting distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "cost_allocation_rule_trend_line",
+        "label": "Cost Allocation Rule trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cost_allocation_rule_volume_column",
+        "label": "Cost Allocation Rule volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cost_allocation_rule_distribution_donut",
+        "label": "Cost Allocation Rule distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "cost_center_trend_line",
+        "label": "Cost Center trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cost_center_volume_column",
+        "label": "Cost Center volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cost_center_distribution_donut",
+        "label": "Cost Center distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "variance_record_trend_line",
+        "label": "Variance Record trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "variance_record_volume_column",
+        "label": "Variance Record volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "variance_record_distribution_donut",
+        "label": "Variance Record distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "cost_record_trend_line",
+        "label": "Cost Record trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cost_record_volume_column",
+        "label": "Cost Record volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cost_record_distribution_donut",
+        "label": "Cost Record distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "financial_performance_line",
+        "label": "Financial Reporting profit trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "net_profit"
+      },
+      {
+        "id": "financial_structure_column",
+        "label": "Financial Reporting statement comparison",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "statement",
+        "y_field": "amount"
+      },
+      {
+        "id": "expense_mix_donut",
+        "label": "Financial Reporting expense mix",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "expense_category",
+        "value_field": "amount"
+      },
+      {
+        "id": "financial_reporting_trend_line",
+        "label": "Financial Reporting trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "financial_reporting_volume_column",
+        "label": "Financial Reporting volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "financial_reporting_distribution_donut",
+        "label": "Financial Reporting distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "adjustment_entry_trend_line",
+        "label": "Adjustment Entry trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "adjustment_entry_volume_column",
+        "label": "Adjustment Entry volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "adjustment_entry_distribution_donut",
+        "label": "Adjustment Entry distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "reporting_period_trend_line",
+        "label": "Reporting Period trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "reporting_period_volume_column",
+        "label": "Reporting Period volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "reporting_period_distribution_donut",
+        "label": "Reporting Period distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "financial_statement_run_trend_line",
+        "label": "Financial Statement Run trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "financial_statement_run_volume_column",
+        "label": "Financial Statement Run volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "financial_statement_run_distribution_donut",
+        "label": "Financial Statement Run distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "statement_line_trend_line",
+        "label": "Statement Line trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "statement_line_volume_column",
+        "label": "Statement Line volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "statement_line_distribution_donut",
+        "label": "Statement Line distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ],
+    "source_docs": [
+      "ap_aging_snapshot",
+      "payment_request",
+      "supplier_invoice",
+      "supplier_payment",
+      "ar_aging_snapshot",
+      "collection_case",
+      "customer_invoice",
+      "receipt_record",
+      "closing_batch",
+      "general_ledger_account",
+      "journal_entry",
+      "ledger_posting",
+      "bank_reconciliation",
+      "cash_account",
+      "cash_position_snapshot",
+      "treasury_movement",
+      "cost_allocation_rule",
+      "cost_center",
+      "cost_record",
+      "variance_record",
+      "adjustment_entry",
+      "financial_statement_run",
+      "reporting_period",
+      "statement_line"
+    ],
+    "source_fields": [
+      "supplier",
+      "invoice_date",
+      "due_date",
+      "outstanding_amount",
+      "currency",
+      "workflow_state",
+      "amount",
+      "status",
+      "posting_date",
+      "customer",
+      "account",
+      "debit",
+      "credit",
+      "balance",
+      "reference_no",
+      "journal_entry",
+      "title",
+      "description",
+      "reconciliation_code",
+      "bank_account",
+      "statement_period",
+      "opening",
+      "closing_balance",
+      "unmatched_items",
+      "reconciliation_status",
+      "related_cash_account",
+      "related_receipt_record",
+      "related_supplier_payment",
+      "related_journal_entry",
+      "transaction_date",
+      "party",
+      "rule_code",
+      "allocation_basis",
+      "source_pool",
+      "target_scope",
+      "effective_date"
+    ],
+    "child_sources": [
+      {
+        "id": "accounts_payable",
+        "title": "Accounts Payable",
+        "surface": "module",
+        "source_docs": [
+          "ap_aging_snapshot",
+          "payment_request",
+          "supplier_invoice",
+          "supplier_payment"
+        ]
+      },
+      {
+        "id": "accounts_receivable",
+        "title": "Accounts Receivable",
+        "surface": "module",
+        "source_docs": [
+          "ar_aging_snapshot",
+          "collection_case",
+          "customer_invoice",
+          "receipt_record"
+        ]
+      },
+      {
+        "id": "bookkeeping",
+        "title": "Bookkeeping",
+        "surface": "module",
+        "source_docs": [
+          "closing_batch",
+          "general_ledger_account",
+          "journal_entry",
+          "ledger_posting"
+        ]
+      },
+      {
+        "id": "cash_management",
+        "title": "Cash Management",
+        "surface": "module",
+        "source_docs": [
+          "bank_reconciliation",
+          "cash_account",
+          "cash_position_snapshot",
+          "treasury_movement"
+        ]
+      },
+      {
+        "id": "cost_accounting",
+        "title": "Cost Accounting",
+        "surface": "module",
+        "source_docs": [
+          "cost_allocation_rule",
+          "cost_center",
+          "cost_record",
+          "variance_record"
+        ]
+      },
+      {
+        "id": "financial_reporting",
+        "title": "Financial Reporting",
+        "surface": "module",
+        "source_docs": [
+          "adjustment_entry",
+          "financial_statement_run",
+          "reporting_period",
+          "statement_line"
+        ]
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "supplier_invoice",
+      "supplier_payment",
+      "cash_account",
+      "supplier_profile",
+      "payment_request",
+      "journal_entry",
+      "purchase_order",
+      "goods_receipt",
+      "customer_invoice",
+      "customer_account",
+      "receipt_record",
+      "collection_case",
+      "sales_order",
+      "delivery_note",
+      "ledger_posting",
+      "cost_center",
+      "general_ledger_account",
+      "reporting_period",
+      "adjustment_entry",
+      "financial_statement_run",
+      "cash_position_snapshot",
+      "bank_reconciliation",
+      "treasury_movement",
+      "cost_record",
+      "variance_record",
+      "cost_allocation_rule",
+      "budget_plan",
+      "closing_batch",
+      "statement_line"
+    ],
+    "upstream_docs": [
+      "supplier_invoice",
+      "supplier_payment",
+      "cash_account",
+      "supplier_profile",
+      "payment_request",
+      "journal_entry",
+      "purchase_order",
+      "goods_receipt",
+      "customer_invoice",
+      "customer_account",
+      "receipt_record",
+      "collection_case",
+      "sales_order",
+      "delivery_note",
+      "ledger_posting",
+      "cost_center",
+      "general_ledger_account",
+      "reporting_period",
+      "adjustment_entry",
+      "financial_statement_run",
+      "cash_position_snapshot",
+      "bank_reconciliation",
+      "treasury_movement",
+      "cost_record",
+      "variance_record",
+      "cost_allocation_rule",
+      "budget_plan",
+      "closing_batch",
+      "statement_line"
+    ],
+    "downstream_docs": [
+      "supplier_payment",
+      "payment_request",
+      "journal_entry",
+      "collection_case",
+      "receipt_record",
+      "ledger_posting",
+      "adjustment_entry",
+      "cost_record"
+    ],
+    "actors": [
+      "AP clerk",
+      "reviewer",
+      "approver",
+      "treasury or finance officer",
+      "procurement officer",
+      "finance officer",
+      "account owner",
+      "billing officer",
+      "collections officer",
+      "customer-facing finance team",
+      "accounting officer",
+      "finance controller",
+      "reporting accountant",
+      "management audience"
+    ],
+    "downstream_effects": [
+      "updates AP aging, cash management, bookkeeping, and supplier history",
+      "updates AR aging, customer history, cash management, and bookkeeping",
+      "postings feed reporting, reconciliation, receivables, payables, and closing workflows",
+      "feeds management reporting, audit, compliance, and executive decision-making"
+    ],
+    "emits_records": [
+      {
+        "action_id": "execute",
+        "target_doc": "supplier_payment",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "approve",
+        "target_doc": "payment_request",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "post",
+        "target_doc": "journal_entry",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "issue",
+        "target_doc": "collection_case",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "approve",
+        "target_doc": "journal_entry",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "approve",
+        "target_doc": "receipt_record",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "post",
+        "target_doc": "ledger_posting",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "approve",
+        "target_doc": "adjustment_entry",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "approve",
+        "target_doc": "cost_record",
+        "effect_type": "create_record"
+      }
+    ],
+    "handoff_targets": [
+      "supplier_invoice",
+      "supplier_payment",
+      "cash_account",
+      "supplier_profile",
+      "payment_request",
+      "journal_entry",
+      "purchase_order",
+      "goods_receipt",
+      "customer_invoice",
+      "customer_account",
+      "receipt_record",
+      "collection_case",
+      "sales_order",
+      "delivery_note",
+      "ledger_posting",
+      "cost_center",
+      "general_ledger_account",
+      "reporting_period",
+      "adjustment_entry",
+      "financial_statement_run",
+      "cash_position_snapshot",
+      "bank_reconciliation",
+      "treasury_movement",
+      "cost_record",
+      "variance_record",
+      "cost_allocation_rule",
+      "budget_plan",
+      "closing_batch",
+      "statement_line"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "payment_request",
+        "target_doc": "supplier_invoice",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payment_request",
+        "target_doc": "supplier_payment",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payment_request",
+        "target_doc": "cash_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payment_request",
+        "target_doc": "supplier_payment",
+        "relation": "create_record",
+        "action_id": "execute"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "supplier_profile",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "payment_request",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "supplier_payment",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "purchase_order",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "goods_receipt",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "payment_request",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "post"
+      },
+      {
+        "source_doc": "ap_aging_snapshot",
+        "target_doc": "supplier_invoice",
+        "relation": "references"
+      },
+      {
+        "source_doc": "ap_aging_snapshot",
+        "target_doc": "supplier_profile",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_payment",
+        "target_doc": "supplier_invoice",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_payment",
+        "target_doc": "payment_request",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_payment",
+        "target_doc": "cash_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_payment",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_payment",
+        "target_doc": "payment_request",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "supplier_payment",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "post"
+      },
+      {
+        "source_doc": "ar_aging_snapshot",
+        "target_doc": "customer_invoice",
+        "relation": "references"
+      },
+      {
+        "source_doc": "ar_aging_snapshot",
+        "target_doc": "customer_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "collection_case",
+        "target_doc": "customer_invoice",
+        "relation": "references"
+      },
+      {
+        "source_doc": "collection_case",
+        "target_doc": "customer_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "collection_case",
+        "target_doc": "receipt_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "collection_case",
+        "target_doc": "collection_case",
+        "relation": "create_record",
+        "action_id": "issue"
+      },
+      {
+        "source_doc": "collection_case",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "post"
+      },
+      {
+        "source_doc": "customer_invoice",
+        "target_doc": "customer_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "customer_invoice",
+        "target_doc": "receipt_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "customer_invoice",
+        "target_doc": "collection_case",
+        "relation": "references"
+      },
+      {
+        "source_doc": "customer_invoice",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "customer_invoice",
+        "target_doc": "sales_order",
+        "relation": "references"
+      },
+      {
+        "source_doc": "customer_invoice",
+        "target_doc": "delivery_note",
+        "relation": "references"
+      },
+      {
+        "source_doc": "customer_invoice",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "customer_invoice",
+        "target_doc": "collection_case",
+        "relation": "create_record",
+        "action_id": "issue"
+      },
+      {
+        "source_doc": "customer_invoice",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "post"
+      },
+      {
+        "source_doc": "receipt_record",
+        "target_doc": "customer_invoice",
+        "relation": "references"
+      },
+      {
+        "source_doc": "receipt_record",
+        "target_doc": "cash_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "receipt_record",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "receipt_record",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "receipt_record",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "post"
+      },
+      {
+        "source_doc": "general_ledger_account",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "general_ledger_account",
+        "target_doc": "ledger_posting",
+        "relation": "references"
+      },
+      {
+        "source_doc": "general_ledger_account",
+        "target_doc": "cost_center",
+        "relation": "references"
+      },
+      {
+        "source_doc": "journal_entry",
+        "target_doc": "general_ledger_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "journal_entry",
+        "target_doc": "ledger_posting",
+        "relation": "references"
+      },
+      {
+        "source_doc": "journal_entry",
+        "target_doc": "supplier_invoice",
+        "relation": "references"
+      },
+      {
+        "source_doc": "journal_entry",
+        "target_doc": "customer_invoice",
+        "relation": "references"
+      },
+      {
+        "source_doc": "journal_entry",
+        "target_doc": "supplier_payment",
+        "relation": "references"
+      },
+      {
+        "source_doc": "journal_entry",
+        "target_doc": "receipt_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "journal_entry",
+        "target_doc": "receipt_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "journal_entry",
+        "target_doc": "ledger_posting",
+        "relation": "create_record",
+        "action_id": "post"
+      },
+      {
+        "source_doc": "ledger_posting",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "ledger_posting",
+        "target_doc": "general_ledger_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "ledger_posting",
+        "target_doc": "cost_center",
+        "relation": "references"
+      },
+      {
+        "source_doc": "closing_batch",
+        "target_doc": "reporting_period",
+        "relation": "references"
+      },
+      {
+        "source_doc": "closing_batch",
+        "target_doc": "adjustment_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "closing_batch",
+        "target_doc": "financial_statement_run",
+        "relation": "references"
+      },
+      {
+        "source_doc": "closing_batch",
+        "target_doc": "adjustment_entry",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "bank_reconciliation",
+        "target_doc": "cash_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "bank_reconciliation",
+        "target_doc": "receipt_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "bank_reconciliation",
+        "target_doc": "supplier_payment",
+        "relation": "references"
+      },
+      {
+        "source_doc": "bank_reconciliation",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "bank_reconciliation",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "treasury_movement",
+        "target_doc": "cash_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "treasury_movement",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "treasury_movement",
+        "target_doc": "cash_position_snapshot",
+        "relation": "references"
+      },
+      {
+        "source_doc": "treasury_movement",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "treasury_movement",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "post"
+      },
+      {
+        "source_doc": "cash_account",
+        "target_doc": "receipt_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cash_account",
+        "target_doc": "supplier_payment",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cash_account",
+        "target_doc": "bank_reconciliation",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cash_account",
+        "target_doc": "treasury_movement",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cash_position_snapshot",
+        "target_doc": "cash_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cash_position_snapshot",
+        "target_doc": "bank_reconciliation",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cash_position_snapshot",
+        "target_doc": "treasury_movement",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_allocation_rule",
+        "target_doc": "cost_center",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_allocation_rule",
+        "target_doc": "cost_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_allocation_rule",
+        "target_doc": "variance_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_allocation_rule",
+        "target_doc": "cost_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "cost_center",
+        "target_doc": "cost_allocation_rule",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_center",
+        "target_doc": "cost_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_center",
+        "target_doc": "variance_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "variance_record",
+        "target_doc": "cost_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "variance_record",
+        "target_doc": "cost_center",
+        "relation": "references"
+      },
+      {
+        "source_doc": "variance_record",
+        "target_doc": "budget_plan",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_record",
+        "target_doc": "cost_center",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_record",
+        "target_doc": "cost_allocation_rule",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_record",
+        "target_doc": "variance_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_record",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_record",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "post"
+      },
+      {
+        "source_doc": "adjustment_entry",
+        "target_doc": "reporting_period",
+        "relation": "references"
+      },
+      {
+        "source_doc": "adjustment_entry",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "adjustment_entry",
+        "target_doc": "closing_batch",
+        "relation": "references"
+      },
+      {
+        "source_doc": "adjustment_entry",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "adjustment_entry",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "post"
+      },
+      {
+        "source_doc": "reporting_period",
+        "target_doc": "closing_batch",
+        "relation": "references"
+      },
+      {
+        "source_doc": "reporting_period",
+        "target_doc": "financial_statement_run",
+        "relation": "references"
+      },
+      {
+        "source_doc": "reporting_period",
+        "target_doc": "adjustment_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "financial_statement_run",
+        "target_doc": "statement_line",
+        "relation": "references"
+      },
+      {
+        "source_doc": "financial_statement_run",
+        "target_doc": "reporting_period",
+        "relation": "references"
+      },
+      {
+        "source_doc": "financial_statement_run",
+        "target_doc": "adjustment_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "financial_statement_run",
+        "target_doc": "closing_batch",
+        "relation": "references"
+      },
+      {
+        "source_doc": "financial_statement_run",
+        "target_doc": "adjustment_entry",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "statement_line",
+        "target_doc": "financial_statement_run",
+        "relation": "references"
+      },
+      {
+        "source_doc": "statement_line",
+        "target_doc": "general_ledger_account",
+        "relation": "references"
+      }
+    ],
+    "operating_graph": {
+      "nodes": [
+        {
+          "id": "accounts_payable",
+          "kind": "module",
+          "title": "Accounts Payable"
+        },
+        {
+          "id": "accounts_receivable",
+          "kind": "module",
+          "title": "Accounts Receivable"
+        },
+        {
+          "id": "bookkeeping",
+          "kind": "module",
+          "title": "Bookkeeping"
+        },
+        {
+          "id": "cash_management",
+          "kind": "module",
+          "title": "Cash Management"
+        },
+        {
+          "id": "cost_accounting",
+          "kind": "module",
+          "title": "Cost Accounting"
+        },
+        {
+          "id": "financial_reporting",
+          "kind": "module",
+          "title": "Financial Reporting"
+        },
+        {
+          "id": "supplier_invoice",
+          "kind": "doc"
+        },
+        {
+          "id": "supplier_payment",
+          "kind": "doc"
+        },
+        {
+          "id": "cash_account",
+          "kind": "doc"
+        },
+        {
+          "id": "supplier_profile",
+          "kind": "doc"
+        },
+        {
+          "id": "payment_request",
+          "kind": "doc"
+        },
+        {
+          "id": "journal_entry",
+          "kind": "doc"
+        },
+        {
+          "id": "purchase_order",
+          "kind": "doc"
+        },
+        {
+          "id": "goods_receipt",
+          "kind": "doc"
+        },
+        {
+          "id": "customer_invoice",
+          "kind": "doc"
+        },
+        {
+          "id": "customer_account",
+          "kind": "doc"
+        },
+        {
+          "id": "receipt_record",
+          "kind": "doc"
+        },
+        {
+          "id": "collection_case",
+          "kind": "doc"
+        },
+        {
+          "id": "sales_order",
+          "kind": "doc"
+        },
+        {
+          "id": "delivery_note",
+          "kind": "doc"
+        },
+        {
+          "id": "ledger_posting",
+          "kind": "doc"
+        },
+        {
+          "id": "cost_center",
+          "kind": "doc"
+        },
+        {
+          "id": "general_ledger_account",
+          "kind": "doc"
+        },
+        {
+          "id": "reporting_period",
+          "kind": "doc"
+        },
+        {
+          "id": "adjustment_entry",
+          "kind": "doc"
+        },
+        {
+          "id": "financial_statement_run",
+          "kind": "doc"
+        },
+        {
+          "id": "cash_position_snapshot",
+          "kind": "doc"
+        },
+        {
+          "id": "bank_reconciliation",
+          "kind": "doc"
+        },
+        {
+          "id": "treasury_movement",
+          "kind": "doc"
+        },
+        {
+          "id": "cost_record",
+          "kind": "doc"
+        },
+        {
+          "id": "variance_record",
+          "kind": "doc"
+        },
+        {
+          "id": "cost_allocation_rule",
+          "kind": "doc"
+        },
+        {
+          "id": "budget_plan",
+          "kind": "doc"
+        },
+        {
+          "id": "closing_batch",
+          "kind": "doc"
+        },
+        {
+          "id": "statement_line",
+          "kind": "doc"
+        }
+      ],
+      "edges": [
+        {
+          "source_doc": "payment_request",
+          "target_doc": "supplier_invoice",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payment_request",
+          "target_doc": "supplier_payment",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payment_request",
+          "target_doc": "cash_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payment_request",
+          "target_doc": "supplier_payment",
+          "relation": "create_record",
+          "action_id": "execute"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "supplier_profile",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "payment_request",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "supplier_payment",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "purchase_order",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "goods_receipt",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "payment_request",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "post"
+        },
+        {
+          "source_doc": "ap_aging_snapshot",
+          "target_doc": "supplier_invoice",
+          "relation": "references"
+        },
+        {
+          "source_doc": "ap_aging_snapshot",
+          "target_doc": "supplier_profile",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_payment",
+          "target_doc": "supplier_invoice",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_payment",
+          "target_doc": "payment_request",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_payment",
+          "target_doc": "cash_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_payment",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_payment",
+          "target_doc": "payment_request",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "supplier_payment",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "post"
+        },
+        {
+          "source_doc": "ar_aging_snapshot",
+          "target_doc": "customer_invoice",
+          "relation": "references"
+        },
+        {
+          "source_doc": "ar_aging_snapshot",
+          "target_doc": "customer_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "collection_case",
+          "target_doc": "customer_invoice",
+          "relation": "references"
+        },
+        {
+          "source_doc": "collection_case",
+          "target_doc": "customer_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "collection_case",
+          "target_doc": "receipt_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "collection_case",
+          "target_doc": "collection_case",
+          "relation": "create_record",
+          "action_id": "issue"
+        },
+        {
+          "source_doc": "collection_case",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "post"
+        },
+        {
+          "source_doc": "customer_invoice",
+          "target_doc": "customer_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "customer_invoice",
+          "target_doc": "receipt_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "customer_invoice",
+          "target_doc": "collection_case",
+          "relation": "references"
+        },
+        {
+          "source_doc": "customer_invoice",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "customer_invoice",
+          "target_doc": "sales_order",
+          "relation": "references"
+        },
+        {
+          "source_doc": "customer_invoice",
+          "target_doc": "delivery_note",
+          "relation": "references"
+        },
+        {
+          "source_doc": "customer_invoice",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "customer_invoice",
+          "target_doc": "collection_case",
+          "relation": "create_record",
+          "action_id": "issue"
+        },
+        {
+          "source_doc": "customer_invoice",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "post"
+        },
+        {
+          "source_doc": "receipt_record",
+          "target_doc": "customer_invoice",
+          "relation": "references"
+        },
+        {
+          "source_doc": "receipt_record",
+          "target_doc": "cash_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "receipt_record",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "receipt_record",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "receipt_record",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "post"
+        },
+        {
+          "source_doc": "general_ledger_account",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "general_ledger_account",
+          "target_doc": "ledger_posting",
+          "relation": "references"
+        },
+        {
+          "source_doc": "general_ledger_account",
+          "target_doc": "cost_center",
+          "relation": "references"
+        },
+        {
+          "source_doc": "journal_entry",
+          "target_doc": "general_ledger_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "journal_entry",
+          "target_doc": "ledger_posting",
+          "relation": "references"
+        },
+        {
+          "source_doc": "journal_entry",
+          "target_doc": "supplier_invoice",
+          "relation": "references"
+        },
+        {
+          "source_doc": "journal_entry",
+          "target_doc": "customer_invoice",
+          "relation": "references"
+        },
+        {
+          "source_doc": "journal_entry",
+          "target_doc": "supplier_payment",
+          "relation": "references"
+        },
+        {
+          "source_doc": "journal_entry",
+          "target_doc": "receipt_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "journal_entry",
+          "target_doc": "receipt_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "journal_entry",
+          "target_doc": "ledger_posting",
+          "relation": "create_record",
+          "action_id": "post"
+        },
+        {
+          "source_doc": "ledger_posting",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "ledger_posting",
+          "target_doc": "general_ledger_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "ledger_posting",
+          "target_doc": "cost_center",
+          "relation": "references"
+        },
+        {
+          "source_doc": "closing_batch",
+          "target_doc": "reporting_period",
+          "relation": "references"
+        },
+        {
+          "source_doc": "closing_batch",
+          "target_doc": "adjustment_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "closing_batch",
+          "target_doc": "financial_statement_run",
+          "relation": "references"
+        },
+        {
+          "source_doc": "closing_batch",
+          "target_doc": "adjustment_entry",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "bank_reconciliation",
+          "target_doc": "cash_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "bank_reconciliation",
+          "target_doc": "receipt_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "bank_reconciliation",
+          "target_doc": "supplier_payment",
+          "relation": "references"
+        },
+        {
+          "source_doc": "bank_reconciliation",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "bank_reconciliation",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "treasury_movement",
+          "target_doc": "cash_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "treasury_movement",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "treasury_movement",
+          "target_doc": "cash_position_snapshot",
+          "relation": "references"
+        },
+        {
+          "source_doc": "treasury_movement",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "treasury_movement",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "post"
+        },
+        {
+          "source_doc": "cash_account",
+          "target_doc": "receipt_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cash_account",
+          "target_doc": "supplier_payment",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cash_account",
+          "target_doc": "bank_reconciliation",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cash_account",
+          "target_doc": "treasury_movement",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cash_position_snapshot",
+          "target_doc": "cash_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cash_position_snapshot",
+          "target_doc": "bank_reconciliation",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cash_position_snapshot",
+          "target_doc": "treasury_movement",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_allocation_rule",
+          "target_doc": "cost_center",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_allocation_rule",
+          "target_doc": "cost_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_allocation_rule",
+          "target_doc": "variance_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_allocation_rule",
+          "target_doc": "cost_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "cost_center",
+          "target_doc": "cost_allocation_rule",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_center",
+          "target_doc": "cost_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_center",
+          "target_doc": "variance_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "variance_record",
+          "target_doc": "cost_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "variance_record",
+          "target_doc": "cost_center",
+          "relation": "references"
+        },
+        {
+          "source_doc": "variance_record",
+          "target_doc": "budget_plan",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_record",
+          "target_doc": "cost_center",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_record",
+          "target_doc": "cost_allocation_rule",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_record",
+          "target_doc": "variance_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_record",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_record",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "post"
+        },
+        {
+          "source_doc": "adjustment_entry",
+          "target_doc": "reporting_period",
+          "relation": "references"
+        },
+        {
+          "source_doc": "adjustment_entry",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "adjustment_entry",
+          "target_doc": "closing_batch",
+          "relation": "references"
+        },
+        {
+          "source_doc": "adjustment_entry",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "adjustment_entry",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "post"
+        },
+        {
+          "source_doc": "reporting_period",
+          "target_doc": "closing_batch",
+          "relation": "references"
+        },
+        {
+          "source_doc": "reporting_period",
+          "target_doc": "financial_statement_run",
+          "relation": "references"
+        },
+        {
+          "source_doc": "reporting_period",
+          "target_doc": "adjustment_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "financial_statement_run",
+          "target_doc": "statement_line",
+          "relation": "references"
+        },
+        {
+          "source_doc": "financial_statement_run",
+          "target_doc": "reporting_period",
+          "relation": "references"
+        },
+        {
+          "source_doc": "financial_statement_run",
+          "target_doc": "adjustment_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "financial_statement_run",
+          "target_doc": "closing_batch",
+          "relation": "references"
+        },
+        {
+          "source_doc": "financial_statement_run",
+          "target_doc": "adjustment_entry",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "statement_line",
+          "target_doc": "financial_statement_run",
+          "relation": "references"
+        },
+        {
+          "source_doc": "statement_line",
+          "target_doc": "general_ledger_account",
+          "relation": "references"
+        }
+      ]
+    }
   }
 }

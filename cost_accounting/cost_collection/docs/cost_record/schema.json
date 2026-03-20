@@ -153,7 +153,7 @@
       "unique": false,
       "options": null,
       "purpose": "primary_party",
-      "linked_doc": null,
+      "linked_doc": "party_record",
       "depends_on": null,
       "mandatory_depends_on": null,
       "read_only_depends_on": null,
@@ -170,12 +170,39 @@
     {
       "field_id": "currency",
       "label": "Currency",
-      "type": "Data",
+      "type": "Select",
       "required": false,
       "read_only": false,
       "default": null,
       "unique": false,
-      "options": null,
+      "options": {
+        "values": [
+          "USD",
+          "EUR",
+          "GBP",
+          "KES",
+          "UGX",
+          "TZS",
+          "RWF",
+          "NGN",
+          "GHS",
+          "ZAR",
+          "AED",
+          "SAR",
+          "INR",
+          "CNY",
+          "JPY",
+          "CAD",
+          "AUD",
+          "NZD",
+          "CHF",
+          "SEK",
+          "NOK",
+          "DKK",
+          "ZMW",
+          "BWP"
+        ]
+      },
       "purpose": "currency_code",
       "linked_doc": null,
       "depends_on": null,
@@ -242,7 +269,7 @@
     {
       "field_id": "date",
       "label": "Date",
-      "type": "Data",
+      "type": "Date",
       "required": false,
       "read_only": false,
       "default": null,
@@ -290,7 +317,7 @@
     {
       "field_id": "amount",
       "label": "Amount",
-      "type": "Data",
+      "type": "Currency",
       "required": false,
       "read_only": false,
       "default": null,
@@ -412,7 +439,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_variance_record",
@@ -436,7 +464,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_journal_entry",
@@ -460,7 +489,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     }
   ],
   "field_groups": {
@@ -597,7 +627,9 @@
         "allocate",
         "post",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "finance officer",
@@ -605,10 +637,13 @@
         "view",
         "list",
         "create",
+        "update",
         "review",
         "post",
         "archive"
-      ]
+      ],
+      "scope": "execution",
+      "ownership": "finance"
     }
   ],
   "transaction_behavior": {

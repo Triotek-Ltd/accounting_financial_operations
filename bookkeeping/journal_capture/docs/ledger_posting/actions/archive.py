@@ -2,17 +2,19 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "ledger_posting"
 ACTION_ID = "archive"
-ACTION_RULE = {'allowed_in_states': ['active'], 'transitions_to': 'archived'}
+ACTION_RULE: dict[str, Any] = {'allowed_in_states': ['active'], 'transitions_to': 'archived'}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'business_objective': 'validate financial transaction evidence, capture journals, post ledger entries, and retain auditable accounting records', 'actors': ['accounting officer', 'reviewer', 'approver', 'finance controller'], 'start_condition': 'a financial transaction or adjustment requires accounting recognition', 'ordered_steps': ['Record debit and credit ledger postings.', 'Post the journal to the ledger.', 'Reconcile or reverse if errors are found.', 'Retain the accounting record set for audit and reporting.'], 'primary_actions': ['record', 'review', 'post', 'reverse', 'archive'], 'primary_transitions': ['ledger_posting: active', 'ledger_posting: active -> reversed'], 'downstream_effects': ['postings feed reporting, reconciliation, receivables, payables, and closing workflows'], 'action_actors': {'record': ['accounting officer'], 'review': ['reviewer'], 'reverse': ['accounting officer'], 'archive': ['accounting officer']}}
 
 def handle_archive(payload: dict, context: dict | None = None) -> dict:
     context = context or {}
-    next_state = ACTION_RULE.get("transitions_to")
+    next_state = cast(str | None, ACTION_RULE.get("transitions_to"))
     updates = {STATE_FIELD: next_state} if STATE_FIELD and next_state else {}
     return {
         "doc_id": DOC_ID,

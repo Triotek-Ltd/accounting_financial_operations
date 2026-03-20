@@ -4,5 +4,789 @@
   "app_id": "accounting_financial_operations",
   "type": "module",
   "status": "draft",
-  "supports_submodules": true
+  "supports_submodules": true,
+  "ui": {
+    "icon_key": "apps",
+    "accent": "#246f89",
+    "logo_image": null,
+    "cover_image": null
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "module",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "docs",
+      "flatten_submodules_in_ui": true
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Cost Accounting KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "cost_accounting",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Cost Accounting summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "cost_accounting",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Cost Accounting charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "cost_accounting",
+          "metric_family": "trend"
+        },
+        "chart_specs": [
+          {
+            "id": "cost_accounting_trend_line",
+            "label": "Cost Accounting trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "cost_accounting_volume_column",
+            "label": "Cost Accounting volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "cost_accounting_distribution_donut",
+            "label": "Cost Accounting distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "cost_allocation_rule_trend_line",
+            "label": "Cost Allocation Rule trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "cost_allocation_rule_volume_column",
+            "label": "Cost Allocation Rule volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "cost_allocation_rule_distribution_donut",
+            "label": "Cost Allocation Rule distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "cost_center_trend_line",
+            "label": "Cost Center trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "cost_center_volume_column",
+            "label": "Cost Center volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "cost_center_distribution_donut",
+            "label": "Cost Center distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "variance_record_trend_line",
+            "label": "Variance Record trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "variance_record_volume_column",
+            "label": "Variance Record volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "variance_record_distribution_donut",
+            "label": "Variance Record distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "cost_record_trend_line",
+            "label": "Cost Record trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "cost_record_volume_column",
+            "label": "Cost Record volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "cost_record_distribution_donut",
+            "label": "Cost Record distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          }
+        ]
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Cost Accounting reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "cost_accounting",
+          "metric_family": "reporting"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "cost_accounting",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "cost_accounting",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "cost_accounting",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "cost_accounting",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "cost_accounting_overview_report",
+        "label": "Cost Accounting Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module",
+        "source_docs": [
+          "cost_allocation_rule",
+          "cost_center",
+          "cost_record",
+          "variance_record"
+        ],
+        "source_fields": [
+          "title",
+          "reference_no",
+          "description",
+          "workflow_state",
+          "rule_code",
+          "allocation_basis",
+          "source_pool",
+          "target_scope",
+          "effective_date",
+          "active_state",
+          "related_cost_center",
+          "related_cost_record",
+          "related_variance_record",
+          "cost_center_code",
+          "name",
+          "owning_unit",
+          "reporting_scope",
+          "related_cost_allocation_rule"
+        ],
+        "output_columns": [
+          "period",
+          "count",
+          "status",
+          "amount",
+          "owner"
+        ]
+      },
+      {
+        "id": "cost_accounting_detail_report",
+        "label": "Cost Accounting Detail",
+        "report_type": "detail_report",
+        "surface": "module",
+        "source_docs": [
+          "cost_allocation_rule",
+          "cost_center",
+          "cost_record",
+          "variance_record"
+        ],
+        "source_fields": [
+          "title",
+          "reference_no",
+          "description",
+          "workflow_state",
+          "rule_code",
+          "allocation_basis",
+          "source_pool",
+          "target_scope",
+          "effective_date",
+          "active_state",
+          "related_cost_center",
+          "related_cost_record",
+          "related_variance_record",
+          "cost_center_code",
+          "name",
+          "owning_unit",
+          "reporting_scope",
+          "related_cost_allocation_rule"
+        ],
+        "output_columns": [
+          "reference_no",
+          "title",
+          "workflow_state",
+          "modified"
+        ]
+      },
+      {
+        "id": "cost_accounting_trend_report",
+        "label": "Cost Accounting Trends",
+        "report_type": "trend_analysis",
+        "surface": "module",
+        "source_docs": [
+          "cost_allocation_rule",
+          "cost_center",
+          "cost_record",
+          "variance_record"
+        ],
+        "source_fields": [
+          "title",
+          "reference_no",
+          "description",
+          "workflow_state",
+          "rule_code",
+          "allocation_basis",
+          "source_pool",
+          "target_scope",
+          "effective_date",
+          "active_state",
+          "related_cost_center",
+          "related_cost_record",
+          "related_variance_record",
+          "cost_center_code",
+          "name",
+          "owning_unit",
+          "reporting_scope",
+          "related_cost_allocation_rule"
+        ],
+        "output_columns": [
+          "period",
+          "count",
+          "amount"
+        ]
+      },
+      {
+        "id": "overview_report",
+        "label": "Cost Accounting Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module"
+      },
+      {
+        "id": "trend_report",
+        "label": "Cost Accounting Trends",
+        "report_type": "trend_analysis",
+        "surface": "module"
+      },
+      {
+        "id": "summary_report",
+        "label": "Cost Allocation Rule Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Cost Allocation Rule Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "cost_accounting_trend_line",
+        "label": "Cost Accounting trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cost_accounting_volume_column",
+        "label": "Cost Accounting volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cost_accounting_distribution_donut",
+        "label": "Cost Accounting distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "cost_allocation_rule_trend_line",
+        "label": "Cost Allocation Rule trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cost_allocation_rule_volume_column",
+        "label": "Cost Allocation Rule volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cost_allocation_rule_distribution_donut",
+        "label": "Cost Allocation Rule distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "cost_center_trend_line",
+        "label": "Cost Center trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cost_center_volume_column",
+        "label": "Cost Center volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cost_center_distribution_donut",
+        "label": "Cost Center distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "variance_record_trend_line",
+        "label": "Variance Record trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "variance_record_volume_column",
+        "label": "Variance Record volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "variance_record_distribution_donut",
+        "label": "Variance Record distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "cost_record_trend_line",
+        "label": "Cost Record trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cost_record_volume_column",
+        "label": "Cost Record volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cost_record_distribution_donut",
+        "label": "Cost Record distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ],
+    "source_docs": [],
+    "source_fields": [],
+    "child_sources": [
+      {
+        "id": "cost_allocation_rule",
+        "title": "Cost Allocation Rule",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "cost_center",
+        "title": "Cost Center",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "variance_record",
+        "title": "Variance Record",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "cost_record",
+        "title": "Cost Record",
+        "surface": null,
+        "source_docs": []
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "cost_center",
+      "cost_record",
+      "variance_record",
+      "cost_allocation_rule",
+      "budget_plan",
+      "journal_entry"
+    ],
+    "upstream_docs": [
+      "cost_center",
+      "cost_record",
+      "variance_record",
+      "cost_allocation_rule",
+      "budget_plan",
+      "journal_entry"
+    ],
+    "downstream_docs": [
+      "cost_record",
+      "journal_entry"
+    ],
+    "actors": [
+      "finance officer"
+    ],
+    "downstream_effects": [],
+    "emits_records": [
+      {
+        "action_id": "approve",
+        "target_doc": "cost_record",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "post",
+        "target_doc": "journal_entry",
+        "effect_type": "create_record"
+      }
+    ],
+    "handoff_targets": [
+      "cost_center",
+      "cost_record",
+      "variance_record",
+      "cost_allocation_rule",
+      "budget_plan",
+      "journal_entry"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "cost_allocation_rule",
+        "target_doc": "cost_center",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_allocation_rule",
+        "target_doc": "cost_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_allocation_rule",
+        "target_doc": "variance_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_allocation_rule",
+        "target_doc": "cost_record",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "cost_center",
+        "target_doc": "cost_allocation_rule",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_center",
+        "target_doc": "cost_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_center",
+        "target_doc": "variance_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "variance_record",
+        "target_doc": "cost_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "variance_record",
+        "target_doc": "cost_center",
+        "relation": "references"
+      },
+      {
+        "source_doc": "variance_record",
+        "target_doc": "budget_plan",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_record",
+        "target_doc": "cost_center",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_record",
+        "target_doc": "cost_allocation_rule",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_record",
+        "target_doc": "variance_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_record",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_record",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "post"
+      }
+    ],
+    "operating_graph": {
+      "nodes": [
+        {
+          "id": "cost_center",
+          "kind": "doc"
+        },
+        {
+          "id": "cost_record",
+          "kind": "doc"
+        },
+        {
+          "id": "variance_record",
+          "kind": "doc"
+        },
+        {
+          "id": "cost_allocation_rule",
+          "kind": "doc"
+        },
+        {
+          "id": "budget_plan",
+          "kind": "doc"
+        },
+        {
+          "id": "journal_entry",
+          "kind": "doc"
+        }
+      ],
+      "edges": [
+        {
+          "source_doc": "cost_allocation_rule",
+          "target_doc": "cost_center",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_allocation_rule",
+          "target_doc": "cost_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_allocation_rule",
+          "target_doc": "variance_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_allocation_rule",
+          "target_doc": "cost_record",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "cost_center",
+          "target_doc": "cost_allocation_rule",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_center",
+          "target_doc": "cost_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_center",
+          "target_doc": "variance_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "variance_record",
+          "target_doc": "cost_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "variance_record",
+          "target_doc": "cost_center",
+          "relation": "references"
+        },
+        {
+          "source_doc": "variance_record",
+          "target_doc": "budget_plan",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_record",
+          "target_doc": "cost_center",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_record",
+          "target_doc": "cost_allocation_rule",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_record",
+          "target_doc": "variance_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_record",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "cost_record",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "post"
+        }
+      ]
+    }
+  },
+  "contract_version": 1
 }

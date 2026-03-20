@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 DOC_ID = "collection_case"
 ALLOWED_ACTIONS = ['create', 'assign', 'contact', 'escalate', 'resolve', 'close', 'archive']
-ACTION_RULES = {'create': {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': None}, 'assign': {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': None}, 'contact': {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': None}, 'escalate': {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': 'escalated'}, 'resolve': {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': 'resolved'}, 'close': {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': 'closed'}, 'archive': {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': None}, 'assign': {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': None}, 'contact': {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': None}, 'escalate': {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': 'escalated'}, 'resolve': {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': 'resolved'}, 'close': {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': 'closed'}, 'archive': {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 

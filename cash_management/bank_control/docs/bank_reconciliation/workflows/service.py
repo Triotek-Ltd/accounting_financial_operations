@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "bank_reconciliation"
 ARCHETYPE = "workflow_case"
 INITIAL_STATE = 'open'
 STATES = ['open', 'matching', 'balanced', 'approved', 'closed', 'archived']
 TERMINAL_STATES = ['closed', 'archived']
-ACTION_RULES = {'create': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': None}, 'match': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': None}, 'review': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': 'approved'}, 'close': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': 'closed'}, 'archive': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': None}, 'match': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': None}, 'review': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': 'approved'}, 'close': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': 'closed'}, 'archive': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'relation_context': {'related_docs': ['cash_account', 'receipt_record', 'supplier_payment', 'journal_entry'], 'borrowed_fields': ['account details from cash_account', 'transaction refs from linked receipts/payments'], 'inferred_roles': ['procurement officer', 'finance officer']}, 'actors': ['procurement officer', 'finance officer'], 'action_actors': {'create': ['procurement officer'], 'review': ['finance officer'], 'approve': ['finance officer'], 'close': ['procurement officer'], 'archive': ['procurement officer']}}
@@ -29,7 +31,7 @@ class WorkflowService:
 
     def next_state_for(self, action_id: str) -> str | None:
         rule = ACTION_RULES.get(action_id, {})
-        return rule.get("transitions_to")
+        return cast(str | None, rule.get("transitions_to"))
 
     def apply_action(self, action_id: str, state: str | None) -> dict:
         if not self.is_action_allowed(action_id, state):

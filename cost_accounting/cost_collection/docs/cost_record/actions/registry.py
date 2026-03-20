@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 DOC_ID = "cost_record"
 ALLOWED_ACTIONS = ['create', 'review', 'allocate', 'post', 'archive']
-ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': 'reviewed'}, 'allocate': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'post': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': 'reviewed'}, 'allocate': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'post': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'reviewed', 'allocated', 'posted'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 

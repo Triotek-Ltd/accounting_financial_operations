@@ -29,6 +29,18 @@
       "fields": {
         "workflow_state": "approved"
       }
+    },
+    {
+      "type": "create_record",
+      "target_doc": "journal_entry",
+      "values": {
+        "title": {
+          "$template": "Journal Entry for {title|reference_no|id}"
+        },
+        "reference_no": {
+          "$template": "JOURNAL_ENTRY-{reference_no|id}"
+        }
+      }
     }
   ],
   "issue": [
@@ -37,6 +49,18 @@
       "fields": {
         "workflow_state": "unpaid"
       }
+    },
+    {
+      "type": "create_record",
+      "target_doc": "collection_case",
+      "values": {
+        "title": {
+          "$template": "Collection Case for {title|reference_no|id}"
+        },
+        "reference_no": {
+          "$template": "COLLECTION_CASE-{reference_no|id}"
+        }
+      }
     }
   ],
   "archive": [
@@ -44,6 +68,20 @@
       "type": "update_current",
       "fields": {
         "workflow_state": "archived"
+      }
+    }
+  ],
+  "post": [
+    {
+      "type": "create_record",
+      "target_doc": "journal_entry",
+      "values": {
+        "title": {
+          "$template": "Journal Entry for {title|reference_no|id}"
+        },
+        "reference_no": {
+          "$template": "JOURNAL_ENTRY-{reference_no|id}"
+        }
       }
     }
   ]

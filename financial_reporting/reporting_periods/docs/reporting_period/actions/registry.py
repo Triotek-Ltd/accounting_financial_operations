@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 DOC_ID = "reporting_period"
 ALLOWED_ACTIONS = ['create', 'update', 'open', 'close', 'archive']
-ACTION_RULES = {'create': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': None}, 'update': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': None}, 'open': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': None}, 'close': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': 'closed'}, 'archive': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': None}, 'update': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': None}, 'open': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': None}, 'close': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': 'closed'}, 'archive': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 

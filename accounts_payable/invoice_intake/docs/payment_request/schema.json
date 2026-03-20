@@ -195,14 +195,14 @@
     {
       "field_id": "approver",
       "label": "Approver",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
       "unique": false,
       "options": null,
       "purpose": "actor_reference",
-      "linked_doc": null,
+      "linked_doc": "employee_record",
       "depends_on": null,
       "mandatory_depends_on": null,
       "read_only_depends_on": null,
@@ -310,7 +310,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_supplier_payment",
@@ -334,7 +335,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_cash_account",
@@ -358,7 +360,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     }
   ],
   "field_groups": {
@@ -528,7 +531,9 @@
         "execute",
         "cancel",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "AP clerk",
@@ -536,10 +541,13 @@
         "view",
         "list",
         "create",
+        "update",
         "submit",
         "cancel",
         "archive"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     },
     {
       "role_id": "reviewer",
@@ -547,7 +555,9 @@
         "view",
         "list",
         "review"
-      ]
+      ],
+      "scope": "review",
+      "ownership": "oversight"
     },
     {
       "role_id": "approver",
@@ -556,8 +566,11 @@
         "list",
         "approve",
         "reject",
-        "cancel"
-      ]
+        "cancel",
+        "update"
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     },
     {
       "role_id": "treasury or finance officer",
@@ -565,7 +578,9 @@
         "view",
         "list",
         "execute"
-      ]
+      ],
+      "scope": "execution",
+      "ownership": "finance"
     }
   ],
   "transaction_behavior": {

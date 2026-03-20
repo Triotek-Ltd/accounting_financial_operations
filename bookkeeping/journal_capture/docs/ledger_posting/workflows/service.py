@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "ledger_posting"
 ARCHETYPE = "ledger"
 INITIAL_STATE = 'active'
 STATES = ['active', 'reversed', 'archived']
 TERMINAL_STATES = ['reversed', 'archived']
-ACTION_RULES = {'record': {'allowed_in_states': ['active'], 'transitions_to': None}, 'review': {'allowed_in_states': ['active'], 'transitions_to': None}, 'reverse': {'allowed_in_states': ['active'], 'transitions_to': 'reversed'}, 'archive': {'allowed_in_states': ['active'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'record': {'allowed_in_states': ['active'], 'transitions_to': None}, 'review': {'allowed_in_states': ['active'], 'transitions_to': None}, 'reverse': {'allowed_in_states': ['active'], 'transitions_to': 'reversed'}, 'archive': {'allowed_in_states': ['active'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'business_objective': 'validate financial transaction evidence, capture journals, post ledger entries, and retain auditable accounting records', 'actors': ['accounting officer', 'reviewer', 'approver', 'finance controller'], 'start_condition': 'a financial transaction or adjustment requires accounting recognition', 'ordered_steps': ['Record debit and credit ledger postings.', 'Post the journal to the ledger.', 'Reconcile or reverse if errors are found.', 'Retain the accounting record set for audit and reporting.'], 'primary_actions': ['record', 'review', 'post', 'reverse', 'archive'], 'primary_transitions': ['ledger_posting: active', 'ledger_posting: active -> reversed'], 'downstream_effects': ['postings feed reporting, reconciliation, receivables, payables, and closing workflows'], 'action_actors': {'record': ['accounting officer'], 'review': ['reviewer'], 'reverse': ['accounting officer'], 'archive': ['accounting officer']}}
@@ -29,7 +31,7 @@ class WorkflowService:
 
     def next_state_for(self, action_id: str) -> str | None:
         rule = ACTION_RULES.get(action_id, {})
-        return rule.get("transitions_to")
+        return cast(str | None, rule.get("transitions_to"))
 
     def apply_action(self, action_id: str, state: str | None) -> dict:
         if not self.is_action_allowed(action_id, state):

@@ -4,5 +4,863 @@
   "app_id": "accounting_financial_operations",
   "type": "module",
   "status": "draft",
-  "supports_submodules": true
+  "supports_submodules": true,
+  "ui": {
+    "icon_key": "apps",
+    "accent": "#246f89",
+    "logo_image": null,
+    "cover_image": null
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "module",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "docs",
+      "flatten_submodules_in_ui": true
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Financial Reporting KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "financial_reporting",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Financial Reporting summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "financial_reporting",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Financial Reporting charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "financial_reporting",
+          "metric_family": "trend"
+        },
+        "chart_specs": [
+          {
+            "id": "financial_performance_line",
+            "label": "Financial Reporting profit trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "net_profit"
+          },
+          {
+            "id": "financial_structure_column",
+            "label": "Financial Reporting statement comparison",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "statement",
+            "y_field": "amount"
+          },
+          {
+            "id": "expense_mix_donut",
+            "label": "Financial Reporting expense mix",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "expense_category",
+            "value_field": "amount"
+          },
+          {
+            "id": "financial_reporting_trend_line",
+            "label": "Financial Reporting trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "financial_reporting_volume_column",
+            "label": "Financial Reporting volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "financial_reporting_distribution_donut",
+            "label": "Financial Reporting distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "adjustment_entry_trend_line",
+            "label": "Adjustment Entry trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "adjustment_entry_volume_column",
+            "label": "Adjustment Entry volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "adjustment_entry_distribution_donut",
+            "label": "Adjustment Entry distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "reporting_period_trend_line",
+            "label": "Reporting Period trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "reporting_period_volume_column",
+            "label": "Reporting Period volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "reporting_period_distribution_donut",
+            "label": "Reporting Period distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "financial_statement_run_trend_line",
+            "label": "Financial Statement Run trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "financial_statement_run_volume_column",
+            "label": "Financial Statement Run volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "financial_statement_run_distribution_donut",
+            "label": "Financial Statement Run distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "statement_line_trend_line",
+            "label": "Statement Line trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "statement_line_volume_column",
+            "label": "Statement Line volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "statement_line_distribution_donut",
+            "label": "Statement Line distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          }
+        ]
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Financial Reporting reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "financial_reporting",
+          "metric_family": "reporting"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "financial_reporting",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "financial_reporting",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "financial_reporting",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "financial_reporting",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "profit_and_loss",
+        "label": "Profit and Loss",
+        "report_type": "financial_statement",
+        "surface": "module",
+        "source_docs": [
+          "adjustment_entry",
+          "financial_statement_run",
+          "reporting_period",
+          "statement_line"
+        ],
+        "source_fields": [
+          "posting_date",
+          "account",
+          "account_type",
+          "debit",
+          "credit",
+          "amount",
+          "currency",
+          "cost_center",
+          "workflow_state"
+        ],
+        "output_columns": [
+          "period",
+          "revenue",
+          "cost_of_sales",
+          "gross_profit",
+          "operating_expense",
+          "net_profit"
+        ]
+      },
+      {
+        "id": "balance_sheet",
+        "label": "Balance Sheet",
+        "report_type": "financial_statement",
+        "surface": "module",
+        "source_docs": [
+          "adjustment_entry",
+          "financial_statement_run",
+          "reporting_period",
+          "statement_line"
+        ],
+        "source_fields": [
+          "posting_date",
+          "account",
+          "account_type",
+          "debit",
+          "credit",
+          "balance",
+          "currency",
+          "workflow_state"
+        ],
+        "output_columns": [
+          "period",
+          "assets",
+          "liabilities",
+          "equity"
+        ]
+      },
+      {
+        "id": "cash_flow_statement",
+        "label": "Cash Flow Statement",
+        "report_type": "financial_statement",
+        "surface": "module",
+        "source_docs": [
+          "adjustment_entry",
+          "financial_statement_run",
+          "reporting_period",
+          "statement_line"
+        ],
+        "source_fields": [
+          "posting_date",
+          "account",
+          "cash_account",
+          "amount",
+          "debit",
+          "credit",
+          "currency",
+          "workflow_state"
+        ],
+        "output_columns": [
+          "period",
+          "operating_cash_flow",
+          "investing_cash_flow",
+          "financing_cash_flow",
+          "net_cash_flow"
+        ]
+      },
+      {
+        "id": "trial_balance",
+        "label": "Trial Balance",
+        "report_type": "ledger_report",
+        "surface": "module",
+        "source_docs": [
+          "adjustment_entry",
+          "financial_statement_run",
+          "reporting_period",
+          "statement_line"
+        ],
+        "source_fields": [
+          "posting_date",
+          "account",
+          "debit",
+          "credit",
+          "balance",
+          "currency",
+          "workflow_state"
+        ],
+        "output_columns": [
+          "account",
+          "debit",
+          "credit",
+          "balance"
+        ]
+      },
+      {
+        "id": "overview_report",
+        "label": "Financial Reporting Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module"
+      },
+      {
+        "id": "trend_report",
+        "label": "Financial Reporting Trends",
+        "report_type": "trend_analysis",
+        "surface": "module"
+      },
+      {
+        "id": "summary_report",
+        "label": "Adjustment Entry Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Adjustment Entry Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "financial_performance_line",
+        "label": "Financial Reporting profit trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "net_profit"
+      },
+      {
+        "id": "financial_structure_column",
+        "label": "Financial Reporting statement comparison",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "statement",
+        "y_field": "amount"
+      },
+      {
+        "id": "expense_mix_donut",
+        "label": "Financial Reporting expense mix",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "expense_category",
+        "value_field": "amount"
+      },
+      {
+        "id": "financial_reporting_trend_line",
+        "label": "Financial Reporting trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "financial_reporting_volume_column",
+        "label": "Financial Reporting volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "financial_reporting_distribution_donut",
+        "label": "Financial Reporting distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "adjustment_entry_trend_line",
+        "label": "Adjustment Entry trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "adjustment_entry_volume_column",
+        "label": "Adjustment Entry volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "adjustment_entry_distribution_donut",
+        "label": "Adjustment Entry distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "reporting_period_trend_line",
+        "label": "Reporting Period trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "reporting_period_volume_column",
+        "label": "Reporting Period volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "reporting_period_distribution_donut",
+        "label": "Reporting Period distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "financial_statement_run_trend_line",
+        "label": "Financial Statement Run trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "financial_statement_run_volume_column",
+        "label": "Financial Statement Run volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "financial_statement_run_distribution_donut",
+        "label": "Financial Statement Run distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "statement_line_trend_line",
+        "label": "Statement Line trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "statement_line_volume_column",
+        "label": "Statement Line volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "statement_line_distribution_donut",
+        "label": "Statement Line distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ],
+    "source_docs": [],
+    "source_fields": [],
+    "child_sources": [
+      {
+        "id": "adjustment_entry",
+        "title": "Adjustment Entry",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "reporting_period",
+        "title": "Reporting Period",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "financial_statement_run",
+        "title": "Financial Statement Run",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "statement_line",
+        "title": "Statement Line",
+        "surface": null,
+        "source_docs": []
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "reporting_period",
+      "journal_entry",
+      "closing_batch",
+      "financial_statement_run",
+      "adjustment_entry",
+      "statement_line",
+      "general_ledger_account"
+    ],
+    "upstream_docs": [
+      "reporting_period",
+      "journal_entry",
+      "closing_batch",
+      "financial_statement_run",
+      "adjustment_entry",
+      "statement_line",
+      "general_ledger_account"
+    ],
+    "downstream_docs": [
+      "journal_entry",
+      "adjustment_entry"
+    ],
+    "actors": [
+      "finance controller",
+      "reporting accountant",
+      "approver",
+      "management audience"
+    ],
+    "downstream_effects": [
+      "feeds management reporting, audit, compliance, and executive decision-making"
+    ],
+    "emits_records": [
+      {
+        "action_id": "approve",
+        "target_doc": "journal_entry",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "post",
+        "target_doc": "journal_entry",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "approve",
+        "target_doc": "adjustment_entry",
+        "effect_type": "create_record"
+      }
+    ],
+    "handoff_targets": [
+      "reporting_period",
+      "journal_entry",
+      "closing_batch",
+      "financial_statement_run",
+      "adjustment_entry",
+      "statement_line",
+      "general_ledger_account"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "adjustment_entry",
+        "target_doc": "reporting_period",
+        "relation": "references"
+      },
+      {
+        "source_doc": "adjustment_entry",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "adjustment_entry",
+        "target_doc": "closing_batch",
+        "relation": "references"
+      },
+      {
+        "source_doc": "adjustment_entry",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "adjustment_entry",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "post"
+      },
+      {
+        "source_doc": "reporting_period",
+        "target_doc": "closing_batch",
+        "relation": "references"
+      },
+      {
+        "source_doc": "reporting_period",
+        "target_doc": "financial_statement_run",
+        "relation": "references"
+      },
+      {
+        "source_doc": "reporting_period",
+        "target_doc": "adjustment_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "financial_statement_run",
+        "target_doc": "statement_line",
+        "relation": "references"
+      },
+      {
+        "source_doc": "financial_statement_run",
+        "target_doc": "reporting_period",
+        "relation": "references"
+      },
+      {
+        "source_doc": "financial_statement_run",
+        "target_doc": "adjustment_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "financial_statement_run",
+        "target_doc": "closing_batch",
+        "relation": "references"
+      },
+      {
+        "source_doc": "financial_statement_run",
+        "target_doc": "adjustment_entry",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "statement_line",
+        "target_doc": "financial_statement_run",
+        "relation": "references"
+      },
+      {
+        "source_doc": "statement_line",
+        "target_doc": "general_ledger_account",
+        "relation": "references"
+      }
+    ],
+    "operating_graph": {
+      "nodes": [
+        {
+          "id": "reporting_period",
+          "kind": "doc"
+        },
+        {
+          "id": "journal_entry",
+          "kind": "doc"
+        },
+        {
+          "id": "closing_batch",
+          "kind": "doc"
+        },
+        {
+          "id": "financial_statement_run",
+          "kind": "doc"
+        },
+        {
+          "id": "adjustment_entry",
+          "kind": "doc"
+        },
+        {
+          "id": "statement_line",
+          "kind": "doc"
+        },
+        {
+          "id": "general_ledger_account",
+          "kind": "doc"
+        }
+      ],
+      "edges": [
+        {
+          "source_doc": "adjustment_entry",
+          "target_doc": "reporting_period",
+          "relation": "references"
+        },
+        {
+          "source_doc": "adjustment_entry",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "adjustment_entry",
+          "target_doc": "closing_batch",
+          "relation": "references"
+        },
+        {
+          "source_doc": "adjustment_entry",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "adjustment_entry",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "post"
+        },
+        {
+          "source_doc": "reporting_period",
+          "target_doc": "closing_batch",
+          "relation": "references"
+        },
+        {
+          "source_doc": "reporting_period",
+          "target_doc": "financial_statement_run",
+          "relation": "references"
+        },
+        {
+          "source_doc": "reporting_period",
+          "target_doc": "adjustment_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "financial_statement_run",
+          "target_doc": "statement_line",
+          "relation": "references"
+        },
+        {
+          "source_doc": "financial_statement_run",
+          "target_doc": "reporting_period",
+          "relation": "references"
+        },
+        {
+          "source_doc": "financial_statement_run",
+          "target_doc": "adjustment_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "financial_statement_run",
+          "target_doc": "closing_batch",
+          "relation": "references"
+        },
+        {
+          "source_doc": "financial_statement_run",
+          "target_doc": "adjustment_entry",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "statement_line",
+          "target_doc": "financial_statement_run",
+          "relation": "references"
+        },
+        {
+          "source_doc": "statement_line",
+          "target_doc": "general_ledger_account",
+          "relation": "references"
+        }
+      ]
+    }
+  },
+  "contract_version": 1
 }

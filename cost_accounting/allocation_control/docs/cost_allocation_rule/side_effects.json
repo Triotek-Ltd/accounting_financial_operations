@@ -30,5 +30,19 @@
         "workflow_state": "archived"
       }
     }
+  ],
+  "approve": [
+    {
+      "type": "create_record",
+      "target_doc": "cost_record",
+      "values": {
+        "title": {
+          "$template": "Cost Record for {title|reference_no|id}"
+        },
+        "reference_no": {
+          "$template": "COST_RECORD-{reference_no|id}"
+        }
+      }
+    }
   ]
 }

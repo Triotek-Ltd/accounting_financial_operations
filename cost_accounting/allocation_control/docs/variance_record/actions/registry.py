@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 DOC_ID = "variance_record"
 ALLOWED_ACTIONS = ['record', 'review', 'escalate', 'archive']
-ACTION_RULES = {'record': {'allowed_in_states': ['active', 'reviewed', 'escalated'], 'transitions_to': None}, 'review': {'allowed_in_states': ['active', 'reviewed', 'escalated'], 'transitions_to': 'reviewed'}, 'escalate': {'allowed_in_states': ['active', 'reviewed', 'escalated'], 'transitions_to': 'escalated'}, 'archive': {'allowed_in_states': ['active', 'reviewed', 'escalated'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'record': {'allowed_in_states': ['active', 'reviewed', 'escalated'], 'transitions_to': None}, 'review': {'allowed_in_states': ['active', 'reviewed', 'escalated'], 'transitions_to': 'reviewed'}, 'escalate': {'allowed_in_states': ['active', 'reviewed', 'escalated'], 'transitions_to': 'escalated'}, 'archive': {'allowed_in_states': ['active', 'reviewed', 'escalated'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 

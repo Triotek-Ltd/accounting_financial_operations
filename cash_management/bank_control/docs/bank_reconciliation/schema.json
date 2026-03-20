@@ -243,13 +243,13 @@
     {
       "field_id": "unmatched_items",
       "label": "Unmatched Items",
-      "type": "Table",
+      "type": "JSON",
       "required": false,
       "read_only": false,
       "default": null,
       "unique": false,
       "options": null,
-      "purpose": null,
+      "purpose": "structured_payload",
       "linked_doc": null,
       "depends_on": null,
       "mandatory_depends_on": null,
@@ -319,7 +319,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_receipt_record",
@@ -343,7 +344,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_supplier_payment",
@@ -367,7 +369,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_journal_entry",
@@ -391,7 +394,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     }
   ],
   "field_groups": {
@@ -535,7 +539,9 @@
         "approve",
         "close",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "procurement officer",
@@ -543,9 +549,12 @@
         "view",
         "list",
         "create",
+        "update",
         "close",
         "archive"
-      ]
+      ],
+      "scope": "execution",
+      "ownership": "operations"
     },
     {
       "role_id": "finance officer",
@@ -554,7 +563,9 @@
         "list",
         "review",
         "approve"
-      ]
+      ],
+      "scope": "execution",
+      "ownership": "finance"
     }
   ],
   "transaction_behavior": {

@@ -29,6 +29,18 @@
       "fields": {
         "workflow_state": "approved"
       }
+    },
+    {
+      "type": "create_record",
+      "target_doc": "payment_request",
+      "values": {
+        "title": {
+          "$template": "Payment Request for {title|reference_no|id}"
+        },
+        "reference_no": {
+          "$template": "PAYMENT_REQUEST-{reference_no|id}"
+        }
+      }
     }
   ],
   "archive": [
@@ -36,6 +48,20 @@
       "type": "update_current",
       "fields": {
         "workflow_state": "archived"
+      }
+    }
+  ],
+  "post": [
+    {
+      "type": "create_record",
+      "target_doc": "journal_entry",
+      "values": {
+        "title": {
+          "$template": "Journal Entry for {title|reference_no|id}"
+        },
+        "reference_no": {
+          "$template": "JOURNAL_ENTRY-{reference_no|id}"
+        }
       }
     }
   ]

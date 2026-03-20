@@ -142,6 +142,9 @@
       "assign": [
         "billing officer"
       ],
+      "resolve": [
+        "customer-facing finance team"
+      ],
       "close": [
         "billing officer"
       ],

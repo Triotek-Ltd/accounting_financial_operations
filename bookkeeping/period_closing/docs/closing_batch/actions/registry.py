@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 DOC_ID = "closing_batch"
 ALLOWED_ACTIONS = ['create', 'assign', 'review', 'approve', 'close', 'reopen', 'archive']
-ACTION_RULES = {'create': {'allowed_in_states': ['open', 'in_review', 'approved', 'reopened'], 'transitions_to': None}, 'assign': {'allowed_in_states': ['open', 'in_review', 'approved', 'reopened'], 'transitions_to': 'in_review'}, 'review': {'allowed_in_states': ['open', 'in_review', 'approved', 'reopened'], 'transitions_to': 'in_review'}, 'approve': {'allowed_in_states': ['open', 'in_review', 'approved', 'reopened'], 'transitions_to': 'approved'}, 'close': {'allowed_in_states': ['open', 'in_review', 'approved', 'reopened'], 'transitions_to': 'closed'}, 'reopen': {'allowed_in_states': ['open', 'in_review', 'approved', 'reopened'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['open', 'in_review', 'approved', 'reopened'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['open', 'in_review', 'approved', 'reopened'], 'transitions_to': None}, 'assign': {'allowed_in_states': ['open', 'in_review', 'approved', 'reopened'], 'transitions_to': 'in_review'}, 'review': {'allowed_in_states': ['open', 'in_review', 'approved', 'reopened'], 'transitions_to': 'in_review'}, 'approve': {'allowed_in_states': ['open', 'in_review', 'approved', 'reopened'], 'transitions_to': 'approved'}, 'close': {'allowed_in_states': ['open', 'in_review', 'approved', 'reopened'], 'transitions_to': 'closed'}, 'reopen': {'allowed_in_states': ['open', 'in_review', 'approved', 'reopened'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['open', 'in_review', 'approved', 'reopened'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 

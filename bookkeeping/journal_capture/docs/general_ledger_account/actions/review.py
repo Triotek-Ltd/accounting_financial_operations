@@ -2,17 +2,19 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "general_ledger_account"
 ACTION_ID = "review"
-ACTION_RULE = {'allowed_in_states': ['active', 'disabled'], 'transitions_to': None}
+ACTION_RULE: dict[str, Any] = {'allowed_in_states': ['active', 'disabled'], 'transitions_to': None}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'business_objective': 'validate financial transaction evidence, capture journals, post ledger entries, and retain auditable accounting records', 'actors': ['accounting officer', 'reviewer', 'approver', 'finance controller'], 'start_condition': 'a financial transaction or adjustment requires accounting recognition', 'ordered_steps': ['Receive transaction evidence and classify the transaction.', 'Validate supporting documentation and account mapping.'], 'primary_actions': ['create', 'update', 'review', 'approve'], 'primary_transitions': [], 'downstream_effects': ['postings feed reporting, reconciliation, receivables, payables, and closing workflows'], 'action_actors': {'create': ['accounting officer'], 'update': ['accounting officer'], 'review': ['reviewer'], 'archive': ['accounting officer']}}
 
 def handle_review(payload: dict, context: dict | None = None) -> dict:
     context = context or {}
-    next_state = ACTION_RULE.get("transitions_to")
+    next_state = cast(str | None, ACTION_RULE.get("transitions_to"))
     updates = {STATE_FIELD: next_state} if STATE_FIELD and next_state else {}
     return {
         "doc_id": DOC_ID,

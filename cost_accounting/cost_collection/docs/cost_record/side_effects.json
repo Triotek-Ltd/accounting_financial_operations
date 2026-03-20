@@ -21,6 +21,18 @@
       "fields": {
         "workflow_state": "posted"
       }
+    },
+    {
+      "type": "create_record",
+      "target_doc": "journal_entry",
+      "values": {
+        "title": {
+          "$template": "Journal Entry for {title|reference_no|id}"
+        },
+        "reference_no": {
+          "$template": "JOURNAL_ENTRY-{reference_no|id}"
+        }
+      }
     }
   ],
   "archive": [

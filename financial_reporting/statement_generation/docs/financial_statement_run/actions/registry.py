@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 DOC_ID = "financial_statement_run"
 ALLOWED_ACTIONS = ['create', 'generate', 'review', 'approve', 'publish', 'archive']
-ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'generated', 'reviewed', 'approved', 'published'], 'transitions_to': None}, 'generate': {'allowed_in_states': ['draft', 'generated', 'reviewed', 'approved', 'published'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'generated', 'reviewed', 'approved', 'published'], 'transitions_to': 'reviewed'}, 'approve': {'allowed_in_states': ['draft', 'generated', 'reviewed', 'approved', 'published'], 'transitions_to': 'approved'}, 'publish': {'allowed_in_states': ['draft', 'generated', 'reviewed', 'approved', 'published'], 'transitions_to': 'published'}, 'archive': {'allowed_in_states': ['draft', 'generated', 'reviewed', 'approved', 'published'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['draft', 'generated', 'reviewed', 'approved', 'published'], 'transitions_to': None}, 'generate': {'allowed_in_states': ['draft', 'generated', 'reviewed', 'approved', 'published'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'generated', 'reviewed', 'approved', 'published'], 'transitions_to': 'reviewed'}, 'approve': {'allowed_in_states': ['draft', 'generated', 'reviewed', 'approved', 'published'], 'transitions_to': 'approved'}, 'publish': {'allowed_in_states': ['draft', 'generated', 'reviewed', 'approved', 'published'], 'transitions_to': 'published'}, 'archive': {'allowed_in_states': ['draft', 'generated', 'reviewed', 'approved', 'published'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 

@@ -308,7 +308,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_cost_center",
@@ -332,7 +333,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_budget_plan",
@@ -356,7 +358,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     }
   ],
   "field_groups": {
@@ -473,7 +476,9 @@
         "review",
         "escalate",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     }
   ],
   "transaction_behavior": {

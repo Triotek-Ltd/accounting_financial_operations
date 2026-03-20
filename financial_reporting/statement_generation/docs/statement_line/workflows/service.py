@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "statement_line"
 ARCHETYPE = "ledger"
 INITIAL_STATE = 'active'
 STATES = ['active', 'reviewed', 'archived']
 TERMINAL_STATES = ['archived']
-ACTION_RULES = {'record': {'allowed_in_states': ['active', 'reviewed'], 'transitions_to': None}, 'review': {'allowed_in_states': ['active', 'reviewed'], 'transitions_to': 'reviewed'}, 'archive': {'allowed_in_states': ['active', 'reviewed'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'record': {'allowed_in_states': ['active', 'reviewed'], 'transitions_to': None}, 'review': {'allowed_in_states': ['active', 'reviewed'], 'transitions_to': 'reviewed'}, 'archive': {'allowed_in_states': ['active', 'reviewed'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'business_objective': 'collect accounting records for a reporting period, generate financial statements, review them, and publish management-ready financial outputs', 'actors': ['finance controller', 'reporting accountant', 'approver', 'management audience'], 'start_condition': 'a reporting period is ready for statement preparation', 'ordered_steps': ['Produce statement lines and mapped totals.'], 'primary_actions': ['record', 'review'], 'primary_transitions': ['statement_line: active -> reviewed'], 'downstream_effects': ['feeds management reporting, audit, compliance, and executive decision-making'], 'action_actors': {'record': ['finance controller'], 'review': ['reporting accountant'], 'archive': ['finance controller']}}
@@ -29,7 +31,7 @@ class WorkflowService:
 
     def next_state_for(self, action_id: str) -> str | None:
         rule = ACTION_RULES.get(action_id, {})
-        return rule.get("transitions_to")
+        return cast(str | None, rule.get("transitions_to"))
 
     def apply_action(self, action_id: str, state: str | None) -> dict:
         if not self.is_action_allowed(action_id, state):

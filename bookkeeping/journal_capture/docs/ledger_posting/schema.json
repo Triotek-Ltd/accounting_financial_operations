@@ -415,7 +415,9 @@
         "review",
         "reverse",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "accounting officer",
@@ -423,9 +425,13 @@
         "view",
         "list",
         "record",
+        "create",
         "reverse",
-        "archive"
-      ]
+        "archive",
+        "update"
+      ],
+      "scope": "execution",
+      "ownership": "finance"
     },
     {
       "role_id": "reviewer",
@@ -433,21 +439,27 @@
         "view",
         "list",
         "review"
-      ]
+      ],
+      "scope": "review",
+      "ownership": "oversight"
     },
     {
       "role_id": "approver",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     },
     {
       "role_id": "finance controller",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "execution",
+      "ownership": "finance"
     }
   ],
   "transaction_behavior": {

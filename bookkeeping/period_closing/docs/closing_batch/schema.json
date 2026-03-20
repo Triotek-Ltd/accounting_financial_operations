@@ -147,7 +147,7 @@
     {
       "field_id": "reporting_period",
       "label": "Reporting Period",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
@@ -219,14 +219,14 @@
     {
       "field_id": "approver",
       "label": "Approver",
-      "type": "Data",
+      "type": "Link",
       "required": false,
       "read_only": false,
       "default": null,
       "unique": false,
       "options": null,
       "purpose": "actor_reference",
-      "linked_doc": null,
+      "linked_doc": "employee_record",
       "depends_on": null,
       "mandatory_depends_on": null,
       "read_only_depends_on": null,
@@ -243,7 +243,7 @@
     {
       "field_id": "close_timestamp",
       "label": "Close Timestamp",
-      "type": "Data",
+      "type": "Datetime",
       "required": false,
       "read_only": false,
       "default": null,
@@ -286,7 +286,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     },
     {
       "field_id": "related_financial_statement_run",
@@ -310,7 +311,8 @@
         "list_visible": false,
         "filterable": false,
         "sortable": false
-      }
+      },
+      "relation_kind": "explicit"
     }
   ],
   "field_groups": {
@@ -460,7 +462,9 @@
         "close",
         "reopen",
         "archive"
-      ]
+      ],
+      "scope": "system",
+      "ownership": "platform"
     },
     {
       "role_id": "finance controller",
@@ -468,10 +472,13 @@
         "view",
         "list",
         "create",
+        "update",
         "assign",
         "close",
         "archive"
-      ]
+      ],
+      "scope": "execution",
+      "ownership": "finance"
     },
     {
       "role_id": "reporting accountant",
@@ -479,7 +486,9 @@
         "view",
         "list",
         "review"
-      ]
+      ],
+      "scope": "execution",
+      "ownership": "finance"
     },
     {
       "role_id": "approver",
@@ -487,14 +496,18 @@
         "view",
         "list",
         "approve"
-      ]
+      ],
+      "scope": "approval",
+      "ownership": "managerial"
     },
     {
       "role_id": "management audience",
       "actions": [
         "view",
         "list"
-      ]
+      ],
+      "scope": "document",
+      "ownership": "functional"
     }
   ],
   "transaction_behavior": {

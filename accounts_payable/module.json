@@ -4,5 +4,865 @@
   "app_id": "accounting_financial_operations",
   "type": "module",
   "status": "draft",
-  "supports_submodules": true
+  "supports_submodules": true,
+  "ui": {
+    "icon_key": "apps",
+    "accent": "#246f89",
+    "logo_image": null,
+    "cover_image": null
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "module",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "docs",
+      "flatten_submodules_in_ui": true
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Accounts Payable KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "accounts_payable",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Accounts Payable summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "accounts_payable",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Accounts Payable charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "accounts_payable",
+          "metric_family": "trend"
+        },
+        "chart_specs": [
+          {
+            "id": "payables_due_line",
+            "label": "Accounts Payable due trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "outstanding_amount"
+          },
+          {
+            "id": "payables_aging_column",
+            "label": "Accounts Payable aging buckets",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "aging_bucket",
+            "y_field": "amount"
+          },
+          {
+            "id": "payables_supplier_donut",
+            "label": "Accounts Payable supplier mix",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "supplier",
+            "value_field": "outstanding_amount"
+          },
+          {
+            "id": "accounts_payable_trend_line",
+            "label": "Accounts Payable trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "accounts_payable_volume_column",
+            "label": "Accounts Payable volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "accounts_payable_distribution_donut",
+            "label": "Accounts Payable distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "payment_request_trend_line",
+            "label": "Payment Request trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "payment_request_volume_column",
+            "label": "Payment Request volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "payment_request_distribution_donut",
+            "label": "Payment Request distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "supplier_invoice_trend_line",
+            "label": "Supplier Invoice trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "supplier_invoice_volume_column",
+            "label": "Supplier Invoice volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "supplier_invoice_distribution_donut",
+            "label": "Supplier Invoice distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "ap_aging_snapshot_trend_line",
+            "label": "Ap Aging Snapshot trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "ap_aging_snapshot_volume_column",
+            "label": "Ap Aging Snapshot volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "ap_aging_snapshot_distribution_donut",
+            "label": "Ap Aging Snapshot distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "supplier_payment_trend_line",
+            "label": "Supplier Payment trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "supplier_payment_volume_column",
+            "label": "Supplier Payment volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "supplier_payment_distribution_donut",
+            "label": "Supplier Payment distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          }
+        ]
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Accounts Payable reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "accounts_payable",
+          "metric_family": "reporting"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "accounts_payable",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "accounts_payable",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "accounts_payable",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "accounts_payable",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "aged_payables",
+        "label": "Aged Payables",
+        "report_type": "aging_report",
+        "surface": "module",
+        "source_docs": [
+          "ap_aging_snapshot",
+          "payment_request",
+          "supplier_invoice",
+          "supplier_payment"
+        ],
+        "source_fields": [
+          "supplier",
+          "invoice_date",
+          "due_date",
+          "outstanding_amount",
+          "currency",
+          "workflow_state"
+        ],
+        "output_columns": [
+          "supplier",
+          "current",
+          "days_30",
+          "days_60",
+          "days_90_plus",
+          "total_outstanding"
+        ]
+      },
+      {
+        "id": "payables_summary",
+        "label": "Payables Summary",
+        "report_type": "summary_report",
+        "surface": "module",
+        "source_docs": [
+          "ap_aging_snapshot",
+          "payment_request",
+          "supplier_invoice",
+          "supplier_payment"
+        ],
+        "source_fields": [
+          "supplier",
+          "amount",
+          "outstanding_amount",
+          "status",
+          "posting_date"
+        ],
+        "output_columns": [
+          "supplier",
+          "invoice_count",
+          "outstanding_amount",
+          "paid_amount"
+        ]
+      },
+      {
+        "id": "overview_report",
+        "label": "Accounts Payable Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module"
+      },
+      {
+        "id": "trend_report",
+        "label": "Accounts Payable Trends",
+        "report_type": "trend_analysis",
+        "surface": "module"
+      },
+      {
+        "id": "summary_report",
+        "label": "Payment Request Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Payment Request Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "payables_due_line",
+        "label": "Accounts Payable due trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "outstanding_amount"
+      },
+      {
+        "id": "payables_aging_column",
+        "label": "Accounts Payable aging buckets",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "aging_bucket",
+        "y_field": "amount"
+      },
+      {
+        "id": "payables_supplier_donut",
+        "label": "Accounts Payable supplier mix",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "supplier",
+        "value_field": "outstanding_amount"
+      },
+      {
+        "id": "accounts_payable_trend_line",
+        "label": "Accounts Payable trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "accounts_payable_volume_column",
+        "label": "Accounts Payable volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "accounts_payable_distribution_donut",
+        "label": "Accounts Payable distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "payment_request_trend_line",
+        "label": "Payment Request trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "payment_request_volume_column",
+        "label": "Payment Request volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "payment_request_distribution_donut",
+        "label": "Payment Request distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "supplier_invoice_trend_line",
+        "label": "Supplier Invoice trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "supplier_invoice_volume_column",
+        "label": "Supplier Invoice volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "supplier_invoice_distribution_donut",
+        "label": "Supplier Invoice distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "ap_aging_snapshot_trend_line",
+        "label": "Ap Aging Snapshot trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "ap_aging_snapshot_volume_column",
+        "label": "Ap Aging Snapshot volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "ap_aging_snapshot_distribution_donut",
+        "label": "Ap Aging Snapshot distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "supplier_payment_trend_line",
+        "label": "Supplier Payment trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "supplier_payment_volume_column",
+        "label": "Supplier Payment volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "supplier_payment_distribution_donut",
+        "label": "Supplier Payment distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ],
+    "source_docs": [],
+    "source_fields": [],
+    "child_sources": [
+      {
+        "id": "payment_request",
+        "title": "Payment Request",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "supplier_invoice",
+        "title": "Supplier Invoice",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "ap_aging_snapshot",
+        "title": "Ap Aging Snapshot",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "supplier_payment",
+        "title": "Supplier Payment",
+        "surface": null,
+        "source_docs": []
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "supplier_invoice",
+      "supplier_payment",
+      "cash_account",
+      "supplier_profile",
+      "payment_request",
+      "journal_entry",
+      "purchase_order",
+      "goods_receipt"
+    ],
+    "upstream_docs": [
+      "supplier_invoice",
+      "supplier_payment",
+      "cash_account",
+      "supplier_profile",
+      "payment_request",
+      "journal_entry",
+      "purchase_order",
+      "goods_receipt"
+    ],
+    "downstream_docs": [
+      "supplier_payment",
+      "payment_request",
+      "journal_entry"
+    ],
+    "actors": [
+      "AP clerk",
+      "reviewer",
+      "approver",
+      "treasury or finance officer",
+      "procurement officer",
+      "finance officer"
+    ],
+    "downstream_effects": [
+      "updates AP aging, cash management, bookkeeping, and supplier history"
+    ],
+    "emits_records": [
+      {
+        "action_id": "execute",
+        "target_doc": "supplier_payment",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "approve",
+        "target_doc": "payment_request",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "post",
+        "target_doc": "journal_entry",
+        "effect_type": "create_record"
+      }
+    ],
+    "handoff_targets": [
+      "supplier_invoice",
+      "supplier_payment",
+      "cash_account",
+      "supplier_profile",
+      "payment_request",
+      "journal_entry",
+      "purchase_order",
+      "goods_receipt"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "payment_request",
+        "target_doc": "supplier_invoice",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payment_request",
+        "target_doc": "supplier_payment",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payment_request",
+        "target_doc": "cash_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "payment_request",
+        "target_doc": "supplier_payment",
+        "relation": "create_record",
+        "action_id": "execute"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "supplier_profile",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "payment_request",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "supplier_payment",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "purchase_order",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "goods_receipt",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "payment_request",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "supplier_invoice",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "post"
+      },
+      {
+        "source_doc": "ap_aging_snapshot",
+        "target_doc": "supplier_invoice",
+        "relation": "references"
+      },
+      {
+        "source_doc": "ap_aging_snapshot",
+        "target_doc": "supplier_profile",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_payment",
+        "target_doc": "supplier_invoice",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_payment",
+        "target_doc": "payment_request",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_payment",
+        "target_doc": "cash_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_payment",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "supplier_payment",
+        "target_doc": "payment_request",
+        "relation": "create_record",
+        "action_id": "approve"
+      },
+      {
+        "source_doc": "supplier_payment",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "post"
+      }
+    ],
+    "operating_graph": {
+      "nodes": [
+        {
+          "id": "supplier_invoice",
+          "kind": "doc"
+        },
+        {
+          "id": "supplier_payment",
+          "kind": "doc"
+        },
+        {
+          "id": "cash_account",
+          "kind": "doc"
+        },
+        {
+          "id": "supplier_profile",
+          "kind": "doc"
+        },
+        {
+          "id": "payment_request",
+          "kind": "doc"
+        },
+        {
+          "id": "journal_entry",
+          "kind": "doc"
+        },
+        {
+          "id": "purchase_order",
+          "kind": "doc"
+        },
+        {
+          "id": "goods_receipt",
+          "kind": "doc"
+        }
+      ],
+      "edges": [
+        {
+          "source_doc": "payment_request",
+          "target_doc": "supplier_invoice",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payment_request",
+          "target_doc": "supplier_payment",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payment_request",
+          "target_doc": "cash_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "payment_request",
+          "target_doc": "supplier_payment",
+          "relation": "create_record",
+          "action_id": "execute"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "supplier_profile",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "payment_request",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "supplier_payment",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "purchase_order",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "goods_receipt",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "payment_request",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "supplier_invoice",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "post"
+        },
+        {
+          "source_doc": "ap_aging_snapshot",
+          "target_doc": "supplier_invoice",
+          "relation": "references"
+        },
+        {
+          "source_doc": "ap_aging_snapshot",
+          "target_doc": "supplier_profile",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_payment",
+          "target_doc": "supplier_invoice",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_payment",
+          "target_doc": "payment_request",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_payment",
+          "target_doc": "cash_account",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_payment",
+          "target_doc": "journal_entry",
+          "relation": "references"
+        },
+        {
+          "source_doc": "supplier_payment",
+          "target_doc": "payment_request",
+          "relation": "create_record",
+          "action_id": "approve"
+        },
+        {
+          "source_doc": "supplier_payment",
+          "target_doc": "journal_entry",
+          "relation": "create_record",
+          "action_id": "post"
+        }
+      ]
+    }
+  },
+  "contract_version": 1
 }

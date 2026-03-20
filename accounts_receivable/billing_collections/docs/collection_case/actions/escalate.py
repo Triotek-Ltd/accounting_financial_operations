@@ -2,17 +2,19 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "collection_case"
 ACTION_ID = "escalate"
-ACTION_RULE = {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': 'escalated'}
+ACTION_RULE: dict[str, Any] = {'allowed_in_states': ['open', 'contacted', 'promised', 'escalated', 'resolved'], 'transitions_to': 'escalated'}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {'business_objective': 'bill customers, track outstanding balances, collect payment, and maintain accurate receivable balances', 'actors': ['billing officer', 'collections officer', 'customer-facing finance team'], 'start_condition': 'a sales transaction is ready for billing', 'ordered_steps': ['Monitor outstanding balances and chase overdue items.', 'Close collection activity when settled.'], 'primary_actions': ['create', 'assign', 'contact', 'escalate', 'resolve', 'close', 'archive'], 'primary_transitions': ['collection_case: opened -> contacted -> promised or escalated -> resolved -> closed'], 'downstream_effects': ['updates AR aging, customer history, cash management, and bookkeeping'], 'action_actors': {'create': ['billing officer'], 'assign': ['billing officer'], 'close': ['billing officer'], 'archive': ['billing officer']}}
+WORKFLOW_HINTS = {'business_objective': 'bill customers, track outstanding balances, collect payment, and maintain accurate receivable balances', 'actors': ['billing officer', 'collections officer', 'customer-facing finance team'], 'start_condition': 'a sales transaction is ready for billing', 'ordered_steps': ['Monitor outstanding balances and chase overdue items.', 'Close collection activity when settled.'], 'primary_actions': ['create', 'assign', 'contact', 'escalate', 'resolve', 'close', 'archive'], 'primary_transitions': ['collection_case: opened -> contacted -> promised or escalated -> resolved -> closed'], 'downstream_effects': ['updates AR aging, customer history, cash management, and bookkeeping'], 'action_actors': {'create': ['billing officer'], 'assign': ['billing officer'], 'resolve': ['customer-facing finance team'], 'close': ['billing officer'], 'archive': ['billing officer']}}
 
 def handle_escalate(payload: dict, context: dict | None = None) -> dict:
     context = context or {}
-    next_state = ACTION_RULE.get("transitions_to")
+    next_state = cast(str | None, ACTION_RULE.get("transitions_to"))
     updates = {STATE_FIELD: next_state} if STATE_FIELD and next_state else {}
     return {
         "doc_id": DOC_ID,

@@ -21,6 +21,18 @@
       "fields": {
         "workflow_state": "approved"
       }
+    },
+    {
+      "type": "create_record",
+      "target_doc": "adjustment_entry",
+      "values": {
+        "title": {
+          "$template": "Adjustment Entry for {title|reference_no|id}"
+        },
+        "reference_no": {
+          "$template": "ADJUSTMENT_ENTRY-{reference_no|id}"
+        }
+      }
     }
   ],
   "close": [

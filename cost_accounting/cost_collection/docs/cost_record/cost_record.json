@@ -15,6 +15,267 @@
   },
   "doc_key": "cost_record",
   "doc_title": "Cost Record",
+  "ui": {
+    "icon_key": "receipt",
+    "accent": "#1f7a8c",
+    "logo_image": null,
+    "cover_image": null,
+    "preferred_views": [
+      "list",
+      "table",
+      "detail",
+      "report"
+    ],
+    "default_density": "comfortable"
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "doc",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "records",
+      "flatten_submodules_in_ui": false,
+      "views": [
+        "list",
+        "table",
+        "detail",
+        "report"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Cost Record KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "cost_record",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Cost Record summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "cost_record",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Cost Record charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "cost_record",
+          "metric_family": "trend"
+        }
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Cost Record reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "cost_record",
+          "metric_family": "reporting"
+        }
+      },
+      {
+        "id": "records",
+        "type": "record_table",
+        "title": "Cost Record records",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "cost_record",
+          "metric_family": "records"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "cost_record",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "cost_record",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "cost_record",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "cost_record",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Cost Record Overview",
+        "report_type": "dashboard_summary",
+        "surface": "doc"
+      },
+      {
+        "id": "trend_report",
+        "label": "Cost Record Trends",
+        "report_type": "trend_analysis",
+        "surface": "doc"
+      },
+      {
+        "id": "summary_report",
+        "label": "Cost Record Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Cost Record Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "supports_outputs": true,
+    "supports_print_formats": true,
+    "default_views": [
+      "summary",
+      "trend",
+      "report_table"
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "cost_record_trend_line",
+        "label": "Cost Record trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "cost_record_volume_column",
+        "label": "Cost Record volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "cost_record_distribution_donut",
+        "label": "Cost Record distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "cost_center",
+      "cost_allocation_rule",
+      "variance_record",
+      "journal_entry"
+    ],
+    "upstream_docs": [
+      "cost_center",
+      "cost_allocation_rule",
+      "variance_record",
+      "journal_entry"
+    ],
+    "downstream_docs": [
+      "journal_entry"
+    ],
+    "borrowed_fields": [
+      "target centers",
+      "allocation basis from linked rules"
+    ],
+    "emits_records": [
+      {
+        "action_id": "post",
+        "target_doc": "journal_entry",
+        "effect_type": "create_record"
+      }
+    ],
+    "downstream_effects": [],
+    "actors": [
+      "finance officer"
+    ],
+    "handoff_targets": [
+      "cost_center",
+      "cost_allocation_rule",
+      "variance_record",
+      "journal_entry"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "cost_record",
+        "target_doc": "cost_center",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_record",
+        "target_doc": "cost_allocation_rule",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_record",
+        "target_doc": "variance_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_record",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "cost_record",
+        "target_doc": "journal_entry",
+        "relation": "create_record",
+        "action_id": "post"
+      }
+    ]
+  },
   "allowed_actions": [
     "create",
     "review",
@@ -227,7 +488,7 @@
         "unique": false,
         "options": null,
         "purpose": "primary_party",
-        "linked_doc": null,
+        "linked_doc": "party_record",
         "depends_on": null,
         "mandatory_depends_on": null,
         "read_only_depends_on": null,
@@ -244,12 +505,39 @@
       {
         "field_id": "currency",
         "label": "Currency",
-        "type": "Data",
+        "type": "Select",
         "required": false,
         "read_only": false,
         "default": null,
         "unique": false,
-        "options": null,
+        "options": {
+          "values": [
+            "USD",
+            "EUR",
+            "GBP",
+            "KES",
+            "UGX",
+            "TZS",
+            "RWF",
+            "NGN",
+            "GHS",
+            "ZAR",
+            "AED",
+            "SAR",
+            "INR",
+            "CNY",
+            "JPY",
+            "CAD",
+            "AUD",
+            "NZD",
+            "CHF",
+            "SEK",
+            "NOK",
+            "DKK",
+            "ZMW",
+            "BWP"
+          ]
+        },
         "purpose": "currency_code",
         "linked_doc": null,
         "depends_on": null,
@@ -316,7 +604,7 @@
       {
         "field_id": "date",
         "label": "Date",
-        "type": "Data",
+        "type": "Date",
         "required": false,
         "read_only": false,
         "default": null,
@@ -364,7 +652,7 @@
       {
         "field_id": "amount",
         "label": "Amount",
-        "type": "Data",
+        "type": "Currency",
         "required": false,
         "read_only": false,
         "default": null,
@@ -486,7 +774,8 @@
           "list_visible": false,
           "filterable": false,
           "sortable": false
-        }
+        },
+        "relation_kind": "explicit"
       },
       {
         "field_id": "related_variance_record",
@@ -510,7 +799,8 @@
           "list_visible": false,
           "filterable": false,
           "sortable": false
-        }
+        },
+        "relation_kind": "explicit"
       },
       {
         "field_id": "related_journal_entry",
@@ -534,7 +824,8 @@
           "list_visible": false,
           "filterable": false,
           "sortable": false
-        }
+        },
+        "relation_kind": "explicit"
       }
     ],
     "title_field": "title",
@@ -636,7 +927,9 @@
           "allocate",
           "post",
           "archive"
-        ]
+        ],
+        "scope": "system",
+        "ownership": "platform"
       },
       {
         "role_id": "finance officer",
@@ -644,10 +937,13 @@
           "view",
           "list",
           "create",
+          "update",
           "review",
           "post",
           "archive"
-        ]
+        ],
+        "scope": "execution",
+        "ownership": "finance"
       }
     ],
     "transaction_behavior": {
@@ -711,7 +1007,177 @@
         "workflow_state"
       ],
       "default_filters": [],
-      "quick_entry": false
+      "quick_entry": false,
+      "form_layout": {
+        "version": 1,
+        "tabs": [
+          {
+            "id": "overview",
+            "label": "Overview",
+            "sections": [
+              {
+                "id": "identity",
+                "label": "Identity",
+                "columns": [
+                  {
+                    "id": "identity_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "title"
+                    ]
+                  },
+                  {
+                    "id": "identity_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "reference_no"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "parties",
+                "label": "Parties",
+                "columns": [
+                  {
+                    "id": "parties_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "party"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "dates",
+                "label": "Dates",
+                "columns": [
+                  {
+                    "id": "dates_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "transaction_date"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "status",
+                "label": "Workflow",
+                "columns": [
+                  {
+                    "id": "status_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "workflow_state"
+                    ]
+                  },
+                  {
+                    "id": "status_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "allocation_status"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "details",
+            "label": "Details",
+            "sections": [
+              {
+                "id": "content",
+                "label": "Details",
+                "columns": [
+                  {
+                    "id": "content_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "cost_record_code",
+                      "source_event",
+                      "variance_relevance"
+                    ]
+                  },
+                  {
+                    "id": "content_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "date",
+                      "amount"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "content_details",
+                "label": "Description",
+                "columns": [
+                  {
+                    "id": "content_details_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "description"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "amounts",
+                "label": "Amounts",
+                "columns": [
+                  {
+                    "id": "amounts_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "currency"
+                    ]
+                  },
+                  {
+                    "id": "amounts_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "total_amount"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "related",
+            "label": "Related",
+            "sections": [
+              {
+                "id": "relations",
+                "label": "Related Records",
+                "columns": [
+                  {
+                    "id": "relations_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "cost_center"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     "related_docs": [
       {
@@ -798,7 +1264,11 @@
       "show_activity_log": true,
       "show_comments": true,
       "show_assignments": true,
-      "show_related_docs": true
+      "show_related_docs": true,
+      "show_kpis": true,
+      "show_summaries": true,
+      "show_charts": true,
+      "show_reports": true
     },
     "integration": {
       "external_refs": [],
@@ -843,6 +1313,17 @@
         }
       },
       "action_side_effects_file": "side_effects.json"
+    },
+    "dashboard": {
+      "metric_blocks": [
+        "kpis",
+        "summaries",
+        "charts",
+        "reports",
+        "records"
+      ],
+      "default_view": "list",
+      "reporting_surface": "doc"
     }
   },
   "classification": {
@@ -900,8 +1381,12 @@
       }
     },
     "report_boundary_classification": "source business doc",
-    "validation_status": "ready",
-    "validation_warnings": []
+    "validation_status": "warning",
+    "validation_warnings": [
+      "helper_relation_field:related_cost_allocation_rule",
+      "helper_relation_field:related_variance_record",
+      "helper_relation_field:related_journal_entry"
+    ]
   },
   "business_logic": {
     "seeded": true,
@@ -947,6 +1432,13 @@
     "api_base_path": "/apis/accounting_financial_operations/cost_accounting/cost_collection/cost_record/",
     "status_field": "workflow_state",
     "initial_state": "draft",
+    "actions": [
+      "create",
+      "review",
+      "allocate",
+      "post",
+      "archive"
+    ],
     "required_fields": [
       "title",
       "workflow_state",
@@ -973,6 +1465,36 @@
       "journal_entry"
     ],
     "downstream_effects": [],
+    "role_action_matrix": [
+      {
+        "role_id": "System Manager",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "review",
+          "allocate",
+          "post",
+          "archive"
+        ],
+        "scope": "system",
+        "ownership": "platform"
+      },
+      {
+        "role_id": "finance officer",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "update",
+          "review",
+          "post",
+          "archive"
+        ],
+        "scope": "execution",
+        "ownership": "finance"
+      }
+    ],
     "action_side_effects_file": "side_effects.json"
   },
   "runtime": {

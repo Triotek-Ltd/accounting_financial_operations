@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 DOC_ID = "bank_reconciliation"
 ALLOWED_ACTIONS = ['create', 'match', 'review', 'approve', 'close', 'archive']
-ACTION_RULES = {'create': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': None}, 'match': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': None}, 'review': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': 'approved'}, 'close': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': 'closed'}, 'archive': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': None}, 'match': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': None}, 'review': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': 'approved'}, 'close': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': 'closed'}, 'archive': {'allowed_in_states': ['open', 'matching', 'balanced', 'approved'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 

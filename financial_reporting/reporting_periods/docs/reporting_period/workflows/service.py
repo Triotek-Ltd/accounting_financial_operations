@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 
 DOC_ID = "reporting_period"
 ARCHETYPE = "configuration"
 INITIAL_STATE = 'planned'
 STATES = ['planned', 'open', 'closing', 'closed', 'archived']
 TERMINAL_STATES = ['closed', 'archived']
-ACTION_RULES = {'create': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': None}, 'update': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': None}, 'open': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': None}, 'close': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': 'closed'}, 'archive': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': None}, 'update': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': None}, 'open': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': None}, 'close': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': 'closed'}, 'archive': {'allowed_in_states': ['planned', 'open', 'closing'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 WORKFLOW_HINTS = {'business_objective': 'collect accounting records for a reporting period, generate financial statements, review them, and publish management-ready financial outputs', 'actors': ['finance controller', 'reporting accountant', 'approver', 'management audience'], 'start_condition': 'a reporting period is ready for statement preparation', 'ordered_steps': ['Confirm the reporting period and close readiness.'], 'primary_actions': ['review', 'approve', 'close'], 'primary_transitions': ['reporting_period: open -> closing -> closed'], 'downstream_effects': ['feeds management reporting, audit, compliance, and executive decision-making'], 'action_actors': {'create': ['finance controller'], 'update': ['finance controller'], 'close': ['finance controller'], 'archive': ['finance controller']}}
@@ -29,7 +31,7 @@ class WorkflowService:
 
     def next_state_for(self, action_id: str) -> str | None:
         rule = ACTION_RULES.get(action_id, {})
-        return rule.get("transitions_to")
+        return cast(str | None, rule.get("transitions_to"))
 
     def apply_action(self, action_id: str, state: str | None) -> dict:
         if not self.is_action_allowed(action_id, state):

@@ -15,6 +15,250 @@
   },
   "doc_key": "ledger_posting",
   "doc_title": "Ledger Posting",
+  "ui": {
+    "icon_key": "report",
+    "accent": "#205072",
+    "logo_image": null,
+    "cover_image": null,
+    "preferred_views": [
+      "list",
+      "table",
+      "detail",
+      "report"
+    ],
+    "default_density": "comfortable"
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "doc",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "records",
+      "flatten_submodules_in_ui": false,
+      "views": [
+        "list",
+        "table",
+        "detail",
+        "report"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Ledger Posting KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "ledger_posting",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Ledger Posting summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "ledger_posting",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Ledger Posting charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "ledger_posting",
+          "metric_family": "trend"
+        }
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Ledger Posting reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "ledger_posting",
+          "metric_family": "reporting"
+        }
+      },
+      {
+        "id": "records",
+        "type": "record_table",
+        "title": "Ledger Posting records",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "ledger_posting",
+          "metric_family": "records"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "ledger_posting",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "ledger_posting",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "ledger_posting",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "ledger_posting",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Ledger Posting Overview",
+        "report_type": "dashboard_summary",
+        "surface": "doc"
+      },
+      {
+        "id": "trend_report",
+        "label": "Ledger Posting Trends",
+        "report_type": "trend_analysis",
+        "surface": "doc"
+      },
+      {
+        "id": "summary_report",
+        "label": "Ledger Posting Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Ledger Posting Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "supports_outputs": true,
+    "supports_print_formats": true,
+    "default_views": [
+      "summary",
+      "trend",
+      "report_table"
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "ledger_posting_trend_line",
+        "label": "Ledger Posting trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "ledger_posting_volume_column",
+        "label": "Ledger Posting volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "ledger_posting_distribution_donut",
+        "label": "Ledger Posting distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "journal_entry",
+      "general_ledger_account",
+      "cost_center"
+    ],
+    "upstream_docs": [
+      "journal_entry",
+      "general_ledger_account",
+      "cost_center"
+    ],
+    "downstream_docs": [],
+    "borrowed_fields": [
+      "account identity from general_ledger_account",
+      "journal header details from journal_entry"
+    ],
+    "emits_records": [],
+    "downstream_effects": [
+      "postings feed reporting, reconciliation, receivables, payables, and closing workflows"
+    ],
+    "actors": [
+      "accounting officer",
+      "reviewer",
+      "approver",
+      "finance controller"
+    ],
+    "handoff_targets": [
+      "journal_entry",
+      "general_ledger_account",
+      "cost_center"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "ledger_posting",
+        "target_doc": "journal_entry",
+        "relation": "references"
+      },
+      {
+        "source_doc": "ledger_posting",
+        "target_doc": "general_ledger_account",
+        "relation": "references"
+      },
+      {
+        "source_doc": "ledger_posting",
+        "target_doc": "cost_center",
+        "relation": "references"
+      }
+    ]
+  },
   "allowed_actions": [
     "record",
     "review",
@@ -444,7 +688,9 @@
           "review",
           "reverse",
           "archive"
-        ]
+        ],
+        "scope": "system",
+        "ownership": "platform"
       },
       {
         "role_id": "accounting officer",
@@ -452,9 +698,13 @@
           "view",
           "list",
           "record",
+          "create",
           "reverse",
-          "archive"
-        ]
+          "archive",
+          "update"
+        ],
+        "scope": "execution",
+        "ownership": "finance"
       },
       {
         "role_id": "reviewer",
@@ -462,21 +712,27 @@
           "view",
           "list",
           "review"
-        ]
+        ],
+        "scope": "review",
+        "ownership": "oversight"
       },
       {
         "role_id": "approver",
         "actions": [
           "view",
           "list"
-        ]
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
       },
       {
         "role_id": "finance controller",
         "actions": [
           "view",
           "list"
-        ]
+        ],
+        "scope": "execution",
+        "ownership": "finance"
       }
     ],
     "transaction_behavior": {
@@ -534,7 +790,167 @@
         "workflow_state"
       ],
       "default_filters": [],
-      "quick_entry": false
+      "quick_entry": false,
+      "form_layout": {
+        "version": 1,
+        "tabs": [
+          {
+            "id": "overview",
+            "label": "Overview",
+            "sections": [
+              {
+                "id": "identity",
+                "label": "Identity",
+                "columns": [
+                  {
+                    "id": "identity_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "title"
+                    ]
+                  },
+                  {
+                    "id": "identity_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "reference_no"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "parties",
+                "label": "Parties",
+                "columns": [
+                  {
+                    "id": "parties_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "party_reference"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "dates",
+                "label": "Dates",
+                "columns": [
+                  {
+                    "id": "dates_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "posting_date"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "status",
+                "label": "Workflow",
+                "columns": [
+                  {
+                    "id": "status_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "workflow_state"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "details",
+            "label": "Details",
+            "sections": [
+              {
+                "id": "content",
+                "label": "Details",
+                "columns": [
+                  {
+                    "id": "content_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "posting_code"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "content_details",
+                "label": "Description",
+                "columns": [
+                  {
+                    "id": "content_details_column_1",
+                    "label": "",
+                    "width": 12,
+                    "fieldIds": [
+                      "description"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "amounts",
+                "label": "Amounts",
+                "columns": [
+                  {
+                    "id": "amounts_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "debit_amount"
+                    ]
+                  },
+                  {
+                    "id": "amounts_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "credit_amount"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "related",
+            "label": "Related",
+            "sections": [
+              {
+                "id": "relations",
+                "label": "Related Records",
+                "columns": [
+                  {
+                    "id": "relations_column_1",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "journal_entry",
+                      "cost_center"
+                    ]
+                  },
+                  {
+                    "id": "relations_column_2",
+                    "label": "",
+                    "width": 6,
+                    "fieldIds": [
+                      "account"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     "related_docs": [
       {
@@ -630,7 +1046,11 @@
       "show_activity_log": true,
       "show_comments": true,
       "show_assignments": true,
-      "show_related_docs": true
+      "show_related_docs": true,
+      "show_kpis": true,
+      "show_summaries": true,
+      "show_charts": true,
+      "show_reports": true
     },
     "integration": {
       "external_refs": [],
@@ -685,6 +1105,17 @@
         }
       },
       "action_side_effects_file": "side_effects.json"
+    },
+    "dashboard": {
+      "metric_blocks": [
+        "kpis",
+        "summaries",
+        "charts",
+        "reports",
+        "records"
+      ],
+      "default_view": "list",
+      "reporting_surface": "doc"
     }
   },
   "classification": {
@@ -784,6 +1215,12 @@
     "api_base_path": "/apis/accounting_financial_operations/bookkeeping/journal_capture/ledger_posting/",
     "status_field": "workflow_state",
     "initial_state": "active",
+    "actions": [
+      "record",
+      "review",
+      "reverse",
+      "archive"
+    ],
     "required_fields": [
       "title",
       "workflow_state",
@@ -810,6 +1247,63 @@
     ],
     "downstream_effects": [
       "postings feed reporting, reconciliation, receivables, payables, and closing workflows"
+    ],
+    "role_action_matrix": [
+      {
+        "role_id": "System Manager",
+        "actions": [
+          "view",
+          "list",
+          "record",
+          "review",
+          "reverse",
+          "archive"
+        ],
+        "scope": "system",
+        "ownership": "platform"
+      },
+      {
+        "role_id": "accounting officer",
+        "actions": [
+          "view",
+          "list",
+          "record",
+          "create",
+          "reverse",
+          "archive",
+          "update"
+        ],
+        "scope": "execution",
+        "ownership": "finance"
+      },
+      {
+        "role_id": "reviewer",
+        "actions": [
+          "view",
+          "list",
+          "review"
+        ],
+        "scope": "review",
+        "ownership": "oversight"
+      },
+      {
+        "role_id": "approver",
+        "actions": [
+          "view",
+          "list"
+        ],
+        "scope": "approval",
+        "ownership": "managerial"
+      },
+      {
+        "role_id": "finance controller",
+        "actions": [
+          "view",
+          "list"
+        ],
+        "scope": "execution",
+        "ownership": "finance"
+      }
     ],
     "action_side_effects_file": "side_effects.json"
   },

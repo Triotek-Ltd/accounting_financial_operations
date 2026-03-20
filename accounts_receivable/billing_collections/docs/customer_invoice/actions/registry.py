@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 
 DOC_ID = "customer_invoice"
 ALLOWED_ACTIONS = ['create', 'update', 'review', 'approve', 'post', 'issue', 'archive']
-ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'approved', 'unpaid', 'partially_paid'], 'transitions_to': None}, 'update': {'allowed_in_states': ['draft', 'approved', 'unpaid', 'partially_paid'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'approved', 'unpaid', 'partially_paid'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['draft', 'approved', 'unpaid', 'partially_paid'], 'transitions_to': 'approved'}, 'post': {'allowed_in_states': ['draft', 'approved', 'unpaid', 'partially_paid'], 'transitions_to': None}, 'issue': {'allowed_in_states': ['approved'], 'transitions_to': 'unpaid'}, 'archive': {'allowed_in_states': ['draft', 'approved', 'unpaid', 'partially_paid'], 'transitions_to': 'archived'}}
+ACTION_RULES: dict[str, dict[str, Any]] = {'create': {'allowed_in_states': ['draft', 'approved', 'unpaid', 'partially_paid'], 'transitions_to': None}, 'update': {'allowed_in_states': ['draft', 'approved', 'unpaid', 'partially_paid'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'approved', 'unpaid', 'partially_paid'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['draft', 'approved', 'unpaid', 'partially_paid'], 'transitions_to': 'approved'}, 'post': {'allowed_in_states': ['draft', 'approved', 'unpaid', 'partially_paid'], 'transitions_to': None}, 'issue': {'allowed_in_states': ['approved'], 'transitions_to': 'unpaid'}, 'archive': {'allowed_in_states': ['draft', 'approved', 'unpaid', 'partially_paid'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
 
